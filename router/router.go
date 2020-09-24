@@ -18,20 +18,18 @@ import (
 )
 
 func init() {
+
 	s := g.Server()
+
 	authController := new(auth.Controller)
 	homeController := new(home.Controller)
-
-	//cateController := new(categroy.Controller)
-	//articleController := new(article.Controller)
-	//configController := new(config.Controller)
-	file := new(file.Controller)
-	node := new(node.Controller)
-	cate := new(cate.Controller)
-	post := new(post.Controller)
-	user := new(user.Controller)
-	admin := new(admin.Controller)
-	comment := new(comment.Controller)
+	fileController := new(file.Controller)
+	nodeController := new(node.Controller)
+	cateController := new(cate.Controller)
+	postController := new(post.Controller)
+	userController := new(user.Controller)
+	adminController := new(admin.Controller)
+	commentController := new(comment.Controller)
 
 	// admin routes.
 	s.Group("/admin", func(group *ghttp.RouterGroup) {
@@ -41,42 +39,19 @@ func init() {
 		group.POST("logout", authController.Logout)
 		group.GET("home", homeController.Home)
 
-		group.GET("admins", admin.List)
-		group.GET("nodes", node.List)
-		group.GET("cates", cate.List)
-		group.GET("posts", post.List)
-		group.GET("users", user.List)
-		group.GET("comments", comment.List)
-		group.POST("file", file.Store)
-
-		//group.POST("logout", authController.Logout)
-		//group.GET("home", homeController.Home)
-		//group.GET("categories", cateController.List)
-		//group.GET("categories/add", cateController.Add)
-		//group.POST("categories/add", cateController.Add)
-		//group.GET("categories/{id}/edit", cateController.Edit)
-		//group.POST("categories/{id}/edit", cateController.Edit)
-		//group.POST("categories/{id}/delete", cateController.Delete)
-		//group.GET("articles", articleController.List)
-		//group.GET("articles/add", articleController.Add)
-		//group.POST("articles/add", articleController.Add)
-		//group.GET("articles/{id}/edit", articleController.Edit)
-		//group.POST("articles/{id}/edit", articleController.Edit)
-		//group.POST("articles/{id}/delete", articleController.Delete)
-		//group.POST("file", fileController.Store)
-		//group.POST("markdown/file", fileController.MarkdownFileStore)
-		//// 通用配置
-		//group.GET("configs", configController.List)
-		//group.POST("configs/add", configController.Add)
-		//group.POST("configs/{id}/edit", configController.Edit)
-		//group.POST("configs/{id}/delete", configController.Delete)
+		group.GET("admins", adminController.List)
+		group.GET("nodes", nodeController.List)
+		group.GET("cates", cateController.List)
+		group.GET("posts", postController.List)
+		group.GET("users", userController.List)
+		group.GET("comments", commentController.List)
+		group.POST("file", fileController.Store)
 	})
 
 	// web routes.
 	webController := new(web.Controller)
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
-		group.GET("/articles/{id}", webController.Show)
 	})
 
 	// Handling 404 pages

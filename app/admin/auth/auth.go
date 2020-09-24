@@ -10,17 +10,23 @@ import (
 	"github.com/gogf/gf/net/ghttp"
 )
 
-const sessionKey = "admin"
+const (
+	sessionKey = "admin"
+	homePage   = "/admin/home"
+	LoginPage  = "/admin/login"
+	loginTpl   = "admin/auth/login.html"
+)
 
 type Controller struct{}
 
+// 登录页面
 func (c *Controller) Login(r *ghttp.Request) {
 	isAuth := r.Session.Get(sessionKey)
 	if isAuth != nil {
-		response.RedirectToWithMessage(r, "/admin/home", "")
+		response.RedirectToWithMessage(r, homePage, "")
 	}
 	if r.Method == "GET" {
-		response.ViewExit(r, "admin/auth/login.html", g.Map{})
+		response.ViewExit(r, loginTpl, g.Map{})
 	}
 	var data admin.LoginReqEntity
 	err := admin.LoginReqCheck(r, &data)
@@ -41,14 +47,15 @@ func (c *Controller) Login(r *ghttp.Request) {
 	if err := r.Session.Set(sessionKey, res["name"].String()); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
-		response.RedirectToWithMessage(r, "/admin/home", "登录成功")
+		response.RedirectToWithMessage(r, homePage, "登录成功")
 	}
 }
 
+// 退出登录
 func (c *Controller) Logout(r *ghttp.Request) {
 	if err := r.Session.Remove(sessionKey); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
-		response.RedirectToWithMessage(r, "/admin/login", "退出成功")
+		response.RedirectToWithMessage(r, LoginPage, "退出成功")
 	}
 }

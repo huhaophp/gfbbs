@@ -1,0 +1,141 @@
+<link rel="stylesheet" href="/markdown/css/editormd.min.css"/>
+<style>
+    #editormd {
+        max-width: 100%;
+    }
+</style>
+<div>
+    <form action="/admin/articles/{{ .item.id}}/edit" method="POST">
+        <div class="col-sm-9">
+            <div class="form-group">
+                <label for="article-content" class="form-control-label m-t-5">内容</label>
+                <div id="editormd"><textarea name="md_content" class="form-control">{{ .item.md_content }}</textarea>
+                </div>
+                <input type="hidden" name="content" id="content">
+            </div>
+            <div class="form-group">
+                <button type="button" id="submit-btn"
+                        class="btn btn-primary btn-sm btn-block waves-effect waves-light">确认
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="article-name" class="form-control-label">标题</label>
+                <input type="text"
+                       class="form-control"
+                       name="title"
+                       id="article-name"
+                       placeholder="文章标题" value="{{ .item.title }}">
+            </div>
+            <div class="form-group">
+                <label for="article-cover" class="form-control-label">封面</label>
+                <div class="input-group">
+                    <input id="btnaddon2" type="text" class="form-control file-url" placeholder="封面地址"
+                           aria-describedby="btn-addon2" name="" value="{{ .item.cover}}" readonly>
+                    <input type="file" class="file-upload-input" style="display: none;">
+                    <input type="hidden" class="file-path" name="cover" value="{{ .item.cover}}">
+                    <span class="input-group-btn" id="btn-addon2">
+                            <button type="button"
+                                    class="btn btn-danger addon-btn waves-effect waves-light upload-file-btn">
+                                上传封面
+                            </button>
+                            <button type="button"
+                                    class="btn btn-success addon-btn waves-effect waves-light preview-image">
+                                预览封面
+                            </button>
+                        </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="article-category" class="form-control-label">栏目</label>
+                <select name="category_id" class="form-control" value="{{ .item.category_id}}">
+                    {{range $category := .categories}}
+                        <option value="{{ $category.id}}">{{ $category.name}}</option>
+                    {{end}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="article-desc" class="form-control-label">标签</label>
+                <input type="text" class="form-control" name="tags" value="{{ .item.tags}}">
+            </div>
+            <div class="form-group">
+                <label for="article-desc" class="form-control-label">描述</label>
+                <textarea class="form-control" name="summary" rows="4" placeholder="文章描述">{{ .item.summary }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="article-from" class="form-control-label">来自</label>
+                <select name="from" class="form-control" value="{{ .item.from }}">
+                    <option value="0">原创</option>
+                    <option value="1">转载</option>
+                    <option value="2">其他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="article-state" class="form-control-label">状态</label>
+                <select name="status" class="form-control" value="{{ .item.status }}">
+                    <option value="1">发布</option>
+                    <option value="2">草稿</option>
+                    <option value="3">隐藏</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        editormd("editormd", {
+            path: "/markdown/lib/",
+            width: "100%",
+            height: 580,
+            emoji: true,
+            codeFold: true,
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png"],
+            imageUploadURL: "/admin/markdown/file",
+            saveHTMLToTextarea: true,
+            onload: function () {
+                console.log('onload', this);
+            }
+        });
+        $('.preview-image').on('click', function () {
+            var img = $('.file-url').val();
+            if (img) window.open(img);
+        });
+        $('#submit-btn').on('click', function () {
+            $('#content').val($('.editormd-preview-container').html());
+            $('form').submit();
+        });
+        // 文件上传
+        $('.upload-file-btn').on('click', function () {
+            $('.file-upload-input').click();
+        });
+
+        $('.file-upload-input').on('change', function (e) {
+            var formData = new FormData();
+            var file = e.target.files[0];
+            formData.append("file", file);
+            $.ajax({
+                url: '/admin/file',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    if (data.status === "success") {
+                        $('.file-url').val(data.name)
+                        $('.file-path').val(data.name)
+                    } else {
+                        message('上传失败', 'danger');
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                    message('上传失败', 'danger');
+                },
+            });
+        });
+    });
+</script>

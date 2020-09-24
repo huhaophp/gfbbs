@@ -1,0 +1,33 @@
+{{if eq $.len 0}}
+    <div class="left-content-item animated fadeInUp">
+        <div class="empty">
+            <h1>空空如也</h1>
+        </div>
+    </div>
+{{else}}
+    {{range $article := .list}}
+        <div class="left-content-item animated fadeInUp">
+            <h3 class="item-title">
+                <a href="/articles/{{ $article.id }}">{{ $article.title }}</a>
+            </h3>
+            <div>
+                <div class="item-cover">
+                    <a href="/articles/{{ $article.id }}">
+                        <img src="{{ $article.cover }}">
+                    </a>
+                </div>
+                <div class="item-desc">{{ $article.summary }}</div>
+                <p class="item-info" style="clear: both;">
+                    <span>类型：{{if eq $article.from 0}}原创{{else if eq $article.from 1}}转载{{else}}其他{{end}}</span>
+                    <span>栏目：{{ $article.category_name }} </span>
+                    <span>阅读：{{ $article.view_num }} </span>
+                    <span>时间：{{ $article.created_at }} </span>
+                    <span class="read"><a href="/articles/{{ $article.id }}">阅读全文</a></span>
+                </p>
+            </div>
+        </div>
+    {{ end }}
+    <div class="page">
+        {{ .page }}
+    </div>
+{{end}}

@@ -1,0 +1,56 @@
+<div class="row m-b-10 dashboard-total-income">
+    <div class="col-sm-12">
+        <form class="form-inline" method="GET">
+            <div class="form-group">
+                <a
+                        class="btn btn-success waves-effect waves-light"
+                        href="/admin/categories/add"
+                >添加</a
+                >
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-12 table-responsive m-t-10">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th># ID</th>
+                <th>名称</th>
+                <th>排序</th>
+                <th>状态</th>
+                <th>时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $cate := .list}}
+                <tr>
+                    <td>{{ $cate.id }}</td>
+                    <td>{{ $cate.name }}</td>
+                    <td>{{ $cate.sort }}</td>
+                    <td>
+                        {{if eq $cate.status 1}}
+                            <div class="tag tag-success">显示</div>
+                        {{else}}
+                            <div class="tag tag-danger">隐藏</div>
+                        {{end}}
+                    </td>
+                    <td>{{ $cate.created_at }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/admin/categories/{{ $cate.id }}/edit">编辑</a
+                        >
+                        <form
+                                class="form form-inline form-destroy"
+                                action="/admin/categories/{{ $cate.id }}/delete"
+                                method="POST"
+                                style="display: inline;"
+                        >
+                            <button class="btn btn-danger btn-sm del-btn" type="button">删除</button>
+                        </form>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>

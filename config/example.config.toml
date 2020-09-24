@@ -1,0 +1,35 @@
+# HTTP Server
+[server]
+Address = ":8199"
+ServerRoot = "public"
+ServerAgent = "gf-app"
+LogPath = "/tmp/log/gf-app/server"
+
+# Logger.
+[logger]
+Path = "/tmp/log/hblog"
+Level = "all"
+Stdout = false
+
+# Template.
+[viewer]
+Path = "template"
+DefaultFile = "index.html"
+Delimiters = ["{{", "}}"]
+
+# Database.
+[database]
+link = "mysql:homestead:secret@tcp(127.0.0.1:33060)/gfblog"
+debug = true
+# Database logger.
+[database.logger]
+Path = "/tmp/log/gf-app/sql"
+Level = "all"
+Stdout = true
+[auth]
+email = "admin@qq.com"
+password = "e10adc3949ba59abbe56e057f20f883e"
+# valine
+[valine]
+app_id="cQRlNpo7fR7rpNQLUCm93DDh-gzGzoHsz"
+app_key="PKmYz8rU07k071k0CUpHJpn3"

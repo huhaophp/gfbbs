@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GFBLOG</title>
+    <link rel="stylesheet" href="/hblog/css/site.css">
+    <link rel="shortcut icon" href="/assets/images/avatar-1.png"/>
+    <style>
+        .new-list {
+            font-size: 14px;
+            padding: 2px;
+        }
+        .new-list-item {
+            color: #b4b4b4;
+            display: block;
+            height: 20px;
+            width: 100%;
+            margin: 6px;
+        }
+        .new-list-item:hover {
+            color: #2196F3;
+        }
+        .label-box {
+            padding: 2px;
+        }
+        .label {
+            display: inline-block;
+            padding: 0 4px;
+            margin-left: 2px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            font-size: 12px;
+            border: 1px solid #2196F3;
+            border-radius: 2px;
+            background: #2196F3;
+            color: #ffffff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav" id="nav-top">
+        <ul class="nav-ul">
+            <li class="logo">GFBLOG</li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="left-content">
+            {{include .mainTpl .}}
+        </div>
+        <div class="right-content animated fadeInUp">
+            <div class="right-content-item">
+                <p class="about-desc">
+                    当你发现自己的才华撑不起野心时，就请安静下来学习吧。
+                </p>
+            </div>
+        </div>
+        <div class="right-content animated fadeInUp">
+            <div class="right-content-item">
+                <h4>分类</h4>
+                <div class="label-box">
+                    <a class="label" href="">学习笔记</a>
+                    <a class="label" href="">Redis</a>
+                    <a class="label" href="">Laravel</a>
+                    <a class="label" href="">Phalcon</a>
+                    <a class="label" href="">Thinkphp</a>
+                    <a class="label" href="">Mysql</a>
+                    <a class="label" href="">Golang</a>
+                    <a class="label" href="">Vue</a>
+                    <a class="label" href="">Javascript</a>
+                    <a class="label" href="">html/css</a>
+                    <a class="label" href="">linux</a>
+                    <a class="label" href="">Php</a>
+                </div>
+            </div>
+            <div class="right-content-item">
+                <h4>最新文章</h4>
+                <div class="new-list">
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                    <a  class="new-list-item" href=""> * 站内信通知数据表设计</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Powered by GFBLOG
+    </div>
+</div>
+</body>
+<script src="/hblog/js/jquery-1.3.1.min.js"></script>
+<script src="/hblog/js/site.js"></script>
+</html>

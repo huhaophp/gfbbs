@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>GFBLOG</title>
+    <!-- Required Jqurey -->
+    <script src="/assets/plugins/Jquery/dist/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <!-- simple line icon -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/simple-line-icons/css/simple-line-icons.css">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+</head>
+<body class="sidebar-mini fixed">
+    <!-- Navbar-->
+    <header class="main-header-top hidden-print">
+        <a href="/admin/home" class="logo">
+            <b>GFBLOG</b>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button--><a href="#!" data-toggle="offcanvas" class="sidebar-toggle"></a>
+            <!-- Navbar Right Menu-->
+            <div class="navbar-custom-menu f-right">
+                <ul class="top-nav">
+                    <!--Notification Menu-->
+                    <!-- User Menu-->
+                    <li class="dropdown">
+                        <a href="#!" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                           class="dropdown-toggle drop icon-circle drop-image">
+                            <span><img class="img-circle " src="/assets/images/avatar-1.png" style="width:40px;"
+                                       alt="User Image"></span>
+                            <span><b>{{.Session.admin}}</b> <i class=" icofont icofont-simple-down"></i></span>
+
+                        </a>
+                        <ul class="dropdown-menu settings-menu">
+                            <li class="logout-li"><a href="javascript:;"><i class="icon-logout"></i> 退出</a></li>
+                            <form id="logout-form" action="/admin/logout" method="POST" style="display: none;">
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Side-Nav-->
+    <aside class="main-sidebar hidden-print ">
+        <section class="sidebar" id="sidebar-scroll">
+
+            <div class="user-panel">
+                <div class="f-left image"><img src="/assets/images/avatar-1.png" alt="User Image" class="img-circle">
+                </div>
+                <div class="f-left info">
+                    <p>{{.Session.admin}}</p>
+                </div>
+            </div>
+            <!-- Sidebar Menu-->
+            <ul class="sidebar-menu">
+                <li class="nav-level">导航</li>
+                <li class="active treeview  admin-panel">
+                    <a class="waves-effect waves-dark" href="/admin/home">
+                        <i class="icon-speedometer"></i><span> 首页</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a class="waves-effect waves-dark">
+                        <i class="icon-settings"></i><span> 配置管理</span><i class="icon-arrow-down"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a class="waves-effect waves-dark nav-child" href="/admin/configs">
+                                <i class="icon-arrow-right"></i>站点配置
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a class="waves-effect waves-dark">
+                        <i class="icon-briefcase"></i><span> 内容管理</span><i class="icon-arrow-down"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a class="waves-effect waves-dark nav-child" href="/admin/articles">
+                                <i class="icon-arrow-right"></i>文章管理
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark nav-child" href="/admin/categories">
+                                <i class="icon-arrow-right"></i>栏目管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <!-- Sidebar chat end-->
+    <div class="content-wrapper">
+        <!-- Container-fluid starts -->
+        <!-- Main content starts -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 p-10">
+                    <div class="message-container">
+                    </div>
+                    <div class="card m-t-10">
+                        <div class="card-header"></div>
+                        <div class="card-block">
+                            {{include .mainTpl .}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+<!-- Required Fremwork -->
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<!-- custom js -->
+<script type="text/javascript" src="/assets/js/main.min.js"></script>
+<script src="/markdown/js/editormd.min.js"></script>
+<script>
+    var l = window.location;
+    $('.active').removeClass('active');
+    $('.nav-child').each(function () {
+        if ($(this).attr('href').split("/")[2] == l.pathname.split("/")[2]) {
+            $(this).parent().addClass('active')
+            $(this).parent().parent().parent().addClass('active');
+        }
+        if (l.pathname == '/admin/home') {
+            $('.admin-panel').addClass('active');
+        }
+    });
+
+    $('.logout-li').on('click', function () {
+        $('#logout-form').submit();
+    })
+
+    $('.del-btn').click(function () {
+        if (confirm("确定要删除该栏目?")) {
+            $(this).parent().submit();
+        }
+    })
+
+    /**
+     * 消息提示框.
+     *
+     * @author hh
+     * @param  {String} $content 消息内容
+     * @param  {String} type 错误or成功
+     * @param  {Number} second 显示周期
+     * @return mixed
+     */
+    function message(content, type = "success", second = 4000) {
+        $('.message-container').html(
+            "<div class='alert alert-" + type + "'>\
+            <ul>\
+                <li>" + content + "</li>\
+            </ul>\
+        </div>"
+        )
+    }
+
+    var error = "{{.Session.error}}"
+    if (error) {
+        message(error, "danger")
+    }
+    var success = "{{.Session.success}}"
+    if (success) {
+        message(success, "success")
+    }
+    setTimeout(function () {
+        $('.message-container').hide()
+    }, 2000)
+</script>
+</body>
+</html>

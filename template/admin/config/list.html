@@ -1,0 +1,68 @@
+<div class="row m-b-10 dashboard-total-income">
+    <div class="col-sm-12 table-responsive m-t-10">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>配置名称</th>
+                <th>配置标示</th>
+                <th>配置的值</th>
+                <th>配置操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $config := .list}}
+                <tr>
+                    <td><input type="text" class="form-control name" value="{{ $config.name }}"></td>
+                    <td><input type="text" class="form-control key" value="{{ $config.key }}"></td>
+                    <td><input type="text" class="form-control value" value="{{ $config.value }}"></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-btn" type="button" data-id="{{ $config.id }}">编辑
+                        </button>
+                        <button class="btn btn-danger btn-sm delete-btn" type="button" data-id="{{ $config.id }}">删除
+                        </button>
+                    </td>
+                </tr>
+            {{end}}
+            <tr>
+                <td><input type="text" class="form-control name" placeholder="配置名称(必须)"></td>
+                <td><input type="text" class="form-control key" placeholder="配置标示(必须)"></td>
+                <td><input type="text" class="form-control value" placeholder="配置的值(必须)"></td>
+                <td>
+                    <button class="btn btn-success add-btn">添加</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="" class="submit-form" method="POST" style="display: none;">
+            <input type="text" name="name" class="name">
+            <input type="text" name="key" class="key">
+            <input type="text" name="value" class="value">
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('button').on('click', function () {
+            let url = '/admin/configs/';
+            const form = $('.submit-form');
+            const tr = $(this).parent().parent();
+
+            if ($(this).hasClass('add-btn')) {
+                url += 'add'
+            } else if ($(this).hasClass('edit-btn')) {
+                url += $(this).attr('data-id') + '/edit'
+            } else if ($(this).hasClass('delete-btn')) {
+                if (!confirm("确定要删除")) {
+                    return;
+                }
+                url += $(this).attr('data-id') + '/delete'
+            }
+
+            form.find('.name').val(tr.find('.name').val());
+            form.find('.key').val(tr.find('.key').val());
+            form.find('.value').val(tr.find('.value').val());
+            form.attr('action', url);
+            form.submit();
+        });
+    });
+</script>

@@ -25,23 +25,17 @@ var (
 	// Columns defines and stores column names for table comments.
 	Columns = struct {
 		Id         string //   
-        Cotent     string //   
-        ArticleId  string //   
-        Name       string //   
-        Avatar     string //   
-        Site       string //   
-        Email      string //   
+        Uid        string //   
+        Ruid       string //   
+        Content    string //   
         IsDelete   string //   
         CreatedAt  string //   
         UpdatedAt  string //
 	}{
 		Id:        "id",          
-        Cotent:    "cotent",      
-        ArticleId: "article_id",  
-        Name:      "name",        
-        Avatar:    "avatar",      
-        Site:      "site",        
-        Email:     "email",       
+        Uid:       "uid",         
+        Ruid:      "ruid",        
+        Content:   "content",     
         IsDelete:  "is_delete",   
         CreatedAt: "created_at",  
         UpdatedAt: "updated_at",

@@ -28,7 +28,7 @@ func (c *Controller) Login(r *ghttp.Request) {
 	authPassword := g.Config().GetString("auth.password")
 	password, _ := gmd5.Encrypt(data.Password)
 	if data.Email != authEmail || password != authPassword {
-		response.RedirectBackWithError(r, gerror.New("账号密码错误"))
+		response.RedirectBackWithError(r, gerror.New("账号或者密码错误"))
 	}
 	if err := r.Session.Set("admin", "admin"); err != nil {
 		response.RedirectBackWithError(r, err)

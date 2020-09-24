@@ -13,13 +13,10 @@ import (
 // Entity is the golang structure for table comments.
 type Entity struct {
     Id        uint        `orm:"id,primary" json:"id"`         //   
-    Cotent    string      `orm:"cotent"     json:"cotent"`     //   
-    ArticleId uint        `orm:"article_id" json:"article_id"` //   
-    Name      string      `orm:"name"       json:"name"`       //   
-    Avatar    string      `orm:"avatar"     json:"avatar"`     //   
-    Site      string      `orm:"site"       json:"site"`       //   
-    Email     string      `orm:"email"      json:"email"`      //   
-    IsDelete  uint        `orm:"is_delete"  json:"is_delete"`  //   
+    Uid       int         `orm:"uid"        json:"uid"`        //   
+    Ruid      int         `orm:"ruid"       json:"ruid"`       //   
+    Content   string      `orm:"content"    json:"content"`    //   
+    IsDelete  int         `orm:"is_delete"  json:"is_delete"`  //   
     CreatedAt *gtime.Time `orm:"created_at" json:"created_at"` //   
     UpdatedAt *gtime.Time `orm:"updated_at" json:"updated_at"` //   
 }

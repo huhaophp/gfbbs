@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"bbs/app/model/admins"
 	response "bbs/library"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -17,11 +18,10 @@ const (
 type Controller struct{}
 
 func (c *Controller) List(r *ghttp.Request) {
-	if r.Method == "GET" {
-		response.ViewExit(r, layout, g.Map{"mainTpl": listTpl})
+	items, err := g.DB().Table(admins.Table).All()
+	if err != nil {
+		response.ViewExit(r, layout, g.Map{"mainTpl": errorTpl, "error": err.Error()})
+	} else {
+		response.ViewExit(r, layout, g.Map{"mainTpl": listTpl, "items": items})
 	}
 }
-
-
-
-

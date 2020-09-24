@@ -1,4 +1,37 @@
 <div class="card">
     <div class="card-header">管理员管理</div>
-    <div class="card-body">管理员管理</div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#ID</th>
+                <th>名称</th>
+                <th>邮箱</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+                <tr>
+                    <td>{{ $item.id }}</td>
+                    <td>{{ $item.name }}</td>
+                    <td>{{ $item.email }}</td>
+                    <td>
+                        {{if eq $item.status 0}}
+                            <span class="badge badge-success">正常</span>
+                        {{else}}
+                            <span class="badge badge-danger">禁用</span>
+                        {{end}}
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="">编辑</a>
+                        <a class="btn btn-primary btn-sm" href="">禁用</a>
+                        <a class="btn btn-danger btn-sm" href="">删除</a>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
 </div>

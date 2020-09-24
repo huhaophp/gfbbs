@@ -1,4 +1,37 @@
 <div class="card">
     <div class="card-header">分类管理</div>
-    <div class="card-body">分类管理</div>
+    <div class="card-body">
+        <table>
+            <thead>
+            <tr>
+                <th>#ID</th>
+                <th>管理员名称</th>
+                <th>管理员邮箱</th>
+                <th>管理员状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+                <tr>
+                    <td>{{ $item.id }}</td>
+                    <td>{{ $item.name }}</td>
+                    <td>{{ $item.email }}</td>
+                    <td>
+                        {{if eq $item.status 0}}
+                            <label class="label-success">正常</label>
+                        {{else}}
+                            <label class="label-danger">正常</label>
+                        {{end}}
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="">编辑</a>
+                        <a class="btn btn-primary btn-sm" href="">禁用</a>
+                        <a class="btn btn-danger btn-sm" href="">删除</a>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
 </div>

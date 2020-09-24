@@ -16,6 +16,7 @@ type Entity struct {
     Name      string      `orm:"name"       json:"name"`       //   
     Email     string      `orm:"email"      json:"email"`      //   
     Password  string      `orm:"password"   json:"password"`   //   
+    State     int         `orm:"state"      json:"state"`      //   
     CreatedAt *gtime.Time `orm:"created_at" json:"created_at"` //   
     UpdatedAt *gtime.Time `orm:"updated_at" json:"updated_at"` //   
 }

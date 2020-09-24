@@ -28,6 +28,7 @@ var (
         Name       string //   
         Email      string //   
         Password   string //   
+        State      string //   
         CreatedAt  string //   
         UpdatedAt  string //
 	}{
@@ -35,6 +36,7 @@ var (
         Name:      "name",        
         Email:     "email",       
         Password:  "password",    
+        State:     "state",       
         CreatedAt: "created_at",  
         UpdatedAt: "updated_at",
 	}

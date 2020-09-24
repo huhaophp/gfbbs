@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"bbs/app/model/admins"
+	"bbs/app/request/admin"
 	response "bbs/library"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/errors/gerror"
@@ -8,38 +10,43 @@ import (
 	"github.com/gogf/gf/net/ghttp"
 )
 
+const sessionKey = "admin"
+
 type Controller struct{}
 
-type LoginReqEntity struct {
-	Email    string `p:"email" v:"required|length:6,16#请输入正确的邮箱|邮箱长度应当在:min到:max之间"`
-	Password string `p:"password" v:"required|length:6,16#请填写密码|密码长度应当在:min到:max之间"`
-}
-
-// POST|提交登录
 func (c *Controller) Login(r *ghttp.Request) {
+	isAuth := r.Session.Get(sessionKey)
+	if isAuth != nil {
+		response.RedirectToWithMessage(r, "/admin/home", "")
+	}
 	if r.Method == "GET" {
 		response.ViewExit(r, "admin/auth/login.html", g.Map{})
 	}
-	var data LoginReqEntity
-	if err := r.Parse(&data); err != nil {
+	var data admin.LoginReqEntity
+	err := admin.LoginReqCheck(r, &data)
+	if err != nil {
+		response.RedirectBackWithError(r, gerror.New("请输入登录账号密码"))
+	}
+	res, err := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
+	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	authEmail := g.Config().GetString("auth.email")
-	authPassword := g.Config().GetString("auth.password")
-	password, _ := gmd5.Encrypt(data.Password)
-	if data.Email != authEmail || password != authPassword {
+	if res == nil {
+		response.RedirectBackWithError(r, gerror.New("账号或密码错误"))
+	}
+	hash, _ := gmd5.Encrypt(data.Password)
+	if hash != (res["password"].String()) {
 		response.RedirectBackWithError(r, gerror.New("账号或者密码错误"))
 	}
-	if err := r.Session.Set("admin", "admin"); err != nil {
+	if err := r.Session.Set(sessionKey, res["name"].String()); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
 		response.RedirectToWithMessage(r, "/admin/home", "登录成功")
 	}
 }
 
-// POST|退出登录
 func (c *Controller) Logout(r *ghttp.Request) {
-	if err := r.Session.Remove("admin"); err != nil {
+	if err := r.Session.Remove(sessionKey); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
 		response.RedirectToWithMessage(r, "/admin/login", "退出成功")

@@ -10,10 +10,10 @@ func AdminAuthCheck(r *ghttp.Request) {
 	auth := r.Session.Get("admin", "")
 	if auth == "" || auth == nil {
 		if r.IsAjaxRequest() || r.Header.Get("Accept") == "application/json" {
-			r.Response.WriteJson(g.Map{"error": "登录已过期"})
+			_ = r.Response.WriteJson(g.Map{"error": "登录已过期"})
 			r.Exit()
 		} else {
-			r.Session.Set("error", "登录已过期")
+			_ = r.Session.Set("error", "登录已过期")
 			r.Response.RedirectTo("/admin/login")
 		}
 	} else {

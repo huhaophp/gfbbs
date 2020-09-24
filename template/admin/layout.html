@@ -82,10 +82,10 @@
                 <i class="fas fa-user-circle fa-fw"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Activity Log</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+{{/*                <a class="dropdown-item" href="#">Settings</a>*/}}
+{{/*                <a class="dropdown-item" href="#">Activity Log</a>*/}}
+{{/*                <div class="dropdown-divider"></div>*/}}
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">退出登录</a>
             </div>
         </li>
     </ul>
@@ -166,20 +166,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">确定要离开</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">如果您准备结束当前会话，请选择下面的“注销”</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary logout-btn">退出</button>
             </div>
         </div>
     </div>
 </div>
-
+<form action="/admin/logout" method="POST" class="logout-form" style="display: none;"></form>
 <!-- Bootstrap core JavaScript-->
 <script src="/admin/vendor/jquery/jquery.min.js"></script>
 <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -198,7 +198,13 @@
 <!-- Demo scripts for this page-->
 <script src="/admin/js/demo/datatables-demo.js"></script>
 <script src="/admin/js/demo/chart-area-demo.js"></script>
-
+<script>
+    $(function () {
+        $('.logout-btn').on('click', function () {
+            $('.logout-form').submit();
+        });
+    })
+</script>
 </body>
 
 </html>

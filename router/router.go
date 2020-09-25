@@ -40,7 +40,14 @@ func init() {
 		group.GET("home", homeController.Home)
 
 		group.GET("admins", adminController.List)
+
 		group.GET("nodes", nodeController.List)
+		group.GET("nodes/add", nodeController.Add)
+		group.POST("nodes/add", nodeController.Add)
+		group.GET("nodes/{id}/edit", nodeController.Edit)
+		group.POST("nodes/{id}/edit", nodeController.Edit)
+		group.POST("nodes/{id}/delete", nodeController.Del)
+
 		group.GET("cates", cateController.List)
 		group.GET("posts", postController.List)
 		group.GET("users", userController.List)

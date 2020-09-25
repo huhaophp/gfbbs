@@ -15,6 +15,7 @@ type Entity struct {
     Id        uint        `orm:"id,primary" json:"id"`         //                          
     Name      string      `orm:"name"       json:"name"`       // 名称                     
     Sort      int         `orm:"sort"       json:"sort"`       // 排序                     
+    Pid       int         `orm:"pid"        json:"pid"`        //                          
     Status    int         `orm:"status"     json:"status"`     // 状态                     
     IsTop     int         `orm:"is_top"     json:"is_top"`     // 置顶 优先展示在首页顶部  
     IsDelete  int         `orm:"is_delete"  json:"is_delete"`  // 是否删除:0-否/1-是       

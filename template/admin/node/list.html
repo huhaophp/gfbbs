@@ -1,4 +1,76 @@
 <div class="card">
     <div class="card-header">节点管理</div>
-    <div class="card-body">节点管理</div>
+    <div class="card-body">
+        <div>
+            <form class="form-inline mb-3" method="GET">
+                <div class="input-group mr-1">
+                    <select name="status" class="form-control">
+                        <option value="0">全部</option>
+                        <option value="1">待审核</option>
+                        <option value="2">已通过</option>
+                        <option value="3">已禁用</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary">搜索</button>
+                    </div>
+                </div>
+                <div class="input-group mr-1">
+                    <button class="btn btn-success" type="button" onclick="window.location='/admin/nodes/add'">添加
+                    </button>
+                </div>
+            </form>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead class="table-info">
+            <tr>
+                <th>#ID</th>
+                <th>节点名称</th>
+                <th>父节点名称</th>
+                <th>节点排序</th>
+                <th>节点状态</th>
+                <th>首页置顶</th>
+                <th>是否删除</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+                <tr>
+                    <td>{{ $item.id }}</td>
+                    <td>{{ $item.name }}</td>
+                    <td>{{ $item.pname }}</td>
+                    <td>{{ $item.sort }}</td>
+                    <td>
+                        {{if eq $item.status 0}}
+                            <span class="badge badge-success">启用</span>
+                        {{else}}
+                            <span class="badge badge-danger">禁用</span>
+                        {{end}}
+                    </td>
+                    <td>
+                        {{if eq $item.is_top 1}}
+                            <span class="badge badge-success">是</span>
+                        {{else}}
+                            <span class="badge badge-danger">否</span>
+                        {{end}}
+                    </td>
+                    <td>
+                        {{if eq $item.is_delete 0}}
+                            <span class="badge badge-success">正常</span>
+                        {{else}}
+                            <span class="badge badge-danger">删除</span>
+                        {{end}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success btn-sm" href="/admin/nodes/{{ $item.id }}/edit">编辑</a>
+                        <form action="/admin/nodes/{{ $item.id }}/delete" method="POST" style="display: inline-block;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger btn-sm">删除</button>
+                        </form>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
 </div>

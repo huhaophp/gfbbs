@@ -14,10 +14,8 @@ const (
 	errorTpl  string = "admin/error.html"
 )
 
-// Controller Base
 type Controller struct{}
 
-// Category List
 func (c *Controller) List(r *ghttp.Request) {
 	if r.Method == "GET" {
 		response.ViewExit(r, layout, g.Map{"mainTpl": listTpl})

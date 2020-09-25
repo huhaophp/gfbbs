@@ -27,6 +27,7 @@ var (
 		Id         string //                          
         Name       string // 名称                     
         Sort       string // 排序                     
+        Pid        string //                          
         Status     string // 状态                     
         IsTop      string // 置顶 优先展示在首页顶部  
         IsDelete   string // 是否删除:0-否/1-是       
@@ -36,6 +37,7 @@ var (
 		Id:        "id",          
         Name:      "name",        
         Sort:      "sort",        
+        Pid:       "pid",         
         Status:    "status",      
         IsTop:     "is_top",      
         IsDelete:  "is_delete",   

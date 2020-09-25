@@ -27,6 +27,8 @@ var (
 		Id         string //   
         Name       string //   
         Sort       string //   
+        Pid        string //   
+        Desc       string //   
         Status     string //   
         IsDelete   string //   
         CreatedAt  string //   
@@ -35,6 +37,8 @@ var (
 		Id:        "id",          
         Name:      "name",        
         Sort:      "sort",        
+        Pid:       "pid",         
+        Desc:      "desc",        
         Status:    "status",      
         IsDelete:  "is_delete",   
         CreatedAt: "created_at",  

@@ -103,24 +103,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/admin/admins">
-                <i class="fas fa-fw fa-search"></i>
-                <span>管理员管理</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-search"></i>
-                <span>设置管理</span></a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="/admin/users">
                 <i class="fas fa-fw fa-users"></i>
                 <span>用户管理</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/cates">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>节点分类</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/admin/nodes">
@@ -132,10 +117,21 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>帖子管理</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">
+                <i class="fas fa-fw fa-search"></i>
+                <span>设置管理</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/admins">
+                <i class="fas fa-fw fa-search"></i>
+                <span>管理员管理</span></a>
+        </li>
     </ul>
 
     <div id="content-wrapper">
         <div class="container-fluid">
+            <div class="message-container"></div>
             {{include .mainTpl .}}
         </div>
         <!-- /.container-fluid -->
@@ -203,6 +199,31 @@
         $('.logout-btn').on('click', function () {
             $('.logout-form').submit();
         });
+
+        /**
+         * 消息提示框.
+         *
+         * @author hh
+         * @param content
+         * @param  {String} type 错误or成功
+         * @param  {Number} second 显示周期
+         * @return mixed
+         */
+        function message(content, type = "success", second = 4000) {
+            $('.message-container').html("<div class='alert alert-" + type + "' role='alert'>" + content + "</div>")
+        }
+
+        var error = "{{.Session.error}}"
+        if (error) {
+            message(error, "danger")
+        }
+        var success = "{{.Session.success}}"
+        if (success) {
+            message(success, "success")
+        }
+        setTimeout(function () {
+            $('.message-container').hide()
+        }, 2000)
     })
 </script>
 </body>

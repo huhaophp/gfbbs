@@ -13,8 +13,10 @@ import (
 // Entity is the golang structure for table nodes.
 type Entity struct {
     Id        uint        `orm:"id,primary" json:"id"`         //   
-    Name      int         `orm:"name"       json:"name"`       //   
+    Name      string      `orm:"name"       json:"name"`       //   
     Sort      int         `orm:"sort"       json:"sort"`       //   
+    Pid       int         `orm:"pid"        json:"pid"`        //   
+    Desc      string      `orm:"desc"       json:"desc"`       //   
     Status    int         `orm:"status"     json:"status"`     //   
     IsDelete  int         `orm:"is_delete"  json:"is_delete"`  //   
     CreatedAt *gtime.Time `orm:"created_at" json:"created_at"` //   

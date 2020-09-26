@@ -3,7 +3,7 @@ package web
 import (
 	commentsModel "bbs/app/model/comments"
 	"bbs/app/model/nodes"
-	posts2 "bbs/app/model/posts"
+	postsModel "bbs/app/model/posts"
 	response "bbs/library"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
@@ -21,6 +21,7 @@ type Controller struct{}
 
 func (c *Controller) Home(r *ghttp.Request) {
 	pid := r.GetQueryInt("pid")
+	pageNum := r.GetQueryInt("page", 1)
 	// 获取顶级顶级节点
 	tops, _ := g.DB().Table(nodes.Table).Where("pid = ? and is_top = ?", 0, 1).Order("sort DESC").All()
 
@@ -33,20 +34,26 @@ func (c *Controller) Home(r *ghttp.Request) {
 
 	var posts gdb.Result
 	// 获取动态数据
-	posts, _ = g.DB().Table(posts2.Table+" p").
+	posts, _ = g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
 		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name,u.avatar,n.name as node_name").
 		Order("created_at DESC").
+		Page(pageNum, 40).
 		All()
 
-	response.ViewExit(r, layout, g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl})
+	total, _ := g.DB().Table(postsModel.Table).Count()
+
+	page := r.GetPage(total, 40)
+
+	response.ViewExit(r, layout, g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)})
 }
 
 func (c *Controller) PostDetail(r *ghttp.Request) {
 	postsId := r.GetRouterVar("postsId").Int64()
+	pageNum := r.GetQueryInt("page", 1)
 
-	posts, _ := g.DB().Table(posts2.Table+" p").
+	posts, _ := g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
 		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name as user_name,u.avatar,n.name node_name").
@@ -58,9 +65,13 @@ func (c *Controller) PostDetail(r *ghttp.Request) {
 		LeftJoin("users u", "u.id = c.uid").
 		LeftJoin("users ru", "ru.id = c.ruid").
 		Where("c.pid", postsId).
-		Order("id DESC").
-		Page(1, 40).
+		Order("id ASC").
+		Page(pageNum, 40).
 		All()
-	g.Dump(comments)
-	response.ViewExit(r, layout, g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments})
+
+	total, _ := g.DB().Table(commentsModel.Table).Where("pid", postsId).Count()
+
+	page := r.GetPage(total, 40)
+
+	response.ViewExit(r, layout, g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)})
 }

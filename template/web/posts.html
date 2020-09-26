@@ -1,4 +1,5 @@
 <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="">V2EX</a>  › <a href="">游戏</a></li>
     <li class="list-group-item">
         <h5>{{ .posts.title }}</h5>
         <div class="list-item-bottom">
@@ -11,26 +12,37 @@
     <li class="list-group-item">
         {{ .posts.content }}
     </li>
-    <li class="list-group-item mt-4" style="color: #999;font-size: 14px;">
-        ({{ .posts.comment_num }})条回复
-    </li>
-    {{range $comment := .comments}}
+    {{if gt .posts.comment_num 0}}
+        <li class="list-group-item mt-2" style="color: #999;font-size: 14px;">
+            ({{ .posts.comment_num }})条回复
+        </li>
+        {{range $comment := .comments}}
+            <li class="list-group-item">
+                <div class="avatar-div">
+                    <a href="/users/{{$comment.uid}}"><img src="/{{$comment.avatar}}" class="user-avatar"></a>
+                </div>
+                <div class="list-div">
+                    <div class="list-item-bottom">
+                        <a href="" class="user" style="font-size: 14px;">{{$comment.name}}</a>
+                        <span class="time" style="font-size: 12px;"></i>{{$comment.created_at}}</span>
+                    </div>
+                    <div class="list-item-div" style="font-size: 14px;">
+                        {{if gt $comment.ruid 0}}
+                            @ <a href="" style="color: #778087;">{{ $comment.r_user_name }}</a>
+                        {{end}}
+                        {{ $comment.content }}
+                    </div>
+                </div>
+            </li>
+        {{end}}
         <li class="list-group-item">
-            <div class="avatar-div">
-                <a href="/users/{{$comment.uid}}"><img src="/{{$comment.avatar}}" class="user-avatar"></a>
+            <div class="page">
+                {{ .page }}
             </div>
-            <div class="list-div">
-                <div class="list-item-bottom">
-                    <a href="" class="user" style="font-size: 14px;">{{$comment.name}}</a>
-                    <span class="time" style="font-size: 12px;"></i>{{$comment.created_at}}</span>
-                </div>
-                <div class="list-item-div" style="font-size: 14px;">
-                    {{if gt $comment.ruid 0}}
-                        @ <a href="" style="color: #778087;">{{ $comment.r_user_name }}</a>
-                    {{end}}
-                    {{ $comment.content }}
-                </div>
-            </div>
+        </li>
+    {{else}}
+        <li class="list-group-item mt-2">
+            <button class="btn btn-dark btn-sm">回复</button>
         </li>
     {{end}}
 </ul>

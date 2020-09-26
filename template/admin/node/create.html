@@ -4,11 +4,11 @@
         <form class="col-md-7" method="POST" action="/admin/nodes/add">
             <div class="form-group">
                 <label><span class="text-danger">*</span>节点名称</label>
-                <input type="text" class="form-control form-control-sm" name="name" placeholder="节点名称">
+                <input type="text" class="form-control" name="name" placeholder="节点名称">
             </div>
             <div class="form-group">
                 <label>所属节点</label>
-                <select name="pid" id="" class="form-control form-control-sm">
+                <select name="pid" id="" class="form-control">
                     <option value="0">顶级节点</option>
                     {{range $item := .nodes}}
                         <option value="{{ $item.id }}">{{ $item.name }} </option>
@@ -17,18 +17,18 @@
             </div>
             <div class="form-group">
                 <label>节点状态</label>
-                <select name="status"  class="form-control form-control-sm">
+                <select name="status"  class="form-control">
                     <option value="1">启用</option>
                     <option value="0">禁用</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>节点排序</label>
-                <input type="number" class="form-control form-control-sm" name="sort" placeholder="节点排序" value="0">
+                <input type="number" class="form-control" name="sort" placeholder="节点排序" value="0">
             </div>
             <div class="form-group">
                 <label><span class="text-danger">*</span>节点描述</label>
-                <textarea class="form-control form-control-sm" rows="6" name="desc" placeholder="节点描述"></textarea>
+                <textarea class="form-control" rows="6" name="desc" placeholder="节点描述"></textarea>
             </div>
             <button class="btn btn-primary btn-block btn-sm">提交</button>
         </form>

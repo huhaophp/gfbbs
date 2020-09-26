@@ -14,11 +14,12 @@ import (
 type Entity struct {
     Id        uint        `orm:"id,primary" json:"id"`         //   
     Name      string      `orm:"name"       json:"name"`       //   
-    Sort      int         `orm:"sort"       json:"sort"`       //   
-    Pid       int         `orm:"pid"        json:"pid"`        //   
+    Sort      uint        `orm:"sort"       json:"sort"`       //   
+    Pid       uint        `orm:"pid"        json:"pid"`        //   
     Desc      string      `orm:"desc"       json:"desc"`       //   
     Status    int         `orm:"status"     json:"status"`     //   
-    IsDelete  int         `orm:"is_delete"  json:"is_delete"`  //   
+    IsTop     uint        `orm:"is_top"     json:"is_top"`     //   
+    IsDelete  uint        `orm:"is_delete"  json:"is_delete"`  //   
     CreatedAt *gtime.Time `orm:"created_at" json:"created_at"` //   
     UpdatedAt *gtime.Time `orm:"updated_at" json:"updated_at"` //   
 }

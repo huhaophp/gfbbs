@@ -93,36 +93,30 @@
 </nav>
 
 <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-item active" data-path="home">
             <a class="nav-link" href="/admin/home">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>首页</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-path="users">
             <a class="nav-link" href="/admin/users">
                 <i class="fas fa-fw fa-users"></i>
                 <span>用户管理</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-path="nodes">
             <a class="nav-link" href="/admin/nodes">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>节点管理</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-path="posts">
             <a class="nav-link" href="/admin/posts">
                 <i class="fas fa-fw fa-table"></i>
                 <span>帖子管理</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-search"></i>
-                <span>设置管理</span></a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item" data-path="admins">
             <a class="nav-link" href="/admin/admins">
                 <i class="fas fa-fw fa-search"></i>
                 <span>管理员管理</span></a>
@@ -196,6 +190,8 @@
 <script src="/admin/js/demo/chart-area-demo.js"></script>
 <script>
     $(function () {
+
+        // 退出登录
         $('.logout-btn').on('click', function () {
             $('.logout-form').submit();
         });

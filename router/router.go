@@ -59,6 +59,7 @@ func init() {
 	webController := new(web.Controller)
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
+		group.GET("/posts/{postsId}", webController.PostDetail)
 	})
 
 	// Handling 404 pages

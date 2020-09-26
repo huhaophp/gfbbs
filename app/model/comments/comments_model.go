@@ -25,6 +25,7 @@ var (
 	// Columns defines and stores column names for table comments.
 	Columns = struct {
 		Id         string //   
+        Pid        string //   
         Uid        string //   
         Ruid       string //   
         Content    string //   
@@ -33,6 +34,7 @@ var (
         UpdatedAt  string //
 	}{
 		Id:        "id",          
+        Pid:       "pid",         
         Uid:       "uid",         
         Ruid:      "ruid",        
         Content:   "content",     

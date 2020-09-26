@@ -53,7 +53,7 @@ func NotFoundView(r *ghttp.Request) {
 	if s[1] == "admin" {
 		d = "admin"
 	}
-	ViewExit(r, d+"/layout.html", g.Map{"mainTpl": d + "/error.html", "error": "404 Not Found"})
+	ViewExit(r, d+"/layout.html", g.Map{"mainTpl": d + "/error.html", "error": "糟糕页面找不到了"})
 }
 
 func RedirectBackWithError(r *ghttp.Request, err error) {

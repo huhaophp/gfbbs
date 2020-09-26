@@ -13,6 +13,7 @@ import (
 // Entity is the golang structure for table comments.
 type Entity struct {
     Id        uint        `orm:"id,primary" json:"id"`         //   
+    Pid       int         `orm:"pid"        json:"pid"`        //   
     Uid       int         `orm:"uid"        json:"uid"`        //   
     Ruid      int         `orm:"ruid"       json:"ruid"`       //   
     Content   string      `orm:"content"    json:"content"`    //   

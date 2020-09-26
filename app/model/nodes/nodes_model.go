@@ -30,6 +30,7 @@ var (
         Pid        string //   
         Desc       string //   
         Status     string //   
+        IsTop      string //   
         IsDelete   string //   
         CreatedAt  string //   
         UpdatedAt  string //
@@ -40,6 +41,7 @@ var (
         Pid:       "pid",         
         Desc:      "desc",        
         Status:    "status",      
+        IsTop:     "is_top",      
         IsDelete:  "is_delete",   
         CreatedAt: "created_at",  
         UpdatedAt: "updated_at",

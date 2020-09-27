@@ -2,7 +2,8 @@ package main
 
 import (
 	_ "bbs/boot"
-	_ "bbs/router"
+	_ "bbs/router/web"
+	_ "bbs/router/admin"
 	"github.com/gogf/gf/frame/g"
 )
 

@@ -49,9 +49,10 @@ func (c *Controller) Home(r *ghttp.Request) {
 	response.ViewExit(r, layout, g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)})
 }
 
+// 帖子详情
 func (c *Controller) PostDetail(r *ghttp.Request) {
-	postsId := r.GetRouterVar("postsId").Int64()
 	pageNum := r.GetQueryInt("page", 1)
+	postsId := r.GetRouterVar("postsId").Int64()
 
 	posts, _ := g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
@@ -73,5 +74,7 @@ func (c *Controller) PostDetail(r *ghttp.Request) {
 
 	page := r.GetPage(total, 40)
 
-	response.ViewExit(r, layout, g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)})
+	data := g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)}
+
+	response.ViewExit(r, layout, data)
 }

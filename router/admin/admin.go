@@ -1,4 +1,4 @@
-package router
+package admin
 
 import (
 	"bbs/app/middleware"
@@ -6,31 +6,25 @@ import (
 	"bbs/app/server/admin/auth"
 	"bbs/app/server/admin/cate"
 	"bbs/app/server/admin/comment"
-	"bbs/app/server/admin/file"
 	"bbs/app/server/admin/home"
 	"bbs/app/server/admin/node"
 	"bbs/app/server/admin/post"
 	"bbs/app/server/admin/user"
-	"bbs/app/server/web"
 	response "bbs/library"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
 
 func init() {
-
 	s := g.Server()
-
 	authController := new(auth.Controller)
 	homeController := new(home.Controller)
-	fileController := new(file.Controller)
 	nodeController := new(node.Controller)
 	cateController := new(cate.Controller)
 	postController := new(post.Controller)
 	userController := new(user.Controller)
 	adminController := new(admin.Controller)
 	commentController := new(comment.Controller)
-
 	// admin routes.
 	s.Group("/admin", func(group *ghttp.RouterGroup) {
 		group.GET("login", authController.Login)
@@ -52,14 +46,6 @@ func init() {
 		group.GET("posts", postController.List)
 		group.GET("users", userController.List)
 		group.GET("comments", commentController.List)
-		group.POST("file", fileController.Store)
-	})
-
-	// web routes.
-	webController := new(web.Controller)
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/", webController.Home)
-		group.GET("/posts/{postsId}", webController.PostDetail)
 	})
 
 	// Handling 404 pages

@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="/markdown/css/editormd.min.css"/>
 <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a href="">V2EX</a>  › <a href="">游戏</a></li>
+    <li class="list-group-item"><a href="">V2EX</a> › <a href="">游戏</a></li>
     <li class="list-group-item">
         <h5>{{ .posts.title }}</h5>
         <div class="list-item-bottom">
@@ -9,40 +10,56 @@
             <span class="time"><i class="fa fa-clock"></i> {{.posts.created_at}}</span>
         </div>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item posts-content">
         {{ .posts.content }}
     </li>
-    {{if gt .posts.comment_num 0}}
-        <li class="list-group-item mt-2" style="color: #999;font-size: 14px;">
-            ({{ .posts.comment_num }})条回复
-        </li>
-        {{range $comment := .comments}}
-            <li class="list-group-item">
-                <div class="avatar-div">
-                    <a href="/users/{{$comment.uid}}"><img src="/{{$comment.avatar}}" class="user-avatar"></a>
+    <li class="list-group-item mt-2" style="color: #999;font-size: 14px;">
+        {{ .posts.comment_num }} 条回复
+    </li>
+
+    <li class="list-group-item">
+        <div class="page">
+            {{ .page }}
+        </div>
+    </li>
+    <li class="list-group-item mt-2">
+        <form action="/comments" method="POST" class="form-control" style="height: 100%;">
+            <div class="form-group">
+                <div id="editormd" style="border-radius: 4px;">
+                    <textarea name="md_content"></textarea>
                 </div>
-                <div class="list-div">
-                    <div class="list-item-bottom">
-                        <a href="" class="user" style="font-size: 14px;">{{$comment.name}}</a>
-                        <span class="time" style="font-size: 12px;"></i>{{$comment.created_at}}</span>
-                    </div>
-                    <div class="list-item-div" style="font-size: 14px;">
-                        {{if gt $comment.ruid 0}}
-                            @ <a href="" style="color: #778087;">{{ $comment.r_user_name }}</a>
-                        {{end}}
-                        {{ $comment.content }}
-                    </div>
-                </div>
-            </li>
-        {{end}}
-        <li class="list-group-item">
-            <div class="page">
-                {{ .page }}
+                <input type="hidden" name="content" id="content">
             </div>
-        </li>
-    {{else}}
-        <li class="list-group-item mt-2">
-            <button class="btn btn-dark btn-sm">回复</button>
-        </li>
-    {{end}}
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-dark btn-sm submit-btn" type="button">提交</button>
+            </div>
+        </form>
+    </li>
 </ul>
+<script>
+    $(function () {
+        editormd("editormd", {
+            path: "/markdown/lib/",
+            width: "100%",
+            height: 300,
+            codeFold: true,
+            watch: false,
+            lineNumbers: true,
+            lineWrapping: false,
+            // toolbarIcons: function () {
+            //     return []
+            // },
+            placeholder: null,
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png"],
+            imageUploadURL: "/markdown/file",
+            saveHTMLToTextarea: true,
+        });
+        $('.submit-btn').on('click', function () {
+            console.log($('.editormd-preview-container').html());
+        })
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

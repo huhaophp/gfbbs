@@ -110,10 +110,7 @@ func (c *Controller) Edit(r *ghttp.Request) {
 }
 
 func (c *Controller) Del(r *ghttp.Request) {
-	id, err := strconv.Atoi(r.GetRouterValue("id").(string))
-	if err != nil {
-		response.RedirectBackWithError(r, err)
-	}
+	id := r.GetRouterVar("id").Int()
 	item, err := g.DB().Table(nodes.Table).Where("id = ? and is_delete = ?", id, 0).One()
 	if err != nil || item == nil {
 		response.RedirectBackWithError(r, gerror.New("节点不存在或已被删除"))

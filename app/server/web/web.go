@@ -6,14 +6,16 @@ import (
 	postsModel "bbs/app/model/posts"
 	response "bbs/library"
 	"github.com/gogf/gf/database/gdb"
+	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
 
 const (
-	layout   string = "web/layout.html"
-	homeTpl  string = "web/home.html"
-	postsTpl string = "web/posts.html"
+	layout      string = "web/layout.html"
+	homeTpl     string = "web/home.html"
+	postsTpl    string = "web/posts.html"
+	registerTpl string = "web/register.html"
 )
 
 // Controller Base
@@ -46,7 +48,9 @@ func (c *Controller) Home(r *ghttp.Request) {
 
 	page := r.GetPage(total, 40)
 
-	response.ViewExit(r, layout, g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)})
+	data := g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)}
+
+	response.ViewExit(r, layout, data)
 }
 
 // 帖子详情
@@ -77,4 +81,15 @@ func (c *Controller) PostDetail(r *ghttp.Request) {
 	data := g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)}
 
 	response.ViewExit(r, layout, data)
+}
+
+
+// 注册页面
+func (c *Controller) Register(r *ghttp.Request) {
+	if r.Method == "GET" {
+		data := g.Map{"mainTpl": registerTpl}
+		response.ViewExit(r, layout, data)
+	} else {
+		response.RedirectBackWithError(r, gerror.New("节点名称已存在"))
+	}
 }

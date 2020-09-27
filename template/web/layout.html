@@ -28,8 +28,8 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="关键词搜索" aria-label="Search"/>
-            <button class="btn btn-success my-2 my-sm-0 mr-1" type="submit">注册</button>
-            <button class="btn btn-success my-2 my-sm-0 mr-1" type="submit">登录</button>
+            <a class="btn btn-secondary mr-1" type="submit" href="/register">注册</a>
+            <a class="btn btn-secondary mr-1" type="submit" href="/register">登录</a>
         </form>
     </div>
 </nav>
@@ -37,6 +37,12 @@
     <div style="margin-top:80px;">
         <div class="row">
             <div class="col-sm-9">
+                <div class="alert alert-dismissible fade show alert-msg" role="alert" style="display: none;">
+                    <span class="msg-content"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 {{include .mainTpl .}}
             </div>
             <div class="col-sm-3">
@@ -85,12 +91,27 @@
 </main>
 <script>
     $(function () {
+
         $('.top-node-btn').on('click', function (e) {
             window.location = "/?pid=" + $(this).attr('data-id')
         });
         $('.child-node-btn').on('click', function (e) {
             window.location = "/nodes/" + $(this).attr('data-id')
         });
+
+        function message(content, type = "success") {
+            $('.alert-msg .msg-content').text(content);
+            $('.alert-msg').addClass('alert-' + type).show();
+        }
+
+        var error = "{{.Session.error}}"
+        if (error) {
+            message(error, "danger")
+        }
+        var success = "{{.Session.success}}"
+        if (success) {
+            message(success, "success")
+        }
     });
 </script>
 </body>

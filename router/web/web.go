@@ -15,6 +15,8 @@ func init() {
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
 		group.GET("/posts/{postsId}", webController.PostDetail)
+		group.GET("/register", webController.Register)
+		group.POST("/register", webController.Register)
 		group.POST("/markdown/file", fileController.MarkdownFileStore)
 	})
 }

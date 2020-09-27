@@ -67,17 +67,20 @@
 a {
     text-decoration: none !important;
 }
+
 .page {
     font-size: 14px;
     padding: 1px;
 }
+
 .page a {
     font-size: 14px;
 }
 
-.comment-content img,.posts-content img {
+.comment-content img, .posts-content img {
     width: 100%;
 }
+
 /*post detail*/
 .post-info {
 

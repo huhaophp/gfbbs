@@ -32,7 +32,7 @@ var (
         Password     string //   
         Status       string //   
         LastLoginIp  string //   
-        RegsiterAt   string //   
+        RegisterAt   string //   
         CreatedAt    string //   
         UpdatedAt    string //
 	}{
@@ -44,7 +44,7 @@ var (
         Password:    "password",       
         Status:      "status",         
         LastLoginIp: "last_login_ip",  
-        RegsiterAt:  "regsiter_at",    
+        RegisterAt:  "register_at",    
         CreatedAt:   "created_at",     
         UpdatedAt:   "updated_at",
 	}

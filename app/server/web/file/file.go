@@ -13,16 +13,11 @@ const (
 type Controller struct{}
 
 // Markdown File Store Upload uploads files to /tmp .
-func (c *Controller) MarkdownFileStore(r *ghttp.Request) {
+func (c *Controller) MdFileStore(r *ghttp.Request) {
 	file := r.GetUploadFile("editormd-image-file")
 	name, err := file.Save(uploadDirPath, true)
 	if err != nil {
-		_ = r.Response.WriteJsonExit(g.Map{
-			"success": 0,
-			"path":    "",
-			"message": err.Error(),
-			"url":     "",
-		})
+		_ = r.Response.WriteJsonExit(g.Map{"success": 0, "message": err.Error()})
 	} else {
 		_ = r.Response.WriteJsonExit(g.Map{
 			"success": 1,

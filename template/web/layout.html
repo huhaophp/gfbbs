@@ -18,19 +18,40 @@
     <link href="/web/web.css" rel="stylesheet" type="text/css">
 </head>
 <body class="body-box">
-<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">话舍</a>
+<nav class="navbar navbar-expand-md fixed-top" style="background: #fff !important;">
+    <a class="navbar-brand" href="/" style="margin-left:17%;color: #19191a;font-size: 20px;"><strong>GFBBS</strong></a>
+    <div class="input-group col-sm-2">
+        <input type="text" class="form-control form-control-sm"  style="border-radius: 10px;" placeholder="关键词搜索">
+    </div>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="关键词搜索" aria-label="Search"/>
-            <a class="btn btn-secondary mr-1" type="submit" href="/register">注册</a>
-            <a class="btn btn-secondary mr-1" type="submit" href="/register">登录</a>
-        </form>
+        <ul class="navbar-nav mr-auto"></ul>
+        <div class="dropdown">
+            {{if .Session.user}}
+                <div class="btn-group" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-light">
+                        <i class="fa fa-bell"></i> <span class="badge badge-danger">0 </span>
+                    </button>
+                    <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/3765fb75169bb6f49ee20d1a1ec900e3.png" style="max-height: 26px;max-width: 26px;border-radius:100%;"> {{ .Session.user.name }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/user/{{.Session.user.id}}">用户详情</a>
+                        <form action="/user/logout" method="POST">
+                            <button class="dropdown-item">退出登录</button>
+                        </form>
+                    </div>
+                </div>
+            {{else}}
+                <div class="btn-group" role="group" aria-label="First group">
+                    <a type="button" class="btn btn-light" href="/user/register">注册</a>
+                    <a type="button" class="btn btn-light" href="/user/login">登录</a>
+                </div>
+            {{end}}
+        </div>
     </div>
 </nav>
 <main role="main" class="container">
@@ -43,49 +64,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{include .mainTpl .}}
             </div>
-            <div class="col-sm-3">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item  bg-light">社区运行状态</li>
-                    <li class="list-group-item bg-light">
-                        <div class="btn btn-link text-secondary">程序员</div>
-                        <div class="btn btn-link text-secondary">Python</div>
-                        <div class="btn btn-link text-secondary">iDev</div>
-                        <div class="btn btn-link text-secondary">Android</div>
-                        <div class="btn btn-link text-secondary">Linux</div>
-                        <div class="btn btn-link text-secondary">node.js</div>
-                        <div class="btn btn-link text-secondary">云计算</div>
-                        <div class="btn btn-link text-secondary">宽带症候群</div>
-                    </li>
-                </ul>
-                <ul class="list-group list-group-flush mt-2">
-                    <li class="list-group-item  bg-light">社区运行状态</li>
-                    <li class="list-group-item bg-light">
-                        <div class="btn btn-link text-secondary">程序员</div>
-                        <div class="btn btn-link text-secondary">Python</div>
-                        <div class="btn btn-link text-secondary">iDev</div>
-                        <div class="btn btn-link text-secondary">Android</div>
-                        <div class="btn btn-link text-secondary">Linux</div>
-                        <div class="btn btn-link text-secondary">node.js</div>
-                        <div class="btn btn-link text-secondary">云计算</div>
-                        <div class="btn btn-link text-secondary">宽带症候群</div>
-                    </li>
-                </ul>
-                <ul class="list-group list-group-flush mt-2">
-                    <li class="list-group-item  bg-light">社区运行状态</li>
-                    <li class="list-group-item bg-light">
-                        <div class="btn btn-link text-secondary">程序员</div>
-                        <div class="btn btn-link text-secondary">Python</div>
-                        <div class="btn btn-link text-secondary">iDev</div>
-                        <div class="btn btn-link text-secondary">Android</div>
-                        <div class="btn btn-link text-secondary">Linux</div>
-                        <div class="btn btn-link text-secondary">node.js</div>
-                        <div class="btn btn-link text-secondary">云计算</div>
-                        <div class="btn btn-link text-secondary">宽带症候群</div>
-                    </li>
-                </ul>
-            </div>
+            {{include .mainTpl .}}
         </div>
     </div>
 </main>

@@ -1,81 +1,78 @@
-<ul class="list-group list-group-flush">
-    <li class="list-group-item">
-        {{range $top := .tops}}
-            {{if eq $top.id $.pid}}
-                <button class="btn btn-btn btn-dark btn-sm top-node-btn"
-                        data-id="{{ $top.id }}">{{ $top.name }}</button>
-            {{else}}
-                <button class="btn btn-link text-secondary top-node-btn"
-                        data-id="{{ $top.id }}">{{ $top.name }}</button>
-            {{end}}
-        {{end}}
-    </li>
-    <li class="list-group-item bg-light">
-        {{range $child := .children}}
-            <button class="btn btn-link text-secondary child-node-btn"
-                    data-id="{{ $child.id }}">{{ $child.name }}</button>
-        {{end}}
-    </li>
-    {{range $post := .posts}}
-        <li class="list-group-item">
-            <div class="avatar-div">
-                <a href="/users/{{ $post.uid }}"><img src="/{{$post.avatar}}" class="user-avatar"></a>
-            </div>
-            <div class="list-div">
-                <div class="list-item-div">
-                    <a href="/posts/{{ $post.id }}" class="list-item-text">{{$post.title}}</a>
-                </div>
-                <div class="list-item-bottom">
-                    <a href="" class="badge badge-secondary"><i class="fa fa-tag"></i> {{$post.node_name}}</a>
-                    <a href="" class="badge badge-secondary"><i class="fa fa-user"></i> {{$post.name}}</a>
-                    <span class="badge badge-secondary"><i class="fa fa-clock"></i> {{$post.created_at}}</span>
-                    <span class="badge badge-secondary"><i class="fa fa-comments"></i> {{$post.view_num}}</span>
-                </div>
-            </div>
-        </li>
-    {{end}}
-    <li class="list-group-item">
-        <div class="page">
-            {{ .page }}
-        </div>
-    </li>
-</ul>
-<div class="mt-1">
+<div class="col-sm-9">
     <ul class="list-group list-group-flush">
-        <li class="list-group-item bg-light">
-            所有节点
+        <li class="list-group-item">
+            {{range $top := .tops}}
+                {{if eq $top.id $.pid}}
+                    <button class="btn btn-btn btn-dark btn-sm top-node-btn"
+                            data-id="{{ $top.id }}">{{ $top.name }}</button>
+                {{else}}
+                    <button class="btn btn-link text-secondary top-node-btn"
+                            data-id="{{ $top.id }}">{{ $top.name }}</button>
+                {{end}}
+            {{end}}
         </li>
         <li class="list-group-item bg-light">
-            <span style="color: #afb9c1;">技术</span>
-            <br>
-            <div class="btn btn-link text-secondary">程序员</div>
-            <div class="btn btn-link text-secondary">Python</div>
-            <div class="btn btn-link text-secondary">iDev</div>
-            <div class="btn btn-link text-secondary">Android</div>
-            <div class="btn btn-link text-secondary">Linux</div>
-            <div class="btn btn-link text-secondary">node.js</div>
-            <div class="btn btn-link text-secondary">云计算</div>
-            <div class="btn btn-link text-secondary">宽带症候群</div>
-            <div class="btn btn-link text-secondary">程序员</div>
-            <div class="btn btn-link text-secondary">Python</div>
-            <div class="btn btn-link text-secondary">iDev</div>
-            <div class="btn btn-link text-secondary">Android</div>
-            <div class="btn btn-link text-secondary">Linux</div>
-            <div class="btn btn-link text-secondary">node.js</div>
-            <div class="btn btn-link text-secondary">云计算</div>
-            <div class="btn btn-link text-secondary">宽带症候群</div>
+            {{range $child := .children}}
+                <button class="btn btn-link text-secondary child-node-btn"
+                        data-id="{{ $child.id }}">{{ $child.name }}</button>
+            {{end}}
         </li>
+        {{range $post := .posts}}
+            <li class="list-group-item">
+                <div class="avatar-div">
+                    <a href="/users/{{ $post.uid }}"><img src="/{{$post.avatar}}" class="user-avatar"></a>
+                </div>
+                <div class="list-div">
+                    <div class="list-item-div">
+                        <a href="/posts/{{ $post.id }}" class="list-item-text">{{$post.title}}</a>
+                    </div>
+                    <div class="list-item-bottom">
+                        <a href="" class="badge badge-secondary"><i class="fa fa-tag"></i> {{$post.node_name}}</a>
+                        <a href="" class="badge badge-secondary"><i class="fa fa-user"></i> {{$post.name}}</a>
+                        <span class="badge badge-secondary"><i class="fa fa-clock"></i> {{$post.created_at}}</span>
+                        <span class="badge badge-secondary"><i class="fa fa-comments"></i> {{$post.view_num}}</span>
+                    </div>
+                </div>
+            </li>
+        {{end}}
+        <li class="list-group-item">
+            <div class="page">
+                {{ .page }}
+            </div>
+        </li>
+    </ul>
+    <div class="mt-1">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-light">
+                所有节点
+            </li>
+            <li class="list-group-item bg-light">
+                <span style="color: #afb9c1;">技术</span>
+                <br>
+                <div class="btn btn-link text-secondary">程序员</div>
+                <div class="btn btn-link text-secondary">Python</div>
+                <div class="btn btn-link text-secondary">iDev</div>
+                <div class="btn btn-link text-secondary">Android</div>
+                <div class="btn btn-link text-secondary">Linux</div>
+                <div class="btn btn-link text-secondary">node.js</div>
+                <div class="btn btn-link text-secondary">云计算</div>
+                <div class="btn btn-link text-secondary">宽带症候群</div>
+                <div class="btn btn-link text-secondary">程序员</div>
+                <div class="btn btn-link text-secondary">Python</div>
+                <div class="btn btn-link text-secondary">iDev</div>
+                <div class="btn btn-link text-secondary">Android</div>
+                <div class="btn btn-link text-secondary">Linux</div>
+                <div class="btn btn-link text-secondary">node.js</div>
+                <div class="btn btn-link text-secondary">云计算</div>
+                <div class="btn btn-link text-secondary">宽带症候群</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="col-sm-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item  bg-light">社区运行状态</li>
         <li class="list-group-item bg-light">
-            <span style="color: #afb9c1;">技术</span>
-            <br>
-            <div class="btn btn-btn text-secondary">程序员</div>
-            <div class="btn btn-link text-secondary">Python</div>
-            <div class="btn btn-link text-secondary">iDev</div>
-            <div class="btn btn-link text-secondary">Android</div>
-            <div class="btn btn-link text-secondary">Linux</div>
-            <div class="btn btn-link text-secondary">node.js</div>
-            <div class="btn btn-link text-secondary">云计算</div>
-            <div class="btn btn-link text-secondary">宽带症候群</div>
             <div class="btn btn-link text-secondary">程序员</div>
             <div class="btn btn-link text-secondary">Python</div>
             <div class="btn btn-link text-secondary">iDev</div>

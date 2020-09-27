@@ -1,0 +1,34 @@
+<div class="col-sm-9">
+    <div class="card">
+        <div class="card-body">
+            <h5>注册</h5>
+            <hr>
+            <form method="POST" action="/user/register">
+                <div class="form-group">
+                    <div class="form-label-group error">
+                        <label for="inputName">呢称</label>
+                        <input type="text" id="inputName" name="name" class="form-control"
+                               placeholder="Email address" required="required" autofocus="autofocus" value="zhan">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-group error">
+                        <label for="inputEmail">邮箱</label>
+                        <input type="email" id="inputEmail" name="email" class="form-control"
+                               placeholder="Email address" required="required" autofocus="autofocus"
+                               value="admin@qq.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <label for="inputEmail">密码</label>
+                        <input type="password" name="password" class="form-control"
+                               placeholder="密码" required="required" value="123456" id="inputEmail">
+                        <div class="invalid-feedback">Please provide a valid zip.</div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary">注册</button>
+            </form>
+        </div>
+    </div>
+</div>

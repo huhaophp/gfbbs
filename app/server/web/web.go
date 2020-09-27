@@ -6,7 +6,6 @@ import (
 	postsModel "bbs/app/model/posts"
 	response "bbs/library"
 	"github.com/gogf/gf/database/gdb"
-	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -81,15 +80,4 @@ func (c *Controller) PostDetail(r *ghttp.Request) {
 	data := g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)}
 
 	response.ViewExit(r, layout, data)
-}
-
-
-// 注册页面
-func (c *Controller) Register(r *ghttp.Request) {
-	if r.Method == "GET" {
-		data := g.Map{"mainTpl": registerTpl}
-		response.ViewExit(r, layout, data)
-	} else {
-		response.RedirectBackWithError(r, gerror.New("节点名称已存在"))
-	}
 }

@@ -20,7 +20,7 @@ type Entity struct {
     Password    string      `orm:"password"      json:"password"`      //   
     Status      int         `orm:"status"        json:"status"`        //   
     LastLoginIp string      `orm:"last_login_ip" json:"last_login_ip"` //   
-    RegsiterAt  *gtime.Time `orm:"regsiter_at"   json:"regsiter_at"`   //   
+    RegisterAt  *gtime.Time `orm:"register_at"   json:"register_at"`   //   
     CreatedAt   *gtime.Time `orm:"created_at"    json:"created_at"`    //   
     UpdatedAt   *gtime.Time `orm:"updated_at"    json:"updated_at"`    //   
 }

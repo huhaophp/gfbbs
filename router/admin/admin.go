@@ -10,7 +10,6 @@ import (
 	"bbs/app/server/admin/node"
 	"bbs/app/server/admin/post"
 	"bbs/app/server/admin/user"
-	response "bbs/library"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -46,10 +45,5 @@ func init() {
 		group.GET("posts", postController.List)
 		group.GET("users", userController.List)
 		group.GET("comments", commentController.List)
-	})
-
-	// Handling 404 pages
-	s.BindStatusHandler(404, func(r *ghttp.Request) {
-		response.NotFoundView(r)
 	})
 }

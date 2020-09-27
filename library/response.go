@@ -36,10 +36,10 @@ func JsonExit(r *ghttp.Request, err int, msg string, data ...interface{}) {
 func ViewExit(r *ghttp.Request, layout string, data g.Map) {
 	defer func() {
 		if r.Session.Get("error") != nil {
-			r.Session.Remove("error")
+			_ = r.Session.Remove("error")
 		}
 		if r.Session.Get("success") != nil {
-			r.Session.Remove("success")
+			_ = r.Session.Remove("success")
 		}
 	}()
 	_ = r.Response.WriteTpl(layout, data)

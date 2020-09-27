@@ -22,7 +22,7 @@
 
 .list-item-text {
     font-size: 16px;
-    color: #afb9c1;
+    color: #6c757d;
     text-decoration: none;
     word-break: break-word;
 }
@@ -77,4 +77,8 @@ a {
 
 .comment-content img,.posts-content img {
     width: 100%;
+}
+/*post detail*/
+.post-info {
+
 }

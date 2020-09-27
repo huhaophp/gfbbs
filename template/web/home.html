@@ -26,10 +26,10 @@
                     <a href="/posts/{{ $post.id }}" class="list-item-text">{{$post.title}}</a>
                 </div>
                 <div class="list-item-bottom">
-                    <a href="" class="node">{{ $post.node_name }} </a>
-                    <a href="" class="user"><i class="fa fa-user"></i> {{$post.name}}</a>
-                    <span class="time"><i class="fa fa-clock"></i> {{$post.created_at}}</span>
-                    <span class="time"><i class="fa fa-comment"></i> 10 </span>
+                    <a href="" class="badge badge-secondary"><i class="fa fa-tag"></i> {{$post.node_name}}</a>
+                    <a href="" class="badge badge-secondary"><i class="fa fa-user"></i> {{$post.name}}</a>
+                    <span class="badge badge-secondary"><i class="fa fa-clock"></i> {{$post.created_at}}</span>
+                    <span class="badge badge-secondary"><i class="fa fa-comments"></i> {{$post.view_num}}</span>
                 </div>
             </div>
         </li>

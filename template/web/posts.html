@@ -6,10 +6,10 @@
             <li class="list-group-item">
                 <h5>{{ .posts.title }}</h5>
                 <div>
-                    <a href="" class="badge badge-secondary"><i class="fa fa-tag"></i> {{ .posts.node_name }} </a>
-                    <a href="" class="badge badge-secondary"><i class="fa fa-user"></i> {{.posts.user_name}}</a>
-                    <span class="badge badge-secondary"><i class="fa fa-eye"></i> {{.posts.view_num}} </span>
-                    <span class="badge badge-secondary"><i class="fa fa-clock"></i> {{.posts.created_at}}</span>
+                    <a href="" class="badge badge-light"><i class="fa fa-tag"></i> {{ .posts.node_name }} </a>
+                    <a href="" class="badge badge-light"><i class="fa fa-user"></i> {{.posts.user_name}}</a>
+                    <span class="badge badge-light"><i class="fa fa-eye"></i> {{.posts.view_num}} </span>
+                    <span class="badge badge-light"><i class="fa fa-clock"></i> {{.posts.created_at}}</span>
                 </div>
             </li>
             <li class="list-group-item posts-content">
@@ -47,17 +47,15 @@
                 </div>
             </li>
             <li class="list-group-item mt-2">
-                <form action="/comments" method="POST" class="form-control" style="height: 100%;">
+                <form action="/comment" method="POST">
                     <div class="form-group">
-                        <div id="editormd" style="border-radius: 4px;">
-                            <textarea name="md_content"></textarea>
-                        </div>
-                        <input type="hidden" name="content" id="content">
+                        <textarea class="form-control" rows="3" name="content"></textarea>
                     </div>
+                    <input type="hidden" name="pid" value="{{ .posts.id }}">
+                    <input type="hidden" name="ruid" value="0">
+                    <input type="hidden" name="uid" value="{{ .Session.user.id }}">
                     <div class="form-group">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-dark btn-sm submit-btn" type="button">提交</button>
+                        <button class="btn btn-dark btn-sm submit-btn">回复</button>
                     </div>
                 </form>
             </li>

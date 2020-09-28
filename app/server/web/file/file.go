@@ -26,5 +26,4 @@ func (c *Controller) MdFileStore(r *ghttp.Request) {
 			"url":     "/uploadfile/" + name,
 		})
 	}
-
 }

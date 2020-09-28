@@ -2,7 +2,9 @@ package web
 
 import (
 	"bbs/app/server/web"
+	"bbs/app/server/web/comment"
 	"bbs/app/server/web/file"
+	"bbs/app/server/web/node"
 	"bbs/app/server/web/user"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -13,6 +15,8 @@ func init() {
 	webController := new(web.Controller)
 	fileController := new(file.Controller)
 	userController := new(user.Controller)
+	nodeController := new(node.Controller)
+	commentController := new(comment.Controller)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
@@ -25,5 +29,7 @@ func init() {
 		group.POST("/user/register", userController.Register)
 		group.GET("/user/edit", userController.Edit)
 		group.POST("/user/edit", userController.Edit)
+		group.GET("/node/{nodeId}", nodeController.Index)
+		group.POST("/comment", commentController.Add)
 	})
 }

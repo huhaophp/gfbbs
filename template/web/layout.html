@@ -36,7 +36,7 @@
                     </button>
                     <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/3765fb75169bb6f49ee20d1a1ec900e3.png"
+                        <img src="/{{ .Session.user.avatar }}"
                              class="auth-user-avatar"> {{ .Session.user.name }}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -77,7 +77,7 @@
             window.location = "/?pid=" + $(this).attr('data-id')
         });
         $('.child-node-btn').on('click', function (e) {
-            window.location = "/nodes/" + $(this).attr('data-id')
+            window.location = "/node/" + $(this).attr('data-id')
         });
 
         function message(content, type = "success") {

@@ -12,7 +12,7 @@ import (
 
 const (
 	layout      string = "web/layout.html"
-	homeTpl     string = "web/home.html"
+	homeTpl     string = "web/home/home.html"
 	postsTpl    string = "web/posts.html"
 	registerTpl string = "web/register.html"
 )

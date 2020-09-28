@@ -17,6 +17,7 @@ const (
 	centerTpl   = "web/user/center.html"
 	registerTpl = "web/user/register.html"
 	errorTpl    = "web/error.html"
+	SessionKey  = "user"
 )
 
 // Controller Base
@@ -25,8 +26,7 @@ type Controller struct{}
 // Register 用户注册
 func (c *Controller) Register(r *ghttp.Request) {
 	if r.Method == "GET" {
-		data := g.Map{"mainTpl": registerTpl}
-		response.ViewExit(r, layout, data)
+		response.ViewExit(r, layout, g.Map{"mainTpl": registerTpl})
 	}
 	var reqEntity user.RegisterReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
@@ -52,28 +52,30 @@ func (c *Controller) Login(r *ghttp.Request) {
 	if record, err := user.Login(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
-		_ = r.Session.Set("user", record)
+		_ = r.Session.Set(SessionKey, record)
 		response.RedirectToWithMessage(r, "/", "登录成功")
 	}
 }
 
 // Logout 用户退出
 func (c *Controller) Logout(r *ghttp.Request) {
-	_ = r.Session.Remove("user")
-	response.RedirectToWithMessage(r, "/", "退出成功")
+	err := r.Session.Remove("user")
+	if err != nil {
+		response.RedirectBackWithError(r, err)
+	} else {
+		response.RedirectToWithMessage(r, "/", "退出成功")
+	}
 }
 
 // Edit 编辑用户
 func (c *Controller) Edit(r *ghttp.Request) {
-	if r.Method == "GET" {
-		record, err := g.DB().Table(users.Table).WherePri(r.Session.GetMap("user")["id"]).One()
-		if err != nil {
-			response.RedirectBackWithError(r, err)
-		}
-		if record.IsEmpty() {
-			response.RedirectBackWithError(r, gerror.New("用户不存在"))
-		} else {
-			response.ViewExit(r, layout, g.Map{"user": record, "mainTpl": EditTpl})
-		}
+	record, err := g.DB().Table(users.Table).WherePri(r.Session.GetMap("user")["id"]).One()
+	if err != nil {
+		response.RedirectBackWithError(r, err)
+	}
+	if record.IsEmpty() {
+		response.RedirectBackWithError(r, gerror.New("用户不存在"))
+	} else {
+		response.ViewExit(r, layout, g.Map{"user": record, "mainTpl": EditTpl})
 	}
 }

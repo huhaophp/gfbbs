@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-sm-9">
+        <ul class="list-group">
+            <li class="list-group-item disabled">
+                <div><strong>{{ .node.name }}</strong></div>
+            </li>
+            {{if .posts}}
+                {{range $posts := .posts}}
+                    <li class="list-group-item">
+                        <div style="width:7%;float: left;">
+                            <img src="/{{ $posts.avatar }}" style="height: 48px;width: 48px;">
+                        </div>
+                        <div style="width: 93%;float: left;">
+                        <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;word-break: break-word;hyphens: auto;">
+                            <a href="/posts/{{ $posts.id }}" style="color: #778087;">{{ $posts.title }}</a>
+                        </span>
+                            <br>
+                            <span style="font-size: 12px;color: #ccc;">
+                            <a href=""
+                               style="color: #778087;"> <strong>{{ $posts.name }}</strong></a>  •  {{$posts.created_at}}
+                             <span style="font-size: 12px;color: #ccc;text-align: right;">• 回复数 {{ $posts.comment_num }}</span> •  最后回复来自
+                            <a href="" style="color: #778087;"><strong>dearmymy</strong></a>
+                        </span>
+
+                        </div>
+                    </li>
+                {{end}}
+            {{else}}
+                <li class="list-group-item">
+                    <h5>无相关内容</h5>
+                </li>
+            {{end}}
+        </ul>
+    </div>
+</div>

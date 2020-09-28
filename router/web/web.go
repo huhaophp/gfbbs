@@ -1,11 +1,11 @@
 package web
 
 import (
-	"bbs/app/server/web"
-	"bbs/app/server/web/comment"
-	"bbs/app/server/web/file"
-	"bbs/app/server/web/node"
-	"bbs/app/server/web/user"
+	"bbs/app/controllers/web"
+	"bbs/app/controllers/web/comment"
+	"bbs/app/controllers/web/file"
+	"bbs/app/controllers/web/node"
+	"bbs/app/controllers/web/user"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )

@@ -1,15 +1,15 @@
 package admin
 
 import (
+	"bbs/app/controllers/admin/admin"
+	"bbs/app/controllers/admin/auth"
+	"bbs/app/controllers/admin/cate"
+	"bbs/app/controllers/admin/comment"
+	"bbs/app/controllers/admin/home"
+	"bbs/app/controllers/admin/node"
+	"bbs/app/controllers/admin/post"
+	"bbs/app/controllers/admin/user"
 	"bbs/app/middleware"
-	"bbs/app/server/admin/admin"
-	"bbs/app/server/admin/auth"
-	"bbs/app/server/admin/cate"
-	"bbs/app/server/admin/comment"
-	"bbs/app/server/admin/home"
-	"bbs/app/server/admin/node"
-	"bbs/app/server/admin/post"
-	"bbs/app/server/admin/user"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )

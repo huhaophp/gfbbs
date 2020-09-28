@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>修改资料</h5>
+                <hr>
+                <form action="/user/edit" method="POST">
+                    <div class="form-group">
+                        <div class="form-label-group">
+{{/*                            <label for="inputName">头像</label>*/}}
+                            <br>
+                            <img src="/{{.user.avatar}}" class="img-thumbnail"
+                                 style="height: 100px;width: 100px;cursor: pointer;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+{{/*                            <label for="inputName">昵称</label>*/}}
+                            <input type="text" name="name" class="form-control" required="required"
+                                   value="{{ .user.name }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputName">性别</label>
+                            <select name="gender" id="" class="form-control">
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputEmail">邮箱</label>
+                            <input type="email" name="email" class="form-control" value="{{ .user.email }}">
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary">修改</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <h5>修改密码</h5>
+                <hr>
+                <form action="/user/edit" method="POST">
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputName">密码</label>
+                            <input type="password" name="name" class="form-control col-sm-5" required="required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputEmail">确认密码</label>
+                            <input type="password" name="email" class="form-control col-sm-5">
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary">修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

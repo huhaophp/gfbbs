@@ -16,31 +16,6 @@
     <!-- Custom fonts for this template-->
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="/web/web.css" rel="stylesheet" type="text/css">
-    <style>
-        .brand-add {
-            margin-left: 17%;
-            color: #19191a;
-            font-size: 20px;
-        }
-
-        .navbar-background {
-            background: #fff !important;
-        }
-
-        .search-input {
-            border-radius: 10px;
-        }
-
-        .auth-user-avatar {
-            max-height: 26px;
-            max-width: 26px;
-            border-radius: 100%;
-        }
-
-        .row-mt-80 {
-            margin-top: 70px;
-        }
-    </style>
 </head>
 <body class="body-box">
 <nav class="navbar navbar-expand-md fixed-top navbar-background">
@@ -65,7 +40,7 @@
                              class="auth-user-avatar"> {{ .Session.user.name }}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/user/{{.Session.user.id}}">用户详情</a>
+                        <a class="dropdown-item" href="/user/edit">修改资料</a>
                         <form action="/user/logout" method="POST">
                             <button class="dropdown-item">退出登录</button>
                         </form>
@@ -91,8 +66,8 @@
                     </button>
                 </div>
             </div>
-            {{include .mainTpl .}}
         </div>
+        {{include .mainTpl .}}
     </div>
 </main>
 <script>

@@ -23,6 +23,7 @@ func init() {
 		group.POST("/user/logout", userController.Logout)
 		group.GET("/user/register", userController.Register)
 		group.POST("/user/register", userController.Register)
-		group.GET("/user/{user}", userController.Detail)
+		group.GET("/user/edit", userController.Edit)
+		group.POST("/user/edit", userController.Edit)
 	})
 }

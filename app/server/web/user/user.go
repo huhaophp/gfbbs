@@ -1,8 +1,10 @@
 package user
 
 import (
+	"bbs/app/model/users"
 	"bbs/app/service/model/user"
 	response "bbs/library"
+	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -11,7 +13,10 @@ const (
 	layout      = "web/layout.html"
 	loginTpl    = "web/user/login.html"
 	detailTpl   = "web/user/detail.html"
+	EditTpl     = "web/user/edit.html"
+	centerTpl   = "web/user/center.html"
 	registerTpl = "web/user/register.html"
+	errorTpl    = "web/error.html"
 )
 
 // Controller Base
@@ -58,10 +63,17 @@ func (c *Controller) Logout(r *ghttp.Request) {
 	response.RedirectToWithMessage(r, "/", "退出成功")
 }
 
-// Detail 用户详情
-func (c *Controller) Detail(r *ghttp.Request) {
+// Edit 编辑用户
+func (c *Controller) Edit(r *ghttp.Request) {
 	if r.Method == "GET" {
-		data := g.Map{"mainTpl": detailTpl}
-		response.ViewExit(r, layout, data)
+		record, err := g.DB().Table(users.Table).WherePri(r.Session.GetMap("user")["id"]).One()
+		if err != nil {
+			response.RedirectBackWithError(r, err)
+		}
+		if record.IsEmpty() {
+			response.RedirectBackWithError(r, gerror.New("用户不存在"))
+		} else {
+			response.ViewExit(r, layout, g.Map{"user": record, "mainTpl": EditTpl})
+		}
 	}
 }

@@ -1,5 +1,5 @@
 .body-box {
-    background: #e2e2e2 !important;
+    background: #f0f2f5 !important;
 }
 
 .avatar-div {
@@ -71,6 +71,7 @@ a {
 .page {
     font-size: 14px;
     padding: 1px;
+
 }
 
 .page a {
@@ -84,4 +85,28 @@ a {
 /*post detail*/
 .post-info {
 
+}
+
+.brand-add {
+    margin-left: 17%;
+    color: #19191a;
+    font-size: 20px;
+}
+
+.navbar-background {
+    background: #fff !important;
+}
+
+.search-input {
+    border-radius: 10px;
+}
+
+.auth-user-avatar {
+    max-height: 26px;
+    max-width: 26px;
+    border-radius: 100%;
+}
+
+.row-mt-80 {
+    margin-top: 70px;
 }

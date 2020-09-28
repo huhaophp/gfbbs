@@ -1,35 +1,29 @@
-<div class="col-sm-9">
-    <div class="card">
-        <div class="card-body">
-            <h5>登录</h5>
-            <hr>
-            <form method="POST" action="/user/login">
-                <div class="form-group">
-                    <div class="form-label-group error">
-                        <label for="inputEmail">邮箱</label>
-                        <input type="email" id="inputEmail" name="email" class="form-control"
-                               placeholder="Email address" required="required" autofocus="autofocus"
-                               value="admin@qq.com">
+<div class="row">
+    <div class="col-sm-9">
+        <div class="card">
+            <div class="card-body">
+                <h5>登录</h5>
+                <hr>
+                <form method="POST" action="/user/login">
+                    <div class="form-group">
+                        <div class="form-label-group error">
+                            <label for="inputEmail">邮箱</label>
+                            <input type="email" id="inputEmail" name="email" class="form-control"
+                                   placeholder="Email address" required="required" autofocus="autofocus"
+                                   value="admin@qq.com">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-label-group">
-                        <label for="inputEmail">密码</label>
-                        <input type="password" name="password" class="form-control"
-                               placeholder="密码" required="required" value="123456" id="inputEmail">
-                        <div class="invalid-feedback">Please provide a valid zip.</div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputEmail">密码</label>
+                            <input type="password" name="password" class="form-control"
+                                   placeholder="密码" required="required" value="123456" id="inputEmail">
+                            <div class="invalid-feedback">Please provide a valid zip.</div>
+                        </div>
                     </div>
-                </div>
-                <button class="btn btn-secondary">登录</button>
-            </form>
+                    <button class="btn btn-secondary">登录</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-3">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item  bg-light">其他登录方式</li>
-        <li class="list-group-item bg-light">
-            <div class="btn btn-link text-secondary">程序员</div>
-        </li>
-    </ul>
 </div>

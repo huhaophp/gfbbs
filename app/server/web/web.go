@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bbs/app/funcs/view"
 	commentsModel "bbs/app/model/comments"
 	"bbs/app/model/nodes"
 	postsModel "bbs/app/model/posts"
@@ -21,6 +22,7 @@ const (
 type Controller struct{}
 
 func (c *Controller) Home(r *ghttp.Request) {
+	g.Dump(view.StrTime("2020-09-28 15:43:15"))
 	pid := r.GetQueryInt("pid")
 	pageNum := r.GetQueryInt("page", 1)
 	// 获取顶级顶级节点

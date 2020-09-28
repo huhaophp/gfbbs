@@ -17,7 +17,7 @@
                             <br>
                             <span style="font-size: 12px;color: #ccc;">
                             <a href=""
-                               style="color: #778087;"> <strong>{{ $posts.name }}</strong></a>  •  {{$posts.created_at}}
+                               style="color: #778087;"> <strong>{{ $posts.name }}</strong></a>  •  {{StrTime $posts.created_at.String}}
                              <span style="font-size: 12px;color: #ccc;text-align: right;">• 回复数 {{ $posts.comment_num }}</span> •  最后回复来自
                             <a href="" style="color: #778087;"><strong>dearmymy</strong></a>
                         </span>

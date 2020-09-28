@@ -42,14 +42,14 @@ func (c *Controller) Home(r *ghttp.Request) {
 		InnerJoin("nodes n", "n.id = p.nid").
 		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name,u.avatar,n.name as node_name").
 		Order("created_at DESC").
-		Page(pageNum, 40).
+		Page(pageNum, 2).
 		All()
 
 	total, _ := g.DB().Table(postsModel.Table).Count()
 
-	page := r.GetPage(total, 40)
+	page := r.GetPage(total, 2)
 
-	data := g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)}
+	data := g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(4)}
 
 	response.ViewExit(r, layout, data)
 }

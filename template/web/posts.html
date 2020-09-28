@@ -6,10 +6,14 @@
             <li class="list-group-item">
                 <h5>{{ .posts.title }}</h5>
                 <div>
-                    <a href="" class="badge badge-light"><i class="fa fa-tag"></i> {{ .posts.node_name }} </a>
-                    <a href="" class="badge badge-light"><i class="fa fa-user"></i> {{.posts.user_name}}</a>
-                    <span class="badge badge-light"><i class="fa fa-eye"></i> {{.posts.view_num}} </span>
-                    <span class="badge badge-light"><i class="fa fa-clock"></i> {{.posts.created_at}}</span>
+                    <a href="" class="badge badge-light" style="color: #acacac;"><i
+                                class="fa fa-tag"></i> {{.posts.node_name}}</a>
+                    <a href="" class="badge badge-light" style="color: #acacac;"><i
+                                class="fa fa-user"></i> {{.posts.user_name}}</a>
+                    <span class="badge badge-light" style="color: #acacac;"><i
+                                class="fa fa-clock"></i> {{StrTime .posts.created_at.String}}</span>
+                    <span class="badge badge-light" style="color: #acacac;"><i
+                                class="fa fa-comment"></i> {{.posts.view_num}}</span>
                 </div>
             </li>
             <li class="list-group-item posts-content">
@@ -28,7 +32,7 @@
                         <span style="font-size: 14px;color: #999;">{{StrTime $comment.created_at.String}}</span>
                     </div>
                     <hr>
-                    <div class="comment-content" style="font-size: 13px;">
+                    <div class="comment-content" style="font-size: 14px;">
                         {{if gt $comment.ruid 0}}
                             @ <a href="" style="color: #778087;">{{ $comment.r_user_name }}</a>
                         {{end}}

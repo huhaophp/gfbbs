@@ -2,14 +2,22 @@
 [server]
 Address = ":8199"
 ServerRoot = "public"
-ServerAgent = "gf-app"
-LogPath = "/tmp/log/gf-app/server"
+ServerAgent = "gfblog"
+LogPath = "/tmp/log/gfblog/server"
+AccessLogEnabled = true
+ErrorLogEnabled = true
+PProfEnabled = true
+SessionIdName = "gfsessionid"
+SessionPath = "/tmp/log/gfblog/session"
+SessionMaxAge = "24h"
+DumpRouterMap = true
+NameToUriType = 3
 
 # Logger.
 [logger]
-Path = "/tmp/log/hblog"
+Path = "/tmp/log/gfblog"
 Level = "all"
-Stdout = false
+Stdout = true
 
 # Template.
 [viewer]
@@ -19,17 +27,23 @@ Delimiters = ["{{", "}}"]
 
 # Database.
 [database]
-link = "mysql:homestead:secret@tcp(127.0.0.1:33060)/gfblog"
+type = "mysql"
+host = "127.0.0.1"
+port = "33060"
+user = "homestead"
+pass = "secret"
+name = "gfbbs"
+charset = "utf8mb4" #数据库编码
+maxIdle = "10" #连接池最大闲置的连接数
+maxOpen = "10" #连接池最大打开的连接数
+maxLifetime = "30" #(单位秒)连接对象可重复使用的时间长度
 debug = true
 # Database logger.
 [database.logger]
-Path = "/tmp/log/gf-app/sql"
+Path = "/tmp/log/gfblog/sql"
 Level = "all"
-Stdout = true
+Stdout = false
+
 [auth]
 email = "admin@qq.com"
 password = "e10adc3949ba59abbe56e057f20f883e"
-# valine
-[valine]
-app_id="cQRlNpo7fR7rpNQLUCm93DDh-gzGzoHsz"
-app_key="PKmYz8rU07k071k0CUpHJpn3"

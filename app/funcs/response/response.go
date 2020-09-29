@@ -61,6 +61,11 @@ func RedirectBackWithError(r *ghttp.Request, err error) {
 	r.Response.RedirectBack()
 }
 
+func RedirectToWithError(r *ghttp.Request, to string, err error) {
+	_ = r.Session.Set("error", err.Error())
+	r.Response.RedirectTo(to)
+}
+
 func RedirectToWithMessage(r *ghttp.Request, to string, msg string) {
 	_ = r.Session.Set("success", msg)
 	r.Response.RedirectTo(to)

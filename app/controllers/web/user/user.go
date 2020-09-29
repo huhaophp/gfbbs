@@ -1,6 +1,7 @@
 package user
 
 import (
+	"bbs/app/constants"
 	"bbs/app/model/users"
 	"bbs/app/service/model/user"
 	response "bbs/app/funcs/response"
@@ -17,7 +18,6 @@ const (
 	centerTpl   = "web/user/center.html"
 	registerTpl = "web/user/register.html"
 	errorTpl    = "web/error.html"
-	SessionKey  = "user"
 )
 
 // Controller Base
@@ -52,14 +52,14 @@ func (c *Controller) Login(r *ghttp.Request) {
 	if record, err := user.Login(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
-		_ = r.Session.Set(SessionKey, record)
+		_ = r.Session.Set(constants.UserSessionKey, record)
 		response.RedirectToWithMessage(r, "/", "登录成功")
 	}
 }
 
 // Logout 用户退出
 func (c *Controller) Logout(r *ghttp.Request) {
-	err := r.Session.Remove("user")
+	err := r.Session.Remove(constants.UserSessionKey)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
@@ -69,7 +69,7 @@ func (c *Controller) Logout(r *ghttp.Request) {
 
 // Edit 编辑用户
 func (c *Controller) Edit(r *ghttp.Request) {
-	record, err := g.DB().Table(users.Table).WherePri(r.Session.GetMap("user")["id"]).One()
+	record, err := g.DB().Table(users.Table).WherePri(r.Session.GetMap(constants.UserSessionKey)["id"]).One()
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}

@@ -22,8 +22,8 @@ func CommentPost(entity *AddReqEntity) error {
 		"ruid":       entity.Ruid,
 		"content":    entity.Content,
 		"is_delete":  0,
-		"created_at": gtime.Now(),
-		"updated_at": gtime.Now(),
+		"create_at": gtime.Now(),
+		"update_at": gtime.Now(),
 	})
 	if err != nil {
 		return err

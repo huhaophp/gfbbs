@@ -37,8 +37,8 @@ func Register(entity *RegisterReqEntity) error {
 		"status":      0,
 		"gender":      0,
 		"register_at": gtime.Now(),
-		"created_at":  gtime.Now(),
-		"updated_at":  gtime.Now(),
+		"create_at":  gtime.Now(),
+		"update_at":  gtime.Now(),
 	})
 	if err != nil {
 		return err

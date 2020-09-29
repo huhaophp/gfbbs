@@ -33,11 +33,11 @@ func (c *Controller) Index(r *ghttp.Request) {
 	}
 
 	items, _ := g.DB().Table(postsModel.Table+" p").
-		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name,u.avatar,n.name as node_name").
+		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name,u.avatar,n.name as node_name").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
 		Where("p.nid = ?", id).
-		Order("created_at DESC").
+		Order("create_at DESC").
 		Page(pageNum, 40).
 		All()
 

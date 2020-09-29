@@ -52,8 +52,8 @@ func (c *Controller) Add(r *ghttp.Request) {
 		"sort":       data.Sort,
 		"pid":        data.Pid,
 		"desc":       data.Desc,
-		"created_at": gtime.Now(),
-		"updated_at": gtime.Now(),
+		"create_at": gtime.Now(),
+		"update_at": gtime.Now(),
 	})
 	if err != nil {
 		response.RedirectBackWithError(r, err)
@@ -96,7 +96,7 @@ func (c *Controller) Edit(r *ghttp.Request) {
 		"pid":        data.Pid,
 		"desc":       data.Desc,
 		"status":     data.Status,
-		"updated_at": gtime.Now(),
+		"update_at": gtime.Now(),
 	})
 	if err != nil {
 		response.RedirectBackWithError(r, err)
@@ -117,7 +117,7 @@ func (c *Controller) Del(r *ghttp.Request) {
 	}
 	res, err := g.DB().Table(nodes.Table).WherePri(id).Update(g.Map{
 		"is_delete":  1,
-		"updated_at": gtime.Now(),
+		"update_at": gtime.Now(),
 	})
 	if err != nil {
 		response.RedirectBackWithError(r, err)

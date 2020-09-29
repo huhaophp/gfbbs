@@ -10,7 +10,7 @@
                     <a href="" class="badge badge-light" style="color: #acacac;"><i
                                 class="fa fa-user"></i> {{.posts.user_name}}</a>
                     <span class="badge badge-light" style="color: #acacac;"><i
-                                class="fa fa-clock"></i> {{StrTime .posts.created_at.String}}</span>
+                                class="fa fa-clock"></i> {{StrTime .posts.create_at.String}}</span>
                     <span class="badge badge-light" style="color: #acacac;"><i
                                 class="fa fa-comment"></i> {{.posts.view_num}}</span>
                 </div>
@@ -28,7 +28,7 @@
                             <img src="/{{$comment.avatar}}" style="border-radius: 2px;height: 30px;width:30px;">
                         </a>
                         <a href="" style="font-size: 14px;color:#999;"><strong>{{$comment.name}}</strong></a>
-                        <span style="font-size: 14px;color: #999;">{{StrTime $comment.created_at.String}}</span>
+                        <span style="font-size: 14px;color: #999;">{{StrTime $comment.create_at.String}}</span>
                     </div>
                     <hr>
                     <div class="comment-content" style="font-size: 14px;">

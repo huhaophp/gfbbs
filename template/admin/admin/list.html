@@ -1,5 +1,11 @@
 <div class="card">
-    <div class="card-header">管理员管理</div>
+    <div class="card-header">
+        管理员管理
+        <div class="input-group mr-1 .text-right">
+            <button class="btn btn-success" type="button" onclick="window.location='/admin/admins/add'">添加
+            </button>
+        </div>
+    </div>
     <div class="card-body">
         <table class="table table-bordered">
             <thead>
@@ -25,9 +31,12 @@
                         {{end}}
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="">编辑</a>
-                        <a class="btn btn-primary btn-sm" href="">禁用</a>
-                        <a class="btn btn-danger btn-sm" href="">删除</a>
+                        <a class="btn btn-primary btn-sm" href="/admin/admins/{{ $item.id }}/edit">编辑</a>
+
+                        <form action="/admin/admins/{{ $item.id }}/delete" method="POST" style="display: inline-block;">
+                            <button class="btn btn-danger btn-sm">删除</button>
+                        </form>
+
                     </td>
                 </tr>
             {{end}}

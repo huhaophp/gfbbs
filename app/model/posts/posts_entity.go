@@ -20,8 +20,8 @@ type Entity struct {
     Content    string      `orm:"content"     json:"content"`     //   
     ViewNum    int         `orm:"view_num"    json:"view_num"`    //   
     CommentNum int         `orm:"comment_num" json:"comment_num"` //   
-    CreatedAt  *gtime.Time `orm:"created_at"  json:"created_at"`  //   
-    UpdatedAt  *gtime.Time `orm:"updated_at"  json:"updated_at"`  //   
+    CreatedAt  *gtime.Time `orm:"create_at"  json:"create_at"`  //
+    UpdatedAt  *gtime.Time `orm:"update_at"  json:"update_at"`  //
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

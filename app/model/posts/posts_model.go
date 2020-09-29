@@ -43,8 +43,8 @@ var (
         Content:    "content",      
         ViewNum:    "view_num",     
         CommentNum: "comment_num",  
-        CreatedAt:  "created_at",   
-        UpdatedAt:  "updated_at",
+        CreatedAt:  "create_at",
+        UpdatedAt:  "update_at",
 	}
 )
 

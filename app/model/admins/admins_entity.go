@@ -17,8 +17,8 @@ type Entity struct {
     Email     string      `orm:"email"      json:"email"`      //   
     Password  string      `orm:"password"   json:"password"`   //   
     Status    int         `orm:"status"     json:"status"`     //   
-    CreatedAt *gtime.Time `orm:"created_at" json:"created_at"` //   
-    UpdatedAt *gtime.Time `orm:"updated_at" json:"updated_at"` //   
+    CreatedAt *gtime.Time `orm:"create_at" json:"create_at"` //
+    UpdatedAt *gtime.Time `orm:"update_at" json:"update_at"` //
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

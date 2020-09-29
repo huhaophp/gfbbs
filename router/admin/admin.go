@@ -33,6 +33,11 @@ func init() {
 		group.GET("home", homeController.Home)
 
 		group.GET("admins", adminController.List)
+		group.GET("admins/add", adminController.Add)
+		group.POST("admins/add", adminController.Add)
+		group.GET("admins/{id}/edit", adminController.Edit)
+		group.POST("admins/{id}/edit", adminController.Edit)
+		group.POST("admins/{id}/delete", adminController.Delete)
 
 		group.GET("nodes", nodeController.List)
 		group.GET("nodes/add", nodeController.Add)

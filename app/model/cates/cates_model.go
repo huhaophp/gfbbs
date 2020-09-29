@@ -41,8 +41,8 @@ var (
         Status:    "status",      
         IsTop:     "is_top",      
         IsDelete:  "is_delete",   
-        CreatedAt: "created_at",  
-        UpdatedAt: "updated_at",
+        CreatedAt: "create_at",
+        UpdatedAt: "update_at",
 	}
 )
 

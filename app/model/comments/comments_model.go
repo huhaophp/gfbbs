@@ -39,8 +39,8 @@ var (
         Ruid:      "ruid",        
         Content:   "content",     
         IsDelete:  "is_delete",   
-        CreatedAt: "created_at",  
-        UpdatedAt: "updated_at",
+        CreatedAt: "create_at",
+        UpdatedAt: "update_at",
 	}
 )
 

@@ -4,7 +4,7 @@ import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	"bbs/app/model/admins"
-	"bbs/app/request/admin"
+	"bbs/app/request/Auth"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
@@ -28,8 +28,8 @@ func (c *Controller) Login(r *ghttp.Request) {
 	if r.Method == "GET" {
 		response.ViewExit(r, loginTpl, g.Map{})
 	}
-	var data admin.LoginReqEntity
-	err := admin.LoginReqCheck(r, &data)
+	var data Auth.LoginReqEntity
+	err := Auth.LoginReqCheck(r, &data)
 	if err != nil {
 		response.RedirectBackWithError(r, gerror.New("请输入登录账号密码"))
 	}
@@ -44,7 +44,7 @@ func (c *Controller) Login(r *ghttp.Request) {
 	if hash != (res["password"].String()) {
 		response.RedirectBackWithError(r, gerror.New("账号或者密码错误"))
 	}
-	if err := r.Session.Set(constants.AdminSessionKey, res["name"].String()); err != nil {
+	if err := r.Session.Set(constants.AdminSessionKey, res); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
 		response.RedirectToWithMessage(r, homePage, "登录成功")

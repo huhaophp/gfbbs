@@ -37,8 +37,8 @@ var (
         Email:     "email",       
         Password:  "password",    
         Status:    "status",      
-        CreatedAt: "created_at",  
-        UpdatedAt: "updated_at",
+        CreatedAt: "create_at",
+        UpdatedAt: "update_at",
 	}
 )
 

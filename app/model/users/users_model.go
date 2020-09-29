@@ -45,8 +45,8 @@ var (
         Status:      "status",         
         LastLoginIp: "last_login_ip",  
         RegisterAt:  "register_at",    
-        CreatedAt:   "created_at",     
-        UpdatedAt:   "updated_at",
+        CreatedAt:   "create_at",
+        UpdatedAt:   "update_at",
 	}
 )
 

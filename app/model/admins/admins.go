@@ -3,3 +3,8 @@
 // ============================================================================
 
 package admins
+
+const (
+	NormalStatus = 0
+	ForbiddenStatus = 1
+)

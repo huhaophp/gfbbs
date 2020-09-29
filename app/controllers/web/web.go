@@ -38,8 +38,8 @@ func (c *Controller) Home(r *ghttp.Request) {
 	posts, _ = g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
-		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name,u.avatar,n.name as node_name").
-		Order("created_at DESC").
+		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name,u.avatar,n.name as node_name").
+		Order("create_at DESC").
 		Page(pageNum, 20).
 		All()
 
@@ -60,12 +60,12 @@ func (c *Controller) PostDetail(r *ghttp.Request) {
 	posts, _ := g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
-		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name as user_name,u.avatar,n.name node_name").
+		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,n.name node_name").
 		Where("p.id = ?", postsId).
 		One()
 
 	comments, _ := g.DB().Table(commentsModel.Table+" c").
-		Fields("c.id,c.uid,c.ruid,c.content,u.name,u.avatar,ru.name as r_user_name,c.created_at").
+		Fields("c.id,c.uid,c.ruid,c.content,u.name,u.avatar,ru.name as r_user_name,c.create_at").
 		LeftJoin("users u", "u.id = c.uid").
 		LeftJoin("users ru", "ru.id = c.ruid").
 		Where("c.pid", postsId).

@@ -19,8 +19,8 @@ type Entity struct {
     Status    int         `orm:"status"     json:"status"`     // 状态                     
     IsTop     int         `orm:"is_top"     json:"is_top"`     // 置顶 优先展示在首页顶部  
     IsDelete  int         `orm:"is_delete"  json:"is_delete"`  // 是否删除:0-否/1-是       
-    CreatedAt *gtime.Time `orm:"created_at" json:"created_at"` //                          
-    UpdatedAt *gtime.Time `orm:"updated_at" json:"updated_at"` //                          
+    CreatedAt *gtime.Time `orm:"create_at" json:"create_at"` //
+    UpdatedAt *gtime.Time `orm:"update_at" json:"update_at"` //
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

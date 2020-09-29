@@ -1,8 +1,10 @@
 package boot
 
 import (
+	"bbs/app/funcs/response"
 	"bbs/app/funcs/view"
 	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/net/ghttp"
 	"github.com/gogf/gf/os/glog"
 	"github.com/gogf/gf/os/gtime"
 	"github.com/gogf/gf/os/gview"
@@ -11,6 +13,10 @@ import (
 func init() {
 	initSystemSetting()
 	initViewFunctions()
+	// Handling routing 404 errors
+	g.Server().BindStatusHandler(404, func(r *ghttp.Request) {
+		response.PageNotFound(r)
+	})
 }
 
 // initSystemSetting 初始化系统设置

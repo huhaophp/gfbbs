@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+// 响应全局函数
+
 // 数据返回通用JSON数据结构
 type JsonResponse struct {
 	Code    int         `json:"code"`    // 错误码((0:成功, 1:失败, >1:错误码))
@@ -48,7 +50,7 @@ func ViewExit(r *ghttp.Request, layout string, data g.Map) {
 }
 
 // 返回404视图并退出当前HTTP执行函数。
-func NotFoundView(r *ghttp.Request) {
+func PageNotFound(r *ghttp.Request) {
 	s := strings.Split(r.RequestURI, "/")
 
 	d := "web"

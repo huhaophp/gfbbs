@@ -5,6 +5,8 @@ import (
 	"github.com/gogf/gf/os/gtime"
 )
 
+// 视图模版全局函数
+
 // StrTime 格式化时间
 func StrTime(str string) string {
 	// Current timestamp

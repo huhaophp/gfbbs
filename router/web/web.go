@@ -21,15 +21,15 @@ func init() {
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
 		group.GET("/posts/{postsId}", webController.PostDetail)
-		group.POST("/markdown/file", fileController.MdFileStore)
 		group.GET("/user/login", userController.Login)
 		group.POST("/user/login", userController.Login)
 		group.POST("/user/logout", userController.Logout)
 		group.GET("/user/register", userController.Register)
 		group.POST("/user/register", userController.Register)
-		group.GET("/user/edit", userController.Edit)
-		group.POST("/user/edit", userController.Edit)
 		group.GET("/node/{nodeId}", nodeController.Index)
 		group.POST("/comment", commentController.Add)
+		group.GET("/user/edit", userController.Edit)
+		group.POST("/user/edit", userController.Edit)
+		group.POST("/markdown/file", fileController.MdFileStore)
 	})
 }

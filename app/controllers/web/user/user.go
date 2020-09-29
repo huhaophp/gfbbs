@@ -2,9 +2,9 @@ package user
 
 import (
 	"bbs/app/constants"
+	response "bbs/app/funcs/response"
 	"bbs/app/model/users"
 	"bbs/app/service/model/user"
-	response "bbs/app/funcs/response"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -53,7 +53,12 @@ func (c *Controller) Login(r *ghttp.Request) {
 		response.RedirectBackWithError(r, err)
 	} else {
 		_ = r.Session.Set(constants.UserSessionKey, record)
-		response.RedirectToWithMessage(r, "/", "登录成功")
+		callbackUrl := r.GetQueryString("callback_url")
+		if callbackUrl != "" {
+			response.RedirectToWithMessage(r, callbackUrl, "登录成功")
+		} else {
+			response.RedirectToWithMessage(r, "/", "登录成功")
+		}
 	}
 }
 

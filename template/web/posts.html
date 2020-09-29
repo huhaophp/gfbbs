@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/markdown/css/editormd.min.css"/>
 <div class="row">
     <div class="col-sm-9">
         <ul class="list-group list-group-flush">
@@ -26,7 +25,7 @@
                 <div class="list-group-item">
                     <div class="comment-user-info" style="height: 22px;">
                         <a href="/users/{{$comment.uid}}">
-                            <img src="/{{$comment.avatar}}" style="border-radius: 10px;height: 30px;width:30px;">
+                            <img src="/{{$comment.avatar}}" style="border-radius: 2px;height: 30px;width:30px;">
                         </a>
                         <a href="" style="font-size: 14px;color:#999;"><strong>{{$comment.name}}</strong></a>
                         <span style="font-size: 14px;color: #999;">{{StrTime $comment.created_at.String}}</span>
@@ -51,43 +50,67 @@
                 </div>
             </li>
             <li class="list-group-item mt-2">
-                <form action="/comment" method="POST">
+                <form action="/comment" method="POST" id="comment-form">
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" name="content"></textarea>
+                        <textarea class="form-control" rows="3" name="content" id="content"></textarea>
                     </div>
                     <input type="hidden" name="pid" value="{{ .posts.id }}">
                     <input type="hidden" name="ruid" value="0">
                     <input type="hidden" name="uid" value="{{ .Session.user.id }}">
                     <div class="form-group">
-                        <button class="btn btn-dark btn-sm submit-btn">回复</button>
+                        <button class="btn btn-dark btn-sm submit-btn" type="button">回复</button>
                     </div>
                 </form>
             </li>
         </ul>
     </div>
 </div>
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">请登录</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/user/login?callback_url=/posts/{{ .posts.id }}">
+                    <div class="form-group">
+                        <div class="form-label-group error">
+                            <label for="inputEmail">邮箱</label>
+                            <input type="email" id="inputEmail" name="email" class="form-control"
+                                   placeholder="Email address" required="required" autofocus="autofocus"
+                                   value="admin@qq.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputEmail">密码</label>
+                            <input type="password" name="password" class="form-control"
+                                   placeholder="密码" required="required" value="123456" id="inputEmail">
+                            <div class="invalid-feedback">Please provide a valid zip.</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(function () {
-        editormd("editormd", {
-            path: "/markdown/lib/",
-            width: "100%",
-            height: 300,
-            codeFold: true,
-            watch: false,
-            lineNumbers: true,
-            lineWrapping: false,
-            // toolbarIcons: function () {
-            //     return []
-            // },
-            placeholder: null,
-            imageUpload: true,
-            imageFormats: ["jpg", "jpeg", "gif", "png"],
-            imageUploadURL: "/markdown/file",
-            saveHTMLToTextarea: true,
+        $(".submit-btn").on("click", function () {
+            if (auth === "") {
+                $('#login-modal').modal('show');
+            } else {
+                if ($('#content').val()) {
+                    $('#content').br
+                    $('#comment-form').submit();
+                }
+            }
         });
-        $('.submit-btn').on('click', function () {
-            console.log($('.editormd-preview-container').html());
-        })
-        $('[data-toggle="tooltip"]').tooltip()
     })
 </script>

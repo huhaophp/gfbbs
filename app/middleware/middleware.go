@@ -11,7 +11,7 @@ import (
 
 // AdminAuthCheck Check admin authorization check.
 func AdminAuthCheck(r *ghttp.Request) {
-	auth := r.Session.Get(constants.AdminSessionKey)
+	auth := r.Session.GetMap(constants.AdminSessionKey)
 	if auth == nil {
 		if r.IsAjaxRequest() || r.Header.Get("Accept") == "application/json" {
 			response.Json(r, 401, "Authorization failed")
@@ -19,8 +19,7 @@ func AdminAuthCheck(r *ghttp.Request) {
 			response.RedirectToWithError(r, "/admin/login", gerror.New("登录已过期"))
 		}
 	} else {
-		adminMap := auth.(map[string]interface{})
-		admin, err := g.DB().Table(admins.Table).WherePri(adminMap["id"]).Where("status", admins.NormalStatus).One()
+		admin, err := g.DB().Table(admins.Table).WherePri(auth["id"]).Where("status", admins.NormalStatus).One()
 		if err != nil || admin == nil {
 			response.RedirectToWithError(r, "/admin/login", gerror.New("登录失效"))
 		}

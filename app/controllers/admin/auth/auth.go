@@ -21,10 +21,6 @@ type Controller struct{}
 
 // Login 登录页面
 func (c *Controller) Login(r *ghttp.Request) {
-	isAuth := r.Session.Get(constants.AdminSessionKey)
-	if isAuth != nil {
-		response.RedirectToWithMessage(r, homePage, "")
-	}
 	if r.Method == "GET" {
 		response.ViewExit(r, loginTpl, g.Map{})
 	}
@@ -43,6 +39,9 @@ func (c *Controller) Login(r *ghttp.Request) {
 	hash, _ := gmd5.Encrypt(data.Password)
 	if hash != (res["password"].String()) {
 		response.RedirectBackWithError(r, gerror.New("账号或者密码错误"))
+	}
+	if res["status"].Int() == admins.ForbiddenStatus {
+		response.RedirectBackWithError(r, gerror.New("该账号已被冻结"))
 	}
 	if err := r.Session.Set(constants.AdminSessionKey, res); err != nil {
 		response.RedirectBackWithError(r, err)

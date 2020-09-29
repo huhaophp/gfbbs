@@ -1,22 +1,24 @@
-<div class="col-sm-9">
+<div class="col-sm-5 m-auto">
     <div class="card">
         <div class="card-body">
             <b>用户登录</b>
             <hr>
+            <div class="alert alert-dismissible fade show alert-msg" role="alert" style="display: none;">
+                <span class="msg-content"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form method="POST" action="/user/login">
                 <div class="form-group">
                     <div class="form-label-group error">
-                        <label for="inputEmail">邮箱</label>
-                        <input type="email" id="inputEmail" name="email" class="form-control"
-                               placeholder="Email address" required="required" autofocus="autofocus"
-                               value="admin@qq.com">
+                        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="邮箱" required autofocus>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group">
-                        <label for="inputEmail">密码</label>
                         <input type="password" name="password" class="form-control"
-                               placeholder="密码" required="required" value="123456" id="inputEmail">
+                               placeholder="密码" required autofocus>
                         <div class="invalid-feedback">Please provide a valid zip.</div>
                     </div>
                 </div>

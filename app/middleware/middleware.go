@@ -21,7 +21,7 @@ func AdminAuthCheck(r *ghttp.Request) {
 	} else {
 		admin, err := g.DB().Table(admins.Table).WherePri(auth["id"]).Where("status", admins.NormalStatus).One()
 		if err != nil || admin == nil {
-			r.Session.Remove(constants.AdminSessionKey)
+			//r.Session.Remove(constants.AdminSessionKey)
 			response.RedirectToWithError(r, "/admin/login", gerror.New("登录失效"))
 		}
 		r.Middleware.Next()

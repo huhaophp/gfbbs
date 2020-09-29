@@ -1,34 +1,60 @@
-<div class="col-sm-9">
+<div class="col-sm-5 m-auto">
     <div class="card">
         <div class="card-body">
             <b>用户注册</b>
             <hr>
+            <div class="alert alert-dismissible fade show alert-msg" role="alert" style="display: none;">
+                <span class="msg-content"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form method="POST" action="/user/register">
                 <div class="form-group">
                     <div class="form-label-group error">
-                        <label for="inputName">呢称</label>
-                        <input type="text" id="inputName" name="name" class="form-control"
-                               placeholder="Email address" required="required" autofocus="autofocus" value="zhan">
+                        <input type="text" id="inputName" name="name" class="form-control form-control-lg"
+                               placeholder="用户呢称" required="required" autofocus>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group error">
-                        <label for="inputEmail">邮箱</label>
-                        <input type="email" id="inputEmail" name="email" class="form-control"
-                               placeholder="Email address" required="required" autofocus="autofocus"
-                               value="admin@qq.com">
+                        <input type="email" id="inputEmail" name="email" class="form-control form-control-lg"
+                               placeholder="用户邮箱" required="required" autofocus>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group">
-                        <label for="inputEmail">密码</label>
-                        <input type="password" name="password" class="form-control"
-                               placeholder="密码" required="required" value="123456" id="inputEmail">
-                        <div class="invalid-feedback">Please provide a valid zip.</div>
+                        <input type="password" name="password" class="form-control form-control-lg"
+                               placeholder="用户密码" required  autofocus>
                     </div>
                 </div>
-                <button class="btn btn-secondary">注册</button>
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <input type="password" name="confirm_password" class="form-control form-control-lg"
+                               placeholder="确认密码" required autofocus="autofocus">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-lg" placeholder="请输入验证码" required autofocus>
+                            <div class="input-group-append">
+                                <img src="/uploadfile/c3obhscjju6o5pr8fw.jpg" style="height: calc(2.875rem + 2px);width: 200px;border-radius: 2px;" type="button">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <button class="btn btn-primary submit-register" type="button">确定注册</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('.submit-register').on('click', function () {
+            $(this).attr("disabled", true).text("正在注册");
+            $('form').submit();
+        });
+    })
+</script>

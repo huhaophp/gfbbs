@@ -3,7 +3,7 @@ package auth
 import (
 	"bbs/app/model/admins"
 	"bbs/app/request/admin"
-	response "bbs/library"
+	response "bbs/app/funcs/response"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"

@@ -2,7 +2,7 @@ package config
 
 import (
 	"bbs/app/model/configs"
-	response "bbs/library"
+	response "bbs/app/funcs/response"
 	"errors"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"

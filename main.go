@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bbs/app/funcs/response"
 	_ "bbs/boot"
-	response "bbs/library"
 	_ "bbs/router/admin"
 	_ "bbs/router/web"
 	"github.com/gogf/gf/frame/g"

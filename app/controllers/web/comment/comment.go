@@ -2,7 +2,7 @@ package comment
 
 import (
 	"bbs/app/service/model/comment"
-	response "bbs/library"
+	response "bbs/app/funcs/response"
 	"fmt"
 	"github.com/gogf/gf/net/ghttp"
 )

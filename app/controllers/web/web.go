@@ -1,11 +1,10 @@
 package web
 
 import (
-	"bbs/app/funcs/view"
+	response "bbs/app/funcs/response"
 	commentsModel "bbs/app/model/comments"
 	"bbs/app/model/nodes"
 	postsModel "bbs/app/model/posts"
-	response "bbs/library"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -22,7 +21,6 @@ const (
 type Controller struct{}
 
 func (c *Controller) Home(r *ghttp.Request) {
-	g.Dump(view.StrTime("2020-09-28 15:43:15"))
 	pid := r.GetQueryInt("pid")
 	pageNum := r.GetQueryInt("page", 1)
 	// 获取顶级顶级节点
@@ -42,12 +40,12 @@ func (c *Controller) Home(r *ghttp.Request) {
 		InnerJoin("nodes n", "n.id = p.nid").
 		Fields("p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.created_at,u.name,u.avatar,n.name as node_name").
 		Order("created_at DESC").
-		Page(pageNum, 2).
+		Page(pageNum, 20).
 		All()
 
 	total, _ := g.DB().Table(postsModel.Table).Count()
 
-	page := r.GetPage(total, 2)
+	page := r.GetPage(total, 20)
 
 	data := g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(4)}
 

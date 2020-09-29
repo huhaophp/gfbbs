@@ -18,64 +18,65 @@
         var auth = "{{ .Session.user.id }}"
     </script>
 </head>
-<body>
-<div class="container">
-    <!--- nav --->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">GFBBS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav mr-auto"></div>
-            <div class="dropdown">
-                {{if .Session.user}}
-                    <div class="btn-group" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-sm btn-light">
-                            <span class="badge badge-danger">0 </span>
-                        </button>
-                        <button type="button" class="btn btn-light dropdown-toggle btn-sm" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="/{{ .Session.user.avatar }}" style="height: 24px;width: 24px;" class="rounded-circle"> {{ .Session.user.name }}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/user/edit">修改资料</a>
-                            <form action="/user/logout" method="POST">
-                                <button class="dropdown-item">退出登录</button>
-                            </form>
+<body style="color: #636b6f;background:#f0f2f5; ">
+<div class="row">
+    <div class="container-fluid">
+        <!--- nav --->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white" style="border-top: 4px solid #368cda; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);">
+            <a class="navbar-brand ml-5" href="/">GFBBS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav mr-auto"></div>
+                <div class="dropdown">
+                    {{if .Session.user}}
+                        <div class="btn-group" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-sm">
+                                <span class="badge badge-danger">0 </span>
+                            </button>
+                            <button type="button" class="btn dropdown-toggle btn-sm" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/{{ .Session.user.avatar }}" style="height: 24px;width: 24px;" class="rounded-circle"> {{ .Session.user.name }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/user/edit">修改资料</a>
+                                <form action="/user/logout" method="POST">
+                                    <button class="dropdown-item">退出登录</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                {{else}}
-                    <div class="btn-group" role="group" aria-label="First group">
-                        <a class="btn btn-light" href="/user/register">注册</a>
-                        <a class="btn btn-light" href="/user/login">登录</a>
-                    </div>
-                {{end}}
+                    {{else}}
+                        <div class="btn-group" role="group" aria-label="First group">
+                            <a class="btn btn-light" href="/user/register">注册</a>
+                            <a class="btn btn-light" href="/user/login">登录</a>
+                        </div>
+                    {{end}}
+                </div>
             </div>
-        </div>
-    </nav>
-    <!--- main --->
-    <main class="row" style="margin-top: 80px;">
-        <div class="col-sm-9">
-            <div class="alert alert-dismissible fade show alert-msg" role="alert" style="display: none;">
-                <strong><span class="msg-content"></span></strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        </nav>
+        <!--- main --->
+        <main class="row" style="margin-bottom: 80px;padding:30px 100px 0 100px;">
+            <div class="col-sm-9">
+                <div class="alert alert-dismissible fade show alert-msg" role="alert" style="display: none;">
+                    <strong><span class="msg-content"></span></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
-        </div>
-        {{include .mainTpl .}}
-    </main>
-    <!--- footer --->
-    <footer class="navbar fixed-bottom navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">这个是底部</a>
-    </footer>
+            {{include .mainTpl .}}
+        </main>
+        <!--- footer --->
+        <footer class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">这个是底部</a>
+        </footer>
+    </div>
 </div>
 </body>
 <script>
     $(function () {
-
         $('.top-node-btn').on('click', function (e) {
             window.location = "/?pid=" + $(this).attr('data-id')
         });

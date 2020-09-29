@@ -33,8 +33,8 @@ var (
         Status       string //   
         LastLoginIp  string //   
         RegisterAt   string //   
-        CreatedAt    string //   
-        UpdatedAt    string //
+        CreateAt     string //   
+        UpdateAt     string //
 	}{
 		Id:          "id",             
         Name:        "name",           
@@ -45,8 +45,8 @@ var (
         Status:      "status",         
         LastLoginIp: "last_login_ip",  
         RegisterAt:  "register_at",    
-        CreatedAt:   "create_at",
-        UpdatedAt:   "update_at",
+        CreateAt:    "create_at",      
+        UpdateAt:    "update_at",
 	}
 )
 

@@ -12,15 +12,15 @@ import (
 
 // Entity is the golang structure for table cates.
 type Entity struct {
-    Id        uint        `orm:"id,primary" json:"id"`         //                          
-    Name      string      `orm:"name"       json:"name"`       // 名称                     
-    Sort      int         `orm:"sort"       json:"sort"`       // 排序                     
-    Pid       int         `orm:"pid"        json:"pid"`        //                          
-    Status    int         `orm:"status"     json:"status"`     // 状态                     
-    IsTop     int         `orm:"is_top"     json:"is_top"`     // 置顶 优先展示在首页顶部  
-    IsDelete  int         `orm:"is_delete"  json:"is_delete"`  // 是否删除:0-否/1-是       
-    CreatedAt *gtime.Time `orm:"create_at" json:"create_at"` //
-    UpdatedAt *gtime.Time `orm:"update_at" json:"update_at"` //
+    Id       uint        `orm:"id,primary" json:"id"`        //                          
+    Name     string      `orm:"name"       json:"name"`      // 名称                     
+    Sort     int         `orm:"sort"       json:"sort"`      // 排序                     
+    Pid      int         `orm:"pid"        json:"pid"`       //                          
+    Status   int         `orm:"status"     json:"status"`    // 状态                     
+    IsTop    int         `orm:"is_top"     json:"is_top"`    // 置顶 优先展示在首页顶部  
+    IsDelete int         `orm:"is_delete"  json:"is_delete"` // 是否删除:0-否/1-是       
+    CreateAt *gtime.Time `orm:"create_at"  json:"create_at"` //                          
+    UpdateAt *gtime.Time `orm:"update_at"  json:"update_at"` //                          
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

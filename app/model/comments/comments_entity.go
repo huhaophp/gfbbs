@@ -12,14 +12,14 @@ import (
 
 // Entity is the golang structure for table comments.
 type Entity struct {
-    Id        uint        `orm:"id,primary" json:"id"`         //   
-    Pid       int         `orm:"pid"        json:"pid"`        //   
-    Uid       int         `orm:"uid"        json:"uid"`        //   
-    Ruid      int         `orm:"ruid"       json:"ruid"`       //   
-    Content   string      `orm:"content"    json:"content"`    //   
-    IsDelete  int         `orm:"is_delete"  json:"is_delete"`  //   
-    CreatedAt *gtime.Time `orm:"create_at" json:"create_at"` //
-    UpdatedAt *gtime.Time `orm:"update_at" json:"update_at"` //
+    Id       uint        `orm:"id,primary" json:"id"`        //   
+    Pid      int         `orm:"pid"        json:"pid"`       //   
+    Uid      int         `orm:"uid"        json:"uid"`       //   
+    Ruid     int         `orm:"ruid"       json:"ruid"`      //   
+    Content  string      `orm:"content"    json:"content"`   //   
+    IsDelete int         `orm:"is_delete"  json:"is_delete"` //   
+    CreateAt *gtime.Time `orm:"create_at"  json:"create_at"` //   
+    UpdateAt *gtime.Time `orm:"update_at"  json:"update_at"` //   
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

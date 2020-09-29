@@ -32,8 +32,8 @@ var (
         Content     string //   
         ViewNum     string //   
         CommentNum  string //   
-        CreatedAt   string //   
-        UpdatedAt   string //
+        CreateAt    string //   
+        UpdateAt    string //
 	}{
 		Id:         "id",           
         Title:      "title",        
@@ -43,8 +43,8 @@ var (
         Content:    "content",      
         ViewNum:    "view_num",     
         CommentNum: "comment_num",  
-        CreatedAt:  "create_at",
-        UpdatedAt:  "update_at",
+        CreateAt:   "create_at",    
+        UpdateAt:   "update_at",
 	}
 )
 

@@ -24,27 +24,27 @@ var (
 	Model = &arModel{g.DB("default").Table(Table).Safe()}
 	// Columns defines and stores column names for table nodes.
 	Columns = struct {
-		Id         string //   
-        Name       string //   
-        Sort       string //   
-        Pid        string //   
-        Desc       string //   
-        Status     string //   
-        IsTop      string //   
-        IsDelete   string //   
-        CreatedAt  string //   
-        UpdatedAt  string //
+		Id        string //   
+        Name      string //   
+        Sort      string //   
+        Pid       string //   
+        Desc      string //   
+        Status    string //   
+        IsTop     string //   
+        IsDelete  string //   
+        CreateAt  string //   
+        UpdateAt  string //
 	}{
-		Id:        "id",          
-        Name:      "name",        
-        Sort:      "sort",        
-        Pid:       "pid",         
-        Desc:      "desc",        
-        Status:    "status",      
-        IsTop:     "is_top",      
-        IsDelete:  "is_delete",   
-        CreatedAt: "create_at",
-        UpdatedAt: "update_at",
+		Id:       "id",         
+        Name:     "name",       
+        Sort:     "sort",       
+        Pid:      "pid",        
+        Desc:     "desc",       
+        Status:   "status",     
+        IsTop:    "is_top",     
+        IsDelete: "is_delete",  
+        CreateAt: "create_at",  
+        UpdateAt: "update_at",
 	}
 )
 

@@ -24,21 +24,21 @@ var (
 	Model = &arModel{g.DB("default").Table(Table).Safe()}
 	// Columns defines and stores column names for table admins.
 	Columns = struct {
-		Id         string //   
-        Name       string //   
-        Email      string //   
-        Password   string //   
-        Status     string //   
-        CreatedAt  string //   
-        UpdatedAt  string //
+		Id        string //   
+        Name      string //   
+        Email     string //   
+        Password  string //   
+        Status    string //   
+        CreateAt  string //   
+        UpdateAt  string //
 	}{
-		Id:        "id",          
-        Name:      "name",        
-        Email:     "email",       
-        Password:  "password",    
-        Status:    "status",      
-        CreatedAt: "create_at",
-        UpdatedAt: "update_at",
+		Id:       "id",         
+        Name:     "name",       
+        Email:    "email",      
+        Password: "password",   
+        Status:   "status",     
+        CreateAt: "create_at",  
+        UpdateAt: "update_at",
 	}
 )
 

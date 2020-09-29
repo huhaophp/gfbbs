@@ -24,23 +24,23 @@ var (
 	Model = &arModel{g.DB("default").Table(Table).Safe()}
 	// Columns defines and stores column names for table comments.
 	Columns = struct {
-		Id         string //   
-        Pid        string //   
-        Uid        string //   
-        Ruid       string //   
-        Content    string //   
-        IsDelete   string //   
-        CreatedAt  string //   
-        UpdatedAt  string //
+		Id        string //   
+        Pid       string //   
+        Uid       string //   
+        Ruid      string //   
+        Content   string //   
+        IsDelete  string //   
+        CreateAt  string //   
+        UpdateAt  string //
 	}{
-		Id:        "id",          
-        Pid:       "pid",         
-        Uid:       "uid",         
-        Ruid:      "ruid",        
-        Content:   "content",     
-        IsDelete:  "is_delete",   
-        CreatedAt: "create_at",
-        UpdatedAt: "update_at",
+		Id:       "id",         
+        Pid:      "pid",        
+        Uid:      "uid",        
+        Ruid:     "ruid",       
+        Content:  "content",    
+        IsDelete: "is_delete",  
+        CreateAt: "create_at",  
+        UpdateAt: "update_at",
 	}
 )
 

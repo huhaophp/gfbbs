@@ -21,8 +21,8 @@ type Entity struct {
     Status      int         `orm:"status"        json:"status"`        //   
     LastLoginIp string      `orm:"last_login_ip" json:"last_login_ip"` //   
     RegisterAt  *gtime.Time `orm:"register_at"   json:"register_at"`   //   
-    CreatedAt   *gtime.Time `orm:"create_at"    json:"create_at"`    //
-    UpdatedAt   *gtime.Time `orm:"update_at"    json:"update_at"`    //
+    CreateAt    *gtime.Time `orm:"create_at"     json:"create_at"`     //   
+    UpdateAt    *gtime.Time `orm:"update_at"     json:"update_at"`     //   
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

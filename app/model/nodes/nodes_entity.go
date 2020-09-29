@@ -12,16 +12,16 @@ import (
 
 // Entity is the golang structure for table nodes.
 type Entity struct {
-    Id        uint        `orm:"id,primary" json:"id"`         //   
-    Name      string      `orm:"name"       json:"name"`       //   
-    Sort      uint        `orm:"sort"       json:"sort"`       //   
-    Pid       uint        `orm:"pid"        json:"pid"`        //   
-    Desc      string      `orm:"desc"       json:"desc"`       //   
-    Status    int         `orm:"status"     json:"status"`     //   
-    IsTop     uint        `orm:"is_top"     json:"is_top"`     //   
-    IsDelete  uint        `orm:"is_delete"  json:"is_delete"`  //   
-    CreatedAt *gtime.Time `orm:"create_at" json:"create_at"` //
-    UpdatedAt *gtime.Time `orm:"update_at" json:"update_at"` //
+    Id       uint        `orm:"id,primary" json:"id"`        //   
+    Name     string      `orm:"name"       json:"name"`      //   
+    Sort     uint        `orm:"sort"       json:"sort"`      //   
+    Pid      uint        `orm:"pid"        json:"pid"`       //   
+    Desc     string      `orm:"desc"       json:"desc"`      //   
+    Status   int         `orm:"status"     json:"status"`    //   
+    IsTop    uint        `orm:"is_top"     json:"is_top"`    //   
+    IsDelete uint        `orm:"is_delete"  json:"is_delete"` //   
+    CreateAt *gtime.Time `orm:"create_at"  json:"create_at"` //   
+    UpdateAt *gtime.Time `orm:"update_at"  json:"update_at"` //   
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

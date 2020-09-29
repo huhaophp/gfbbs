@@ -24,25 +24,25 @@ var (
 	Model = &arModel{g.DB("default").Table(Table).Safe()}
 	// Columns defines and stores column names for table cates.
 	Columns = struct {
-		Id         string //                          
-        Name       string // 名称                     
-        Sort       string // 排序                     
-        Pid        string //                          
-        Status     string // 状态                     
-        IsTop      string // 置顶 优先展示在首页顶部  
-        IsDelete   string // 是否删除:0-否/1-是       
-        CreatedAt  string //                          
-        UpdatedAt  string //
+		Id        string //                          
+        Name      string // 名称                     
+        Sort      string // 排序                     
+        Pid       string //                          
+        Status    string // 状态                     
+        IsTop     string // 置顶 优先展示在首页顶部  
+        IsDelete  string // 是否删除:0-否/1-是       
+        CreateAt  string //                          
+        UpdateAt  string //
 	}{
-		Id:        "id",          
-        Name:      "name",        
-        Sort:      "sort",        
-        Pid:       "pid",         
-        Status:    "status",      
-        IsTop:     "is_top",      
-        IsDelete:  "is_delete",   
-        CreatedAt: "create_at",
-        UpdatedAt: "update_at",
+		Id:       "id",         
+        Name:     "name",       
+        Sort:     "sort",       
+        Pid:      "pid",        
+        Status:   "status",     
+        IsTop:    "is_top",     
+        IsDelete: "is_delete",  
+        CreateAt: "create_at",  
+        UpdateAt: "update_at",
 	}
 )
 

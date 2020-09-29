@@ -1,6 +1,7 @@
 package response
 
 import (
+	"fmt"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 	"strings"
@@ -49,11 +50,21 @@ func ViewExit(r *ghttp.Request, layout string, data g.Map) {
 // 返回404视图并退出当前HTTP执行函数。
 func NotFoundView(r *ghttp.Request) {
 	s := strings.Split(r.RequestURI, "/")
+
 	d := "web"
+
 	if s[1] == "admin" {
 		d = "admin"
 	}
-	ViewExit(r, d+"/layout.html", g.Map{"mainTpl": d + "/error.html", "error": "糟糕页面找不到了"})
+
+	layout := fmt.Sprintf("%s/layout.html", d)
+
+	data := g.Map{
+		"mainTpl": fmt.Sprintf("%s/error.html", d),
+		"error":   "糟糕页面找不到了",
+	}
+
+	ViewExit(r, layout, data)
 }
 
 func RedirectBackWithError(r *ghttp.Request, err error) {

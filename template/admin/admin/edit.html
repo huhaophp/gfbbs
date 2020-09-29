@@ -4,12 +4,12 @@
         <form class="col-md-7" method="POST" action="/admin/admins/{{.admin.id}}/edit">
             <div class="form-group">
                 <label><span class="text-danger">*</span>管理员名称</label>
-                <input type="text" class="form-control" name="name" value="{{ .admin.name}}" placeholder="管理员名称">
+                <input type="text" class="form-control" name="name" value="{{ .admin.name }}" placeholder="管理员名称">
             </div>
 
             <div class="form-group">
                 <label><span class="text-danger">*</span>管理员邮箱</label>
-                <input type="text" class="form-control" name="email" value="{{ .admin.email}}" placeholder="管理员邮箱">
+                <input type="text" class="form-control" name="email" value="{{ .admin.email }}" placeholder="管理员邮箱">
             </div>
             <div class="form-group">
                 <label><span class="text-danger">*</span>管理员密码</label>
@@ -18,9 +18,9 @@
 
             <div class="form-group">
                 <label>管理员状态</label>
-                <select name="status" class="form-control" value="{{ .node.status }}">
-                    <option value="0" {{if eq .node.status 0}} selected {{end}}>启用</option>
-                    <option value="1" {{if eq .node.status 1}} selected {{end}}>禁用</option>
+                <select name="status" class="form-control" value="{{ .admin.status }}">
+                    <option value="0" {{if eq .admin.status 0}} selected {{end}}>启用</option>
+                    <option value="1" {{if eq .admin.status 1}} selected {{end}}>禁用</option>
                 </select>
             </div>
             <button class="btn btn-primary btn-block btn-sm">提交</button>

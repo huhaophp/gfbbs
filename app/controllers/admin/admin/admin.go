@@ -1,7 +1,7 @@
 package admin
 
 import (
-	response "bbs/app/funcs/response"
+	"bbs/app/funcs/response"
 	"bbs/app/model/admins"
 	"bbs/app/request/Admin"
 	"github.com/gogf/gf/crypto/gmd5"
@@ -107,12 +107,10 @@ func (c *Controller) Delete(r *ghttp.Request) {
 	if id <= 0 {
 		response.RedirectBackWithError(r, gerror.New("id错误"))
 	}
-	g.Dump(id)
 	res, err := g.DB().Table(admins.Table).Delete("id", id)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	g.Dump(res)
 	rows, err := res.RowsAffected()
 	if err != nil || rows <= 0 {
 		response.RedirectBackWithError(r, gerror.New("删除失败"))

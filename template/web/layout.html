@@ -32,13 +32,13 @@
                 <div class="navbar-nav mr-auto"></div>
                 <div class="dropdown">
                     {{if .Session.user}}
-                        <div class="btn-group" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-sm">
-                                <span class="badge badge-danger">0 </span>
+                        <div class="btn-group" role="group" aria-label="First group" style="font-size: 10px;">
+                            <button type="button" class="btn">
+                                <span class="badge badge-danger"> 99 </span>
                             </button>
-                            <button type="button" class="btn dropdown-toggle btn-sm" id="dropdownMenuButton"
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="/{{ .Session.user.avatar }}" style="height: 24px;width: 24px;" class="rounded-circle"> {{ .Session.user.name }}
+                                <img src="/{{ .Session.user.avatar }}" style="height: 24px;width: 24px;" class="rounded-circle"><span style="font-size: 14px;">{{ .Session.user.name }}</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/user/edit">修改资料</a>
@@ -69,8 +69,7 @@
             {{include .mainTpl .}}
         </main>
         <!--- footer --->
-        <footer class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">这个是底部</a>
+        <footer class="navbar navbar-light" style="height: 300px;background: #1b1c1d;">
         </footer>
     </div>
 </div>

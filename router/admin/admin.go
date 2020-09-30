@@ -39,6 +39,13 @@ func init() {
 		group.POST("admins/{id}/edit", adminController.Edit)
 		group.POST("admins/{id}/delete", adminController.Delete)
 
+		group.GET("users", userController.List)
+		group.GET("users/add", userController.Add)
+		group.POST("users/add", userController.Add)
+		group.GET("users/{id}/edit", userController.Edit)
+		group.POST("users/{id}/edit", userController.Edit)
+		group.POST("users/{id}/delete", userController.Delete)
+
 		group.GET("nodes", nodeController.List)
 		group.GET("nodes/add", nodeController.Add)
 		group.POST("nodes/add", nodeController.Add)
@@ -48,7 +55,6 @@ func init() {
 
 		group.GET("cates", cateController.List)
 		group.GET("posts", postController.List)
-		group.GET("users", userController.List)
 		group.GET("comments", commentController.List)
 	})
 }

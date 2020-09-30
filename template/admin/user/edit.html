@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header">用户编辑</div>
+    <div class="card-body p-4">
+        <form class="col-md-7" method="POST" action="/admin/users/{{.user.id}}/edit">
+            <div class="form-group">
+                <label><span class="text-danger">*</span>用户名称</label>
+                <input type="text" class="form-control" name="name" value="{{ .user.name }}" placeholder="用户名称">
+            </div>
+
+            <div class="form-group">
+                <label><span class="text-danger">*</span>用户邮箱</label>
+                <input type="text" class="form-control" name="email" value="{{ .user.email }}" placeholder="用户邮箱">
+            </div>
+
+            <div class="form-group">
+                <label>用户性别</label>
+                <select name="gender" class="form-control" value="{{ .user.gender }}">
+                    <option value="0" {{if eq .user.gender 0}} selected {{end}}>未知</option>
+                    <option value="1" {{if eq .user.gender 1}} selected {{end}}>男</option>
+                    <option value="2" {{if eq .user.gender 2}} selected {{end}}>女</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><span class="text-danger">*</span>用户密码</label>
+                <input type="text" class="form-control" name="password" value="" placeholder="用户密码">
+            </div>
+
+            <div class="form-group">
+                <label>用户状态</label>
+                <select name="status" class="form-control" value="{{ .user.status }}">
+                    <option value="0" {{if eq .user.status 0}} selected {{end}}>启用</option>
+                    <option value="1" {{if eq .user.status 1}} selected {{end}}>禁用</option>
+                </select>
+            </div>
+            <button class="btn btn-primary btn-block btn-sm">提交</button>
+        </form>
+    </div>
+</div>

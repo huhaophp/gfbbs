@@ -1,4 +1,60 @@
 <div class="card">
-    <div class="card-header">用户管理</div>
-    <div class="card-body">用户管理</div>
+    <div class="card-header">
+        用户管理
+        <div class="input-group mr-1 .text-right">
+            <button class="btn btn-success" type="button" onclick="window.location='/admin/users/add'">添加
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#ID</th>
+                <th>名称</th>
+                <th>邮箱</th>
+                <th>状态</th>
+                <th>性别</th>
+                <th>最后登录ip</th>
+                <th>注册时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+                <tr>
+                    <td>{{ $item.id }}</td>
+                    <td>{{ $item.name }}</td>
+                    <td>{{ $item.email }}</td>
+                    <td>
+                        {{if eq $item.status 0}}
+                            <span class="badge badge-success">正常</span>
+                        {{else}}
+                            <span class="badge badge-danger">禁用</span>
+                        {{end}}
+                    </td>
+                    <td>
+                        {{if eq $item.gender 0}}
+                            <span class="badge badge-success">未知</span>
+                        {{else if eq $item.gender 1}}
+                            <span class="badge badge-success">男</span>
+                        {{else}}
+                            <span class="badge badge-success">女</span>
+                        {{end}}
+                    </td>
+                    <td>{{ $item.last_login_ip }}</td>
+                    <td>{{ $item.register_at }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/admin/users/{{ $item.id }}/edit">编辑</a>
+
+                        <form action="/admin/users/{{ $item.id }}/delete" method="POST" style="display: inline-block;">
+                            <button class="btn btn-danger btn-sm">删除</button>
+                        </form>
+
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
 </div>

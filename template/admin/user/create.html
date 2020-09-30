@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-header">用户添加</div>
+    <div class="card-body p-4">
+        <form class="col-md-7" method="POST" action="/admin/users/add">
+            <div class="form-group">
+                <label><span class="text-danger">*</span>用户名称</label>
+                <input type="text" class="form-control" name="name" placeholder="用户名称">
+            </div>
+            <div class="form-group">
+                <label><span class="text-danger">*</span>用户邮箱</label>
+                <input type="text" class="form-control" name="email" placeholder="用户邮箱">
+            </div>
+            <div class="form-group">
+                <label>用户性别</label>
+                <select name="gender"  class="form-control">
+                    <option value="0" selected>未知</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><span class="text-danger">*</span>用户密码</label>
+                <input type="text" class="form-control" name="password" placeholder="用户密码">
+            </div>
+            <div class="form-group">
+                <label>用户状态</label>
+                <select name="status"  class="form-control">
+                    <option value="0" selected>启用</option>
+                    <option value="1">禁用</option>
+                </select>
+            </div>
+            <button class="btn btn-primary btn-block btn-sm">提交</button>
+        </form>
+    </div>
+</div>

@@ -3,9 +3,8 @@ package auth
 import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
-	"bbs/app/model/admins"
 	"bbs/app/request/Auth"
-	"github.com/gogf/gf/crypto/gmd5"
+	"bbs/app/service/admin/auth"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -29,19 +28,9 @@ func (c *Controller) Login(r *ghttp.Request) {
 	if err != nil {
 		response.RedirectBackWithError(r, gerror.New("请输入登录账号密码"))
 	}
-	res, err := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
+	res, err := auth.Login(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
-	}
-	if res == nil {
-		response.RedirectBackWithError(r, gerror.New("账号或密码错误"))
-	}
-	hash, _ := gmd5.Encrypt(data.Password)
-	if hash != (res["password"].String()) {
-		response.RedirectBackWithError(r, gerror.New("账号或者密码错误"))
-	}
-	if res["status"].Int() == admins.ForbiddenStatus {
-		response.RedirectBackWithError(r, gerror.New("该账号已被冻结"))
 	}
 	if err := r.Session.Set(constants.AdminSessionKey, res); err != nil {
 		response.RedirectBackWithError(r, err)

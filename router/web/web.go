@@ -2,6 +2,7 @@ package web
 
 import (
 	"bbs/app/controllers/web"
+	"bbs/app/controllers/web/captcha"
 	"bbs/app/controllers/web/comment"
 	"bbs/app/controllers/web/file"
 	"bbs/app/controllers/web/node"
@@ -17,9 +18,11 @@ func init() {
 	userController := new(user.Controller)
 	nodeController := new(node.Controller)
 	commentController := new(comment.Controller)
+	captchaController := new(captcha.Controller)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
+		group.GET("/captcha", captchaController.Get)
 		group.GET("/posts/{postsId}", webController.PostDetail)
 		group.GET("/user/login", userController.Login)
 		group.POST("/user/login", userController.Login)

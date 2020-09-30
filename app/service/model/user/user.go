@@ -14,6 +14,7 @@ type RegisterReqEntity struct {
 	Name     string `p:"name" v:"required#请输入用户昵称"`
 	Email    string `p:"email" v:"required|email#请输入邮箱|请输入正确的邮箱"`
 	Password string `p:"password" v:"required|password#请输入密码|请输入长度6~18位字符的密码"`
+	Captcha  string `p:"captcha" v:"required#验证码错误"`
 }
 
 type LoginReqEntity struct {
@@ -37,8 +38,8 @@ func Register(entity *RegisterReqEntity) error {
 		"status":      0,
 		"gender":      0,
 		"register_at": gtime.Now(),
-		"create_at":  gtime.Now(),
-		"update_at":  gtime.Now(),
+		"create_at":   gtime.Now(),
+		"update_at":   gtime.Now(),
 	})
 	if err != nil {
 		return err

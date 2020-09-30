@@ -3,6 +3,7 @@ package view
 import (
 	"fmt"
 	"github.com/gogf/gf/os/gtime"
+	"github.com/gogf/gf/util/gconv"
 )
 
 // 视图模版全局函数
@@ -38,4 +39,19 @@ func StrTime(str string) string {
 	}
 
 	return rs
+}
+
+// AlertComponent 警告提示框
+func AlertComponent(msg interface{}, level string) string {
+	c := gconv.String(msg)
+	if c == "" {
+		return c
+	}
+	s := fmt.Sprintf("<div class='alert alert-%s alert-dismissible fade show' role='alert'>", level)
+	s += fmt.Sprintf("<span>%s</span>", c)
+	s += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+	s += "<span aria-hidden=''>&times;</span>"
+	s += "</button>"
+	s += "</div>"
+	return s
 }

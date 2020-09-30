@@ -55,6 +55,10 @@ func Login(entity *LoginReqEntity) (gdb.Record, error) {
 	if user == nil {
 		return nil, errors.New("邮箱或密码错误")
 	}
+	// 用户是否被禁用
+	if user["status"].Int() == users.ForbiddenStatus {
+		return nil, errors.New("用户已被禁用")
+	}
 	password, _ := gmd5.Encrypt(entity.Password)
 	if password != user["password"].String() {
 		return nil, errors.New("邮箱或密码错误")

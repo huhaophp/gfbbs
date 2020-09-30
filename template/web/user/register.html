@@ -3,29 +3,24 @@
         <div class="card-body">
             <b>用户注册</b>
             <hr>
-            <div class="alert alert-dismissible fade show alert-msg" role="alert" style="display: none;">
-                <span class="msg-content"></span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            {{AlertComponent .Session.error "danger"}}
             <form method="POST" action="/user/register">
                 <div class="form-group">
                     <div class="form-label-group error">
                         <input type="text" id="inputName" name="name" class="form-control form-control-lg"
-                               placeholder="用户呢称" required="required" autofocus>
+                               placeholder="昵称" required="required" autofocus>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group error">
                         <input type="email" id="inputEmail" name="email" class="form-control form-control-lg"
-                               placeholder="用户邮箱" required="required" autofocus>
+                               placeholder="邮箱" required="required" autofocus>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group">
                         <input type="password" name="password" class="form-control form-control-lg"
-                               placeholder="用户密码" required  autofocus>
+                               placeholder="密码" required  autofocus>
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,7 +32,7 @@
                 <div class="form-group">
                     <div class="form-label-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="请输入验证码" required autofocus>
+                            <input type="text" class="form-control form-control-lg" placeholder="验证码" required autofocus>
                             <div class="input-group-append">
                                 <img src="/uploadfile/c3obhscjju6o5pr8fw.jpg" style="height: calc(2.875rem + 2px);width: 200px;border-radius: 2px;" type="button">
                             </div>

@@ -4,4 +4,7 @@
 
 package users
 
-// Fill with you ideas below.
+const (
+	NormalStatus    = 0
+	ForbiddenStatus = 1
+)

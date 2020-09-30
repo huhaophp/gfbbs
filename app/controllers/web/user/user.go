@@ -32,7 +32,6 @@ func (c *Controller) Register(r *ghttp.Request) {
 	if err := r.Parse(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	g.Dump(r.Session.Get("captcha"))
 	if captcha := r.Session.Get("captcha"); captcha != reqEntity.Captcha {
 		response.RedirectBackWithError(r, gerror.New("验证码错误"))
 	}

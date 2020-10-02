@@ -19,6 +19,7 @@ func init() {
 	nodeController := new(node.Controller)
 	commentController := new(comment.Controller)
 	captchaController := new(captcha.Controller)
+	uController := new(web.UserController)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
@@ -34,5 +35,6 @@ func init() {
 		group.GET("/user/edit", userController.Edit)
 		group.POST("/user/edit", userController.Edit)
 		group.POST("/markdown/file", fileController.MdFileStore)
+		group.GET("/users/{uid}", uController.Detail)
 	})
 }

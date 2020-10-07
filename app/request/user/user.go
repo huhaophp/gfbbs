@@ -1,4 +1,4 @@
-package User
+package user
 
 import (
 	"github.com/gogf/gf/net/ghttp"

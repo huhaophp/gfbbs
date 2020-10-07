@@ -2,7 +2,7 @@ package web
 
 import (
 	"bbs/app/constants"
-	response "bbs/app/funcs/response"
+	"bbs/app/funcs/response"
 	"bbs/app/model/users"
 	"bbs/app/service/model/user"
 	"github.com/gogf/gf/errors/gerror"
@@ -12,11 +12,9 @@ import (
 
 const (
 	loginTpl    = "web/user/login.html"
-	detailTpl   = "web/user/detail.html"
 	EditTpl     = "web/user/edit.html"
 	centerTpl   = "web/user/center.html"
 	registerTpl = "web/user/register.html"
-	errorTpl    = "web/error.html"
 )
 
 // UserController Base
@@ -77,13 +75,26 @@ func (c *UserController) Logout(r *ghttp.Request) {
 
 // Edit 编辑用户
 func (c *UserController) Edit(r *ghttp.Request) {
-	record, err := g.DB().Table(users.Table).WherePri(r.Session.GetMap(constants.UserSessionKey)["id"]).One()
-	if err != nil {
-		response.RedirectBackWithError(r, err)
-	}
-	if record.IsEmpty() {
-		response.RedirectBackWithError(r, gerror.New("用户不存在"))
+	if r.Method == "GET" {
+		// 默认选中 info 信息
+		tab := r.GetQueryString("tab", "info")
+		id := r.Session.GetMap(constants.UserSessionKey)["id"]
+		record, err := g.DB().Table(users.Table).WherePri(id).One()
+		if err != nil {
+			response.RedirectBackWithError(r, err)
+		}
+		if record.IsEmpty() {
+			response.RedirectBackWithError(r, gerror.New("用户不存在"))
+		} else {
+			response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"user": record, "mainTpl": EditTpl, "tab": tab})
+		}
 	} else {
-		response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"user": record, "mainTpl": EditTpl})
+
 	}
+}
+
+// Center 用户中心
+func (c *UserController) Center(r *ghttp.Request) {
+	g.Dump(r.GetRouterVar("id"))
+	response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"mainTpl": centerTpl})
 }

@@ -1,29 +1,52 @@
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-body">
+<style>
+    .tab-active {
+        background: rgba(0, 0, 0, .05);
+    }
+
+    .edit-info-a {
+        color: rgba(0, 0, 0, .87);
+        text-decoration: none;
+    }
+</style>
+<div class="col-sm-3">
+    <ul class="list-group list-group-flush ">
+        <li class="list-group-item text-center {{if eq .tab "info"}} tab-active {{end}}"><a href="/user/edit?tab=info"
+                                                                                            class="edit-info-a"><i
+                        class="fa fa-list"></i> 个人信息</a></li>
+        <li class="list-group-item text-center {{if eq .tab "avatar"}} tab-active {{end}}"><a
+                    href="/user/edit?tab=avatar" class="edit-info-a"><i
+                        class="fa fa-image"></i> 修改头像</a></li>
+        <li class="list-group-item text-center {{if eq .tab "password"}} tab-active {{end}}"><a
+                    href="/user/edit?tab=password" class="edit-info-a"><i
+                        class="fa fa-lock"></i> 修改密码</a></li>
+    </ul>
+</div>
+<div class="col-sm-9">
+    <div class="card">
+        <div class="card-body">
+            {{if eq .tab "info"}}
                 <h5>修改资料</h5>
-                <hr>
-                <form action="/user/edit" method="POST">
+            {{else if eq "avatar"}}
+                <h5>修改头像</h5>
+            {{else}}
+                <h5>修改密码</h5>
+            {{end}}
+            <hr>
+            {{AlertComponent .Session.error "danger"}}
+            {{AlertComponent .Session.success "success"}}
+            <form action="/user/edit?tab={{ .tab }}" method="POST">
+                {{if eq .tab "info"}}
                     <div class="form-group">
                         <div class="form-label-group">
-{{/*                            <label for="inputName">头像</label>*/}}
-                            <br>
-                            <img src="/{{.user.avatar}}" class="img-thumbnail"
-                                 style="height: 100px;width: 100px;cursor: pointer;">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-{{/*                            <label for="inputName">昵称</label>*/}}
-                            <input type="text" name="name" class="form-control" required="required"
+                            <label for="inputName">昵称</label>
+                            <input type="text" name="name" class="form-control  col-sm-6" required="required"
                                    value="{{ .user.name }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputName">性别</label>
-                            <select name="gender" id="" class="form-control">
+                            <select name="gender" id="" class="form-control  col-sm-6">
                                 <option value="1">男</option>
                                 <option value="2">女</option>
                             </select>
@@ -32,31 +55,33 @@
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputEmail">邮箱</label>
-                            <input type="email" name="email" class="form-control" value="{{ .user.email }}">
+                            <input type="email" name="email" class="form-control  col-sm-6" value="{{ .user.email }}">
                         </div>
                     </div>
-                    <button class="btn btn-secondary">修改</button>
-                </form>
-            </div>
-            <div class="card-body">
-                <h5>修改密码</h5>
-                <hr>
-                <form action="/user/edit" method="POST">
+                {{else if eq .tab "avatar"}}
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputName">头像</label>
+                            <br>
+                            <img src="/{{.user.avatar}}" class="img-circle img-thumbnail" style="height: 200px;width: 200px;cursor: pointer;">
+                        </div>
+                    </div>
+                {{else}}
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputName">密码</label>
-                            <input type="password" name="name" class="form-control col-sm-5" required="required">
+                            <input type="password" name="name" class="form-control  col-sm-6">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputEmail">确认密码</label>
-                            <input type="password" name="email" class="form-control col-sm-5">
+                            <input type="password" name="email" class="form-control  col-sm-6">
                         </div>
                     </div>
-                    <button class="btn btn-secondary">修改</button>
-                </form>
-            </div>
+                {{end}}
+                <button class="btn btn-secondary">修改</button>
+            </form>
         </div>
     </div>
 </div>

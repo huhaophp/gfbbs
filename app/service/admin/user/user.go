@@ -9,7 +9,7 @@ import (
 	"github.com/gogf/gf/os/gtime"
 )
 
-func Add(data *User.AddReqEntity) error {
+func Add(data *user.AddReqEntity) error {
 	user, _ := g.DB().Table(users.Table).Where("email = ?", data.Email).One()
 	if user != nil {
 		return errors.New("邮箱已存在")
@@ -37,7 +37,7 @@ func Add(data *User.AddReqEntity) error {
 	return nil
 }
 
-func Edit(data *User.UpdateReqEntity, id int) error {
+func Edit(data *user.UpdateReqEntity, id int) error {
 	user, _ := g.DB().Table(users.Table).Where("email = ? and id != ?", data.Email, id).One()
 	if user != nil {
 		return errors.New("邮箱已存在")

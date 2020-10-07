@@ -35,8 +35,8 @@ func (c *Controller) Add(r *ghttp.Request) {
 	if strings.ToUpper(r.Method) == "GET" {
 		response.ViewExit(r, layout, g.Map{"mainTpl": createTpl})
 	}
-	var data User.AddReqEntity
-	if err := User.AddReqCheck(r, &data); err != nil {
+	var data user.AddReqEntity
+	if err := user.AddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
 	err := user.Add(&data)
@@ -58,8 +58,8 @@ func (c *Controller) Edit(r *ghttp.Request) {
 	if strings.ToUpper(r.Method) == "GET" {
 		response.ViewExit(r, layout, g.Map{"mainTpl": editTpl, "user": item})
 	}
-	var data User.UpdateReqEntity
-	if err := User.UpdateReqCheck(r, &data); err != nil {
+	var data user.UpdateReqEntity
+	if err := user.UpdateReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
 	err = user.Edit(&data, id)

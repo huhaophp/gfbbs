@@ -22,6 +22,18 @@ type LoginReqEntity struct {
 	Password string `p:"password" v:"required|password#请输入密码|请输入长度6~18位字符的密码"`
 }
 
+type UpdateInfoEntity struct {
+	Name   string `p:"name" v:"required#请输入用户昵称"`
+	Email  string `p:"email" v:"required|email#请输入邮箱|请输入正确的邮箱"`
+	Gender string `p:"gender" v:"required#请输入正确的性别"`
+}
+
+type UpdateAvatarEntity struct {
+}
+
+type UpdatePasswordEntity struct {
+}
+
 // Register 用户注册
 func Register(entity *RegisterReqEntity) error {
 	if CheckName(entity.Name) != nil {
@@ -87,4 +99,16 @@ func CheckEmail(email string) gdb.Record {
 		return nil
 	}
 	return record
+}
+
+func UpdateInfo(id int64, entity *UpdateInfoEntity) {
+
+}
+
+func UpdateAvatar(id int64, entity *UpdateInfoEntity) {
+
+}
+
+func UpdatePassword(id int64, entity *UpdateInfoEntity) {
+
 }

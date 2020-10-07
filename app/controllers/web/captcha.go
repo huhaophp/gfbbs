@@ -1,4 +1,4 @@
-package captcha
+package web
 
 import (
 	"github.com/afocus/captcha"
@@ -7,10 +7,10 @@ import (
 	"image/png"
 )
 
-// Controller Base
-type Controller struct{}
+// CaptchaController Base
+type CaptchaController struct{}
 
-func (c *Controller) Get(r *ghttp.Request) {
+func (c *CaptchaController) Get(r *ghttp.Request) {
 	var ca *captcha.Captcha
 	ca = captcha.New()
 	_ = ca.SetFont("./public/captcha/comic.ttf")

@@ -1,16 +1,16 @@
-package comment
+package web
 
 import (
-	"bbs/app/service/model/comment"
 	response "bbs/app/funcs/response"
+	"bbs/app/service/model/comment"
 	"fmt"
 	"github.com/gogf/gf/net/ghttp"
 )
 
 // Controller Base
-type Controller struct{}
+type CommentController struct{}
 
-func (c *Controller) Add(r *ghttp.Request) {
+func (c *CommentController) Add(r *ghttp.Request) {
 	var reqEntity comment.AddReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)

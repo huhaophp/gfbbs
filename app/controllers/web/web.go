@@ -14,7 +14,6 @@ const (
 	layout      string = "web/layout.html"
 	homeTpl     string = "web/home/home.html"
 	postsTpl    string = "web/posts.html"
-	registerTpl string = "web/register.html"
 )
 
 // Controller Base

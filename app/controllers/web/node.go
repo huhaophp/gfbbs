@@ -1,23 +1,23 @@
-package node
+package web
 
 import (
+	"bbs/app/constants"
+	response "bbs/app/funcs/response"
 	"bbs/app/model/nodes"
 	postsModel "bbs/app/model/posts"
-	response "bbs/app/funcs/response"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
 
 const (
-	layout   string = "web/layout.html"
 	indexTpl string = "web/node/index.html"
 )
 
 // Controller Base
-type Controller struct{}
+type NodeController struct{}
 
-func (c *Controller) Index(r *ghttp.Request) {
+func (c *NodeController) Index(r *ghttp.Request) {
 	id := r.GetRouterVar("nodeId").Int()
 	pageNum := r.GetQueryInt("page", 1)
 	if id == 0 {
@@ -41,5 +41,5 @@ func (c *Controller) Index(r *ghttp.Request) {
 		Page(pageNum, 40).
 		All()
 
-	response.ViewExit(r, layout, g.Map{"mainTpl": indexTpl, "node": item, "posts": items})
+	response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"mainTpl": indexTpl, "node": item, "posts": items})
 }

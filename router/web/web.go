@@ -2,11 +2,6 @@ package web
 
 import (
 	"bbs/app/controllers/web"
-	"bbs/app/controllers/web/captcha"
-	"bbs/app/controllers/web/comment"
-	"bbs/app/controllers/web/file"
-	"bbs/app/controllers/web/node"
-	"bbs/app/controllers/web/user"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -14,12 +9,11 @@ import (
 // init 初始化web路由
 func init() {
 	webController := new(web.Controller)
-	fileController := new(file.Controller)
-	userController := new(user.Controller)
-	nodeController := new(node.Controller)
-	commentController := new(comment.Controller)
-	captchaController := new(captcha.Controller)
-	uController := new(web.UserController)
+	fileController := new(web.FileController)
+	userController := new(web.UserController)
+	nodeController := new(web.NodeController)
+	commentController := new(web.CommentController)
+	captchaController := new(web.CaptchaController)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
@@ -35,6 +29,5 @@ func init() {
 		group.GET("/user/edit", userController.Edit)
 		group.POST("/user/edit", userController.Edit)
 		group.POST("/markdown/file", fileController.MdFileStore)
-		group.GET("/users/{uid}", uController.Detail)
 	})
 }

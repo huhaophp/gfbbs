@@ -1,4 +1,4 @@
-package file
+package web
 
 import (
 	"github.com/gogf/gf/frame/g"
@@ -10,10 +10,10 @@ const (
 )
 
 // Controller Base
-type Controller struct{}
+type FileController struct{}
 
 // Markdown File Store Upload uploads files to /tmp .
-func (c *Controller) MdFileStore(r *ghttp.Request) {
+func (c *FileController) MdFileStore(r *ghttp.Request) {
 	file := r.GetUploadFile("editormd-image-file")
 	name, err := file.Save(uploadDirPath, true)
 	if err != nil {

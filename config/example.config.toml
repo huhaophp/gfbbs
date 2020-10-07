@@ -43,7 +43,3 @@ debug = true
 Path = "/tmp/log/gfblog/sql"
 Level = "all"
 Stdout = false
-
-[auth]
-email = "admin@qq.com"
-password = "e10adc3949ba59abbe56e057f20f883e"

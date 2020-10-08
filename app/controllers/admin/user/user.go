@@ -3,8 +3,8 @@ package user
 import (
 	"bbs/app/funcs/response"
 	"bbs/app/model/users"
-	"bbs/app/request/User"
-	"bbs/app/service/admin/user"
+	"bbs/app/request/user"
+	userService "bbs/app/service/admin/user"
 	"errors"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
@@ -39,7 +39,7 @@ func (c *Controller) Add(r *ghttp.Request) {
 	if err := user.AddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err := user.Add(&data)
+	err := userService.Add(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}
@@ -62,7 +62,7 @@ func (c *Controller) Edit(r *ghttp.Request) {
 	if err := user.UpdateReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err = user.Edit(&data, id)
+	err = userService.Edit(&data, id)
 	if err != nil {
 		g.Log().Error("编辑失败:", err)
 		response.RedirectBackWithError(r, gerror.New("编辑失败"))
@@ -75,7 +75,7 @@ func (c *Controller) Delete(r *ghttp.Request) {
 	if id <= 0 {
 		response.RedirectBackWithError(r, errors.New("id错误"))
 	}
-	err := user.Delete(id)
+	err := userService.Delete(id)
 	if err != nil {
 		g.Log().Error("删除失败:", err)
 		response.RedirectBackWithError(r, errors.New("删除失败"))

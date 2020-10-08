@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/util/gconv"
 )
 
 const (
@@ -75,10 +76,10 @@ func (c *UserController) Logout(r *ghttp.Request) {
 
 // Edit 编辑用户
 func (c *UserController) Edit(r *ghttp.Request) {
+	id := gconv.String(r.Session.GetMap(constants.UserSessionKey)["id"])
 	if r.Method == "GET" {
 		// 默认选中 info 信息
 		tab := r.GetQueryString("tab", "info")
-		id := r.Session.GetMap(constants.UserSessionKey)["id"]
 		record, err := g.DB().Table(users.Table).WherePri(id).One()
 		if err != nil {
 			response.RedirectBackWithError(r, err)
@@ -86,15 +87,41 @@ func (c *UserController) Edit(r *ghttp.Request) {
 		if record.IsEmpty() {
 			response.RedirectBackWithError(r, gerror.New("用户不存在"))
 		} else {
-			response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"user": record, "mainTpl": EditTpl, "tab": tab})
+			data := g.Map{"user": record, "mainTpl": EditTpl, "tab": tab}
+			response.ViewExit(r, constants.WebLayoutTplPath, data)
 		}
 	} else {
-
+		tab := r.PostFormValue("tab")
+		if tab == "info" {
+			var reqEntity user.UpdateInfoEntity
+			if err := r.Parse(&reqEntity); err != nil {
+				response.RedirectBackWithError(r, err)
+			}
+			err := user.UpdateInfo(id, &reqEntity)
+			if err != nil {
+				response.RedirectBackWithError(r, err)
+			}
+			response.RedirectToWithMessage(r, "/user/edit?tab=info", "更新成功")
+		} else if tab == "avatar" {
+			var reqEntity user.UpdateAvatarEntity
+			if err := r.Parse(&reqEntity); err != nil {
+				response.RedirectBackWithError(r, err)
+			}
+			err := user.UpdateAvatar(id, &reqEntity)
+			if err != nil {
+				response.RedirectBackWithError(r, err)
+			}
+			response.RedirectToWithMessage(r, "/user/edit?tab=avatar", "更新成功")
+		} else {
+			var reqEntity user.UpdatePasswordEntity
+			if err := r.Parse(&reqEntity); err != nil {
+				response.RedirectBackWithError(r, err)
+			}
+		}
 	}
 }
 
 // Center 用户中心
 func (c *UserController) Center(r *ghttp.Request) {
-	g.Dump(r.GetRouterVar("id"))
 	response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"mainTpl": centerTpl})
 }

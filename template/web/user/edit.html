@@ -22,6 +22,8 @@
     </ul>
 </div>
 <div class="col-sm-9">
+    {{AlertComponent .Session.error "danger"}}
+    {{AlertComponent .Session.success "success"}}
     <div class="card">
         <div class="card-body">
             {{if eq .tab "info"}}
@@ -32,8 +34,6 @@
                 <h5>修改密码</h5>
             {{end}}
             <hr>
-            {{AlertComponent .Session.error "danger"}}
-            {{AlertComponent .Session.success "success"}}
             <form action="/user/edit?tab={{ .tab }}" method="POST">
                 {{if eq .tab "info"}}
                     <div class="form-group">
@@ -47,8 +47,8 @@
                         <div class="form-label-group">
                             <label for="inputName">性别</label>
                             <select name="gender" id="" class="form-control  col-sm-6">
-                                <option value="1">男</option>
-                                <option value="2">女</option>
+                                <option value="1" {{if eq .user.gender 1}} selected {{end}}>男</option>
+                                <option value="2" {{if eq .user.gender 2}} selected {{end}}>女</option>
                             </select>
                         </div>
                     </div>
@@ -63,8 +63,11 @@
                         <div class="form-label-group">
                             <label for="inputName">头像</label>
                             <br>
-                            <img src="/{{.user.avatar}}" class="img-circle img-thumbnail" style="height: 200px;width: 200px;cursor: pointer;">
+                            <img src="{{.user.avatar}}" class="img-circle img-thumbnail user-avatar"
+                                 style="height: 200px;width: 200px;cursor: pointer;">
                         </div>
+                        <input type="file" class="avatar-input" style="display: none;">
+                        <input type="hidden" name="avatar" class="avatar" value="{{ .user.avatar }}">
                     </div>
                 {{else}}
                     <div class="form-group">
@@ -80,8 +83,40 @@
                         </div>
                     </div>
                 {{end}}
+                <input type="hidden" name="tab" value="{{ .tab }}">
                 <button class="btn btn-secondary">修改</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        // 文件上传
+        $('.user-avatar').on('click', function () {
+            $('.avatar-input').click();
+        });
+        $('.avatar-input').on('change', function (e) {
+            var formData = new FormData();
+            var file = e.target.files[0];
+            formData.append("file", file);
+            $.ajax({
+                url: '/file',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    if (data.code === 1) {
+                        $('.user-avatar').attr('src', data.data.name)
+                        $('.avatar').val(data.data.name)
+                    }
+                    console.log(err)
+                },
+                error: function (err) {
+                    console.log(err)
+                },
+            });
+        });
+    });
+</script>

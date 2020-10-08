@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/database/gdb"
+	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gtime"
 )
@@ -29,6 +30,7 @@ type UpdateInfoEntity struct {
 }
 
 type UpdateAvatarEntity struct {
+	Avatar string `p:"avatar" v:"required#请上传用户头像"`
 }
 
 type UpdatePasswordEntity struct {
@@ -101,12 +103,39 @@ func CheckEmail(email string) gdb.Record {
 	return record
 }
 
-func UpdateInfo(id int64, entity *UpdateInfoEntity) {
-
+// UpdateInfo 更新用户基础信息
+func UpdateInfo(id string, entity *UpdateInfoEntity) error {
+	data := g.Map{
+		"name":   entity.Name,
+		"email":  entity.Email,
+		"gender": entity.Gender,
+	}
+	res, err := g.DB().Table(users.Table).WherePri(id).Update(data)
+	if err != nil {
+		return err
+	}
+	row, err := res.RowsAffected()
+	if err != nil || row <= 0 {
+		g.Log().Error("Failed to update user")
+		return gerror.New("Failed to update user")
+	}
+	return nil
 }
 
-func UpdateAvatar(id int64, entity *UpdateInfoEntity) {
-
+// UpdateAvatar 更新头像
+func UpdateAvatar(id string, entity *UpdateAvatarEntity) error {
+	res, err := g.DB().Table(users.Table).WherePri(id).Update(g.Map{
+		"avatar": entity.Avatar,
+	})
+	if err != nil {
+		return err
+	}
+	row, err := res.RowsAffected()
+	if err != nil || row <= 0 {
+		g.Log().Error("Failed to update user")
+		return gerror.New("Failed to update user")
+	}
+	return nil
 }
 
 func UpdatePassword(id int64, entity *UpdateInfoEntity) {

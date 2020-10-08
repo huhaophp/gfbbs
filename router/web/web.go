@@ -22,6 +22,7 @@ func init() {
 		group.GET("/node/{nodeId}", nodeController.Index)
 		group.POST("/comment", commentController.Add)
 		group.POST("/markdown/file", fileController.MdFileStore)
+		group.POST("/file", fileController.FileStore)
 		group.GET("/user/login", userController.Login)
 		group.POST("/user/login", userController.Login)
 		group.POST("/user/logout", userController.Logout)

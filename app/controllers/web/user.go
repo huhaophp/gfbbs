@@ -92,6 +92,7 @@ func (c *UserController) Edit(r *ghttp.Request) {
 		}
 	} else {
 		tab := r.PostFormValue("tab")
+		// 编辑基础信息
 		if tab == "info" {
 			var reqEntity user.UpdateInfoEntity
 			if err := r.Parse(&reqEntity); err != nil {
@@ -103,6 +104,7 @@ func (c *UserController) Edit(r *ghttp.Request) {
 			}
 			response.RedirectToWithMessage(r, "/user/edit?tab=info", "更新成功")
 		} else if tab == "avatar" {
+			// 修改头像
 			var reqEntity user.UpdateAvatarEntity
 			if err := r.Parse(&reqEntity); err != nil {
 				response.RedirectBackWithError(r, err)
@@ -113,10 +115,16 @@ func (c *UserController) Edit(r *ghttp.Request) {
 			}
 			response.RedirectToWithMessage(r, "/user/edit?tab=avatar", "更新成功")
 		} else {
+			// 修改密码
 			var reqEntity user.UpdatePasswordEntity
 			if err := r.Parse(&reqEntity); err != nil {
 				response.RedirectBackWithError(r, err)
 			}
+			err := user.UpdatePassword(id, &reqEntity)
+			if err != nil {
+				response.RedirectBackWithError(r, err)
+			}
+			response.RedirectToWithMessage(r, "/user/edit?tab=password", "更新成功")
 		}
 	}
 }

@@ -34,6 +34,8 @@ type UpdateAvatarEntity struct {
 }
 
 type UpdatePasswordEntity struct {
+	Password        string `p:"password" v:"required|password#请输入新密码|新密码长度在6~18之间"`
+	ConfirmPassword string `p:"confirm_password" v:"required|password#请输入确认密码|确认密码长度在6~18之间"`
 }
 
 // Register 用户注册
@@ -138,6 +140,22 @@ func UpdateAvatar(id string, entity *UpdateAvatarEntity) error {
 	return nil
 }
 
-func UpdatePassword(id int64, entity *UpdateInfoEntity) {
-
+// UpdatePassword 更新用户密码
+func UpdatePassword(id string, entity *UpdatePasswordEntity) error {
+	if entity.Password != entity.ConfirmPassword {
+		return gerror.New("新密码和确认输入不一致")
+	}
+	password, _ := gmd5.Encrypt(entity.Password)
+	res, err := g.DB().Table(users.Table).WherePri(id).Update(g.Map{
+		"password": password,
+	})
+	if err != nil {
+		return err
+	}
+	g.Log().Error("修改密码失败:", 11111)
+	row, err := res.RowsAffected()
+	if err != nil || row <= 0 {
+		return gerror.New("修改密码失败")
+	}
+	return nil
 }

@@ -14,6 +14,7 @@
     <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- wangEditor js -->
     <script>
         var auth = "{{ .Session.user.id }}"
     </script>
@@ -22,7 +23,8 @@
 <div class="row">
     <div class="container-fluid">
         <!--- nav --->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white" style="border-top: 4px solid #368cda; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white"
+             style="border-top: 4px solid #368cda; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);">
             <a class="navbar-brand ml-5" href="/">GFBBS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,11 +36,13 @@
                     {{if .Session.user}}
                         <div class="btn-group" role="group" aria-label="First group" style="font-size: 10px;">
                             <button type="button" class="btn">
-                                <span class="badge badge-danger"> 99 </span>
+                                <span class="badge badge-danger"> 0 </span>
                             </button>
                             <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ .Session.user.avatar }}" style="height: 24px;width: 24px;" class="rounded-circle"><span style="font-size: 14px;">{{ .Session.user.name }}</span>
+                                <img src="{{ .Session.user.avatar }}" style="height: 24px;width: 24px;"
+                                     class="rounded-circle"><span
+                                        style="font-size: 12px;">{{ .Session.user.name }}</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/user/edit">修改资料</a>

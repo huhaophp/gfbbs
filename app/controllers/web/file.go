@@ -15,17 +15,16 @@ const (
 type FileController struct{}
 
 // Markdown File Store Upload uploads files to /tmp .
-func (c *FileController) MdFileStore(r *ghttp.Request) {
-	file := r.GetUploadFile("editormd-image-file")
+func (c *FileController) WangEditorFileStore(r *ghttp.Request) {
+	file := r.GetUploadFile("file")
 	name, err := file.Save(uploadDirPath, true)
 	if err != nil {
-		_ = r.Response.WriteJsonExit(g.Map{"success": 0, "message": err.Error()})
+		_ = r.Response.WriteJsonExit(g.Map{"errno": 500, "msg": err.Error()})
 	} else {
 		_ = r.Response.WriteJsonExit(g.Map{
-			"success": 1,
-			"path":    "/uploadfile/" + name,
-			"message": "上传成功",
-			"url":     "/uploadfile/" + name,
+			"errno": 0,
+			"msg":   "上传成功",
+			"data":  g.Slice{"http://127.0.0.1:8199/uploadfile/" + name},
 		})
 	}
 }
@@ -38,7 +37,7 @@ func (c *FileController) FileStore(r *ghttp.Request) {
 		response.Json(r, 0, "上传失败")
 	} else {
 		response.Json(r, 1, "上传成功", g.Map{
-			"name":   fmt.Sprintf("/uploadfile/%s", name),
+			"name": fmt.Sprintf("/uploadfile/%s", name),
 		})
 	}
 }

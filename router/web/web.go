@@ -21,7 +21,7 @@ func init() {
 		group.GET("/posts/{postsId}", webController.PostDetail)
 		group.GET("/node/{nodeId}", nodeController.Index)
 		group.POST("/comment", commentController.Add)
-		group.POST("/markdown/file", fileController.MdFileStore)
+		group.POST("/editor/file", fileController.WangEditorFileStore)
 		group.POST("/file", fileController.FileStore)
 		group.GET("/user/login", userController.Login)
 		group.POST("/user/login", userController.Login)

@@ -1,4 +1,4 @@
-package comment
+package model
 
 import (
 	"bbs/app/model/comments"

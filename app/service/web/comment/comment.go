@@ -1,4 +1,4 @@
-package model
+package comment
 
 import (
 	"bbs/app/model/comments"
@@ -13,8 +13,8 @@ type AddCommentReqEntity struct {
 	Uid     int    `p:"uid"`
 }
 
-// CommentPost Comment post
-func CommentAdd(entity *AddCommentReqEntity) error {
+// Add Comment post
+func Add(entity *AddCommentReqEntity) error {
 	res, err := g.DB().Table(comments.Table).Insert(g.Map{
 		"pid":       entity.Pid,
 		"uid":       entity.Uid,
@@ -31,8 +31,8 @@ func CommentAdd(entity *AddCommentReqEntity) error {
 	return nil
 }
 
-// CommentDelete Delete comment
-func CommentDelete(id string) error {
+// Delete Delete comment
+func Delete(id string) error {
 	res, err := g.DB().Table(comments.Table).WherePri(id).Update(g.Map{
 		"is_delete": 1,
 	})
@@ -41,6 +41,18 @@ func CommentDelete(id string) error {
 	}
 	if rows, err := res.RowsAffected(); err != nil || rows <= 0 {
 		return gerror.New("删除失败")
+	}
+	return nil
+}
+
+// CheckPermissions
+func CheckPermissions(id string, uid string) error {
+	res, err := g.DB().Table(comments.Table).Where(g.Map{"uid": uid, "is_delete": 0, "id": id}).One()
+	if err != nil {
+		return err
+	}
+	if res.IsEmpty() {
+		return gerror.New("评论不存在或已被删除")
 	}
 	return nil
 }

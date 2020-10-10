@@ -1,4 +1,4 @@
-package model
+package node
 
 import (
 	"bbs/app/model/nodes"

@@ -7,6 +7,7 @@
         color: #999;
         cursor: pointer;
     }
+
     .posts-content img {
         max-width: 100%;
         border-radius: 2px;
@@ -65,7 +66,9 @@
                     <p style="width: 100%;text-align: right;">
                         <span class="comment-action comment-reply" data-id="{{ $comment.id }}">回复</span>
                         <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>
-                        <span class="comment-action comment-delete" data-id="{{ $comment.id }}">删除</span>
+                        <span class="comment-action comment-delete">删除</span>
+                    <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"
+                          style="display: none;"></form>
                     </p>
                 </div>
             </div>
@@ -84,13 +87,13 @@
                 <form action="/comments" method="POST" class="mt-2" id="comment-form">
                     <div class="form-group">
                         <div id="wang-editor"></div>
-                        <input type="hidden" name="content" id="html-content"/>
+                        <input type="hidden" name="content" id="html-content">
                     </div>
-                    <input type="hidden" name="pid" value="{{ .posts.id }}"/>
-                    <input type="hidden" name="ruid" value="0"/>
-                    <input type="hidden" name="uid" value="{{ .Session.user.id }}"/>
+                    <input type="hidden" name="pid" value="{{ .posts.id }}">
+                    <input type="hidden" name="ruid" value="0">
+                    <input type="hidden" name="uid" value="{{ .Session.user.id }}">
                     <div class="form-group">
-                        <button class="btn btn-dark btn-sm submit-btn" type="button">
+                        <button class="btn btn-primary submit-btn" type="button">
                             回复
                         </button>
                     </div>
@@ -102,6 +105,7 @@
 <script>
     $(function () {
         hljs.initHighlightingOnLoad();
+
         $(".submit-btn").on("click", function () {
             // Determine whether to log in
             if ("{{ .Session.user.id }}" !== "") {
@@ -110,6 +114,14 @@
                 alert("请先登录");
             }
         });
+
+        $('.comment-action').on('click', function () {
+            // 删除评论
+            if ($(this).hasClass('comment-delete')) {
+                $('.delete-form').submit();
+            }
+        })
+
         // Initialize rich text
         const E = window.wangEditor;
         const editor = new E("#wang-editor");

@@ -74,6 +74,7 @@ func (c *UserController) Logout(r *ghttp.Request) {
 	}
 }
 
+
 // Edit 编辑用户
 func (c *UserController) Edit(r *ghttp.Request) {
 	id := gconv.String(r.Session.GetMap(constants.UserSessionKey)["id"])

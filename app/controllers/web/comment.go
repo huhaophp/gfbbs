@@ -3,7 +3,6 @@ package web
 import (
 	"bbs/app/funcs/response"
 	"bbs/app/service/model"
-	"fmt"
 	"github.com/gogf/gf/net/ghttp"
 )
 
@@ -12,20 +11,22 @@ type CommentController struct{}
 
 // Add Comment post
 func (c *CommentController) Add(r *ghttp.Request) {
-	var reqEntity model.AddReqEntity
+	var reqEntity model.AddCommentReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	if err := model.Add(&reqEntity); err != nil {
+	if err := model.CommentAdd(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	response.RedirectToWithMessage(r, fmt.Sprintf("/posts/%d", reqEntity.Pid), "评论成功")
+	response.BackWithMessage(r, "评论成功")
 }
 
 // Del Delete comment
 func (c *CommentController) Del(r *ghttp.Request) {
 	id := r.GetRouterString("id")
-	if err := model.Del(id); err != nil {
+	if err := model.CommentDelete(id); err != nil {
 		response.RedirectBackWithError(r, err)
+	} else {
+		response.BackWithMessage(r, "删除成功")
 	}
 }

@@ -13,9 +13,10 @@ const (
 	postsTpl string = "web/posts/detail.html"
 )
 
-// Controller Base
+// PostsController Base
 type PostsController struct{}
 
+// Details Post details
 func (c *PostsController) Details(r *ghttp.Request) {
 	pageNum := r.GetQueryInt("page", 1)
 	postsId := r.GetRouterVar("postsId").Int64()
@@ -32,6 +33,7 @@ func (c *PostsController) Details(r *ghttp.Request) {
 		LeftJoin("users u", "u.id = c.uid").
 		LeftJoin("users ru", "ru.id = c.ruid").
 		Where("c.pid", postsId).
+		Where("c.is_delete", 0).
 		Order("id ASC").
 		Page(pageNum, 20).
 		All()

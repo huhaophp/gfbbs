@@ -6,15 +6,15 @@ import (
 	"github.com/gogf/gf/frame/g"
 )
 
-type AddReqEntity struct {
+type AddCommentReqEntity struct {
 	Content string `p:"content" v:"required#请输入回复内容"`
 	Pid     int    `p:"pid"`
 	Ruid    int    `p:"ruid"`
 	Uid     int    `p:"uid"`
 }
 
-// CommentPost 评论帖子
-func Add(entity *AddReqEntity) error {
+// CommentPost Comment post
+func CommentAdd(entity *AddCommentReqEntity) error {
 	res, err := g.DB().Table(comments.Table).Insert(g.Map{
 		"pid":       entity.Pid,
 		"uid":       entity.Uid,
@@ -31,7 +31,8 @@ func Add(entity *AddReqEntity) error {
 	return nil
 }
 
-func Del(id string) error {
+// CommentDelete Delete comment
+func CommentDelete(id string) error {
 	res, err := g.DB().Table(comments.Table).WherePri(id).Update(g.Map{
 		"is_delete": 1,
 	})

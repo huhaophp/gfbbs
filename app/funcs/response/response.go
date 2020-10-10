@@ -83,3 +83,8 @@ func RedirectToWithMessage(r *ghttp.Request, to string, msg string) {
 	_ = r.Session.Set("success", msg)
 	r.Response.RedirectTo(to)
 }
+
+func BackWithMessage(r *ghttp.Request, msg string) {
+	_ = r.Session.Set("success", msg)
+	r.Response.RedirectBack()
+}

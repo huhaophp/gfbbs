@@ -4,6 +4,7 @@ import (
 	"bbs/app/model/users"
 	"errors"
 	"fmt"
+
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/errors/gerror"
@@ -41,10 +42,10 @@ type UpdatePasswordEntity struct {
 // Register 用户注册
 func Register(entity *RegisterReqEntity) error {
 	if CheckName(entity.Name) != nil {
-		return errors.New(fmt.Sprintf("昵称 %s 已经存在", entity.Name))
+		return fmt.Errorf("昵称 %s 已经存在", entity.Name)
 	}
 	if CheckEmail(entity.Email) != nil {
-		return errors.New(fmt.Sprintf("邮箱 %s 已经存在", entity.Email))
+		return fmt.Errorf("邮箱 %s 已经存在", entity.Email)
 	}
 	password, _ := gmd5.Encrypt(entity.Password)
 	res, err := g.DB().Table(users.Table).Insert(g.Map{

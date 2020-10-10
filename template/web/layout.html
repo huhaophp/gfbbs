@@ -1,97 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <title>GF-BBS</title>
     <!-- Bootstrap core JavaScript-->
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap core CSS-->
-    <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="/admin/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Custom fonts for this template-->
-    <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+      href="/admin/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <!-- wangEditor js -->
     <script>
-        var auth = "{{ .Session.user.id }}"
+      var auth = "{{ .Session.user.id }}";
     </script>
-</head>
-<body style="color: #636b6f;background:#f0f2f5; ">
-<div class="row">
-    <div class="container-fluid">
+  </head>
+  <body style="color: #636b6f;background:#f0f2f5; ">
+    <div class="row">
+      <div class="container-fluid">
         <!--- nav --->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white"
-             style="border-top: 4px solid #368cda; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);">
-            <a class="navbar-brand ml-5" href="/">GFBBS</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav mr-auto"></div>
-                <div class="dropdown">
-                    {{if .Session.user}}
-                        <div class="btn-group" role="group" aria-label="First group" style="font-size: 10px;">
-                            <button type="button" class="btn">
-                                <span class="badge badge-danger"> 0 </span>
-                            </button>
-                            <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ .Session.user.avatar }}" style="height: 24px;width: 24px;"
-                                     class="rounded-circle"><span
-                                        style="font-size: 12px;">{{ .Session.user.name }}</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/user/edit">修改资料</a>
-                                <form action="/user/logout" method="POST">
-                                    <button class="dropdown-item">退出登录</button>
-                                </form>
-                            </div>
-                        </div>
-                    {{else}}
-                        <div class="btn-group" role="group" aria-label="First group">
-                            <a class="btn btn-outline-primary" href="/user/register">注册</a>
-                            <a class="btn btn-outline-primary" href="/user/login">登录</a>
-                        </div>
-                    {{end}}
+        <nav
+          class="navbar navbar-expand-lg navbar-light bg-white"
+          style="border-top: 4px solid #368cda; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);"
+        >
+          <a class="navbar-brand ml-5" href="/">GFBBS</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav mr-auto"></div>
+            <div class="dropdown">
+              {{if .Session.user}}
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="First group"
+                style="font-size: 10px;"
+              >
+                <button type="button" class="btn">
+                  <span class="badge badge-danger"> 0 </span>
+                </button>
+                <button
+                  type="button"
+                  class="btn dropdown-toggle"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="{{ .Session.user.avatar }}"
+                    style="height: 24px;width: 24px;"
+                    class="rounded-circle"
+                  /><span style="font-size: 12px;"
+                    >{{ .Session.user.name }}</span
+                  >
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/user/edit">修改资料</a>
+                  <form action="/user/logout" method="POST">
+                    <button class="dropdown-item">退出登录</button>
+                  </form>
                 </div>
+              </div>
+              {{else}}
+              <div class="btn-group" role="group" aria-label="First group">
+                <a class="btn btn-outline-primary" href="/user/register"
+                  >注册</a
+                >
+                <a class="btn btn-outline-primary" href="/user/login">登录</a>
+              </div>
+              {{end}}
             </div>
+          </div>
         </nav>
         <!--- main --->
-        <main class="row" style="margin-bottom: 80px;padding:30px 100px 0 100px;">
-            {{include .mainTpl .}}
+        <main
+          class="row"
+          style="margin-bottom: 80px;padding:30px 100px 0 100px;"
+        >
+          {{include .mainTpl .}}
         </main>
         <!--- footer --->
-        <footer class="navbar navbar-light" style="height: 300px;background: #1b1c1d;">
-        </footer>
+        <footer
+          class="navbar navbar-light"
+          style="height: 300px;background: #1b1c1d;"
+        ></footer>
+      </div>
     </div>
-</div>
-</body>
-<script>
-    $(function () {
-        $('.top-node-btn').on('click', function (e) {
-            window.location = "/?pid=" + $(this).attr('data-id')
-        });
-        $('.child-node-btn').on('click', function (e) {
-            window.location = "/node/" + $(this).attr('data-id')
-        });
+  </body>
+  <script>
+    $(function() {
+      $(".top-node-btn").on("click", function(e) {
+        window.location = "/?pid=" + $(this).attr("data-id");
+      });
+      $(".child-node-btn").on("click", function(e) {
+        window.location = "/node/" + $(this).attr("data-id");
+      });
 
-        function message(content, type = "success") {
-            $('.alert-msg .msg-content').text(content);
-            $('.alert-msg').addClass('alert-' + type).show();
-        }
+      function message(content, type = "success") {
+        $(".alert-msg .msg-content").text(content);
+        $(".alert-msg")
+          .addClass("alert-" + type)
+          .show();
+      }
 
-        var error = "{{.Session.error}}"
-        if (error) {
-            message(error, "warning")
-        }
-        var success = "{{.Session.success}}"
-        if (success) {
-            message(success, "success")
-        }
+      var error = "{{.Session.error}}";
+      if (error) {
+        message(error, "warning");
+      }
+      var success = "{{.Session.success}}";
+      if (success) {
+        message(success, "success");
+      }
     });
-</script>
+  </script>
 </html>

@@ -9,6 +9,7 @@ import (
 // init 初始化web路由
 func init() {
 	webController := new(web.Controller)
+	PostsController := new(web.PostsController)
 	fileController := new(web.FileController)
 	userController := new(web.UserController)
 	nodeController := new(web.NodeController)
@@ -18,9 +19,10 @@ func init() {
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", webController.Home)
 		group.GET("/captcha", captchaController.Get)
-		group.GET("/posts/{postsId}", webController.PostDetail)
+		group.GET("/posts/{postsId}", PostsController.Details)
 		group.GET("/node/{nodeId}", nodeController.Index)
-		group.POST("/comment", commentController.Add)
+		group.POST("/comments", commentController.Add)
+		group.POST("/comments/{id}", commentController.Del)
 		group.POST("/editor/file", fileController.WangEditorFileStore)
 		group.POST("/file", fileController.FileStore)
 		group.GET("/user/login", userController.Login)

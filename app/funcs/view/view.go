@@ -6,10 +6,10 @@ import (
 	"github.com/gogf/gf/util/gconv"
 )
 
-// 视图模版全局函数
+// View template global functions
 
-// StrTime 格式化时间
-func StrTime(str string) string {
+// StrTime Format time
+func StrTime(str string) (rs string) {
 	// Current timestamp
 	n := gtime.Now().Timestamp()
 	// Given timestamp
@@ -22,7 +22,6 @@ func StrTime(str string) string {
 	var ss int64 = 1
 
 	d := n - t
-	rs := ""
 	switch {
 	case d > ys:
 		rs = fmt.Sprintf("%d年前", int(d/ys))
@@ -38,20 +37,20 @@ func StrTime(str string) string {
 		rs = "刚刚"
 	}
 
-	return rs
+	return
 }
 
-// AlertComponent 警告提示框
-func AlertComponent(msg interface{}, level string) string {
+// AlertComponent Warning box
+func AlertComponent(msg interface{}, level string) (s string) {
 	c := gconv.String(msg)
 	if c == "" {
 		return c
 	}
-	s := fmt.Sprintf("<div class='alert alert-%s alert-dismissible fade show' role='alert'>", level)
+	s = fmt.Sprintf("<div class='alert alert-%s alert-dismissible fade show' role='alert'>", level)
 	s += fmt.Sprintf("<span>%s</span>", c)
 	s += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
 	s += "<span aria-hidden=''>&times;</span>"
 	s += "</button>"
 	s += "</div>"
-	return s
+	return
 }

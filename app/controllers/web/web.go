@@ -2,7 +2,6 @@ package web
 
 import (
 	response "bbs/app/funcs/response"
-	commentsModel "bbs/app/model/comments"
 	"bbs/app/model/nodes"
 	postsModel "bbs/app/model/posts"
 	"github.com/gogf/gf/database/gdb"
@@ -13,7 +12,6 @@ import (
 const (
 	layout      string = "web/layout.html"
 	homeTpl     string = "web/home/home.html"
-	postsTpl    string = "web/posts.html"
 )
 
 // Controller Base
@@ -47,36 +45,6 @@ func (c *Controller) Home(r *ghttp.Request) {
 	page := r.GetPage(total, 20)
 
 	data := g.Map{"tops": tops, "children": children, "pid": pid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(4)}
-
-	response.ViewExit(r, layout, data)
-}
-
-// 帖子详情
-func (c *Controller) PostDetail(r *ghttp.Request) {
-	pageNum := r.GetQueryInt("page", 1)
-	postsId := r.GetRouterVar("postsId").Int64()
-
-	posts, _ := g.DB().Table(postsModel.Table+" p").
-		InnerJoin("users u", "u.id = p.uid").
-		InnerJoin("nodes n", "n.id = p.nid").
-		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,n.name node_name").
-		Where("p.id = ?", postsId).
-		One()
-
-	comments, _ := g.DB().Table(commentsModel.Table+" c").
-		Fields("c.id,c.uid,c.ruid,c.content,u.name,u.avatar,ru.name as r_user_name,c.create_at").
-		LeftJoin("users u", "u.id = c.uid").
-		LeftJoin("users ru", "ru.id = c.ruid").
-		Where("c.pid", postsId).
-		Order("id ASC").
-		Page(pageNum, 40).
-		All()
-
-	total, _ := g.DB().Table(commentsModel.Table).Where("pid", postsId).Count()
-
-	page := r.GetPage(total, 40)
-
-	data := g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)}
 
 	response.ViewExit(r, layout, data)
 }

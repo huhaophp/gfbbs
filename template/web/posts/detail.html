@@ -2,56 +2,19 @@
 <script src="/web/js/editor.min.js"></script>
 <script src="/web/js/highlight.min.js"></script>
 <style>
-    table {
-        border-top: 1px solid #ccc;
-        border-left: 1px solid #ccc;
+    .comment-action {
+        font-size: 13px;
+        color: #999;
+        cursor: pointer;
     }
-
-    table td,
-    table th {
-        border-bottom: 1px solid #ccc;
-        border-right: 1px solid #ccc;
-        padding: 3px 5px;
-    }
-
-    table th {
-        border-bottom: 2px solid #ccc;
-        text-align: center;
-    }
-
-    /* blockquote 样式 */
-    blockquote {
-        display: block;
-        border-left: 8px solid #d0e5f2;
-        padding: 5px 10px;
-        margin: 10px 0;
-        line-height: 1.4;
-        font-size: 100%;
-        background-color: #f1f1f1;
-    }
-
-    /* code 样式 */
-    code {
-        display: inline-block;
-        *display: inline;
-        *zoom: 1;
-        background-color: #f1f1f1;
-        border-radius: 3px;
-        padding: 3px 5px;
-        margin: 0 3px;
-    }
-
-    pre code {
-        display: block;
-    }
-
-    /* ul ol 样式 */
-    ul,
-    ol {
-        margin: 10px 0 10px 20px;
+    .posts-content img {
+        max-width: 100%;
+        border-radius: 2px;
     }
 </style>
 <div class="col-sm-9">
+    {{AlertComponent .Session.error "danger"}}
+    {{AlertComponent .Session.success "success"}}
     <ul class="list-group list-group-flush">
         <li class="list-group-item"><a href="">V2EX</a> › <a href="">游戏</a></li>
         <li class="list-group-item">
@@ -100,9 +63,9 @@
                     {{end}}
                     <p>{{ $comment.content }}</p>
                     <p style="width: 100%;text-align: right;">
-                        <span style="font-size: 13px;color: #999;cursor: pointer;">回复</span>
-                        <span style="font-size: 13px;color: #999;cursor: pointer;">举报</span>
-                        <span style="font-size: 13px;color: #999;cursor: pointer;">删除</span>
+                        <span class="comment-action comment-reply" data-id="{{ $comment.id }}">回复</span>
+                        <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>
+                        <span class="comment-action comment-delete" data-id="{{ $comment.id }}">删除</span>
                     </p>
                 </div>
             </div>
@@ -114,97 +77,39 @@
         </li>
         <!-- Comment box -->
         <li class="list-group-item mt-2">
-            <form action="/comments" method="POST" class="mt-2" id="comment-form">
-                <div class="form-group">
-                    <div id="wang-editor"></div>
-                    <input type="hidden" name="content" id="html-content"/>
-                </div>
-                <input type="hidden" name="pid" value="{{ .posts.id }}"/>
-                <input type="hidden" name="ruid" value="0"/>
-                <input type="hidden" name="uid" value="{{ .Session.user.id }}"/>
-                <div class="form-group">
-                    <button class="btn btn-dark btn-sm submit-btn" type="button">
-                        回复
-                    </button>
-                </div>
-            </form>
+            {{if eq .Session.user.id ""}}
+                需要<a href="/user/login" class="btn btn-link">登录</a>
+                后方可回复, 如果你还没有账号请点击这里<a href="/user/register" class="btn btn btn-link">注册</a>。
+            {{else}}
+                <form action="/comments" method="POST" class="mt-2" id="comment-form">
+                    <div class="form-group">
+                        <div id="wang-editor"></div>
+                        <input type="hidden" name="content" id="html-content"/>
+                    </div>
+                    <input type="hidden" name="pid" value="{{ .posts.id }}"/>
+                    <input type="hidden" name="ruid" value="0"/>
+                    <input type="hidden" name="uid" value="{{ .Session.user.id }}"/>
+                    <div class="form-group">
+                        <button class="btn btn-dark btn-sm submit-btn" type="button">
+                            回复
+                        </button>
+                    </div>
+                </form>
+            {{end}}
         </li>
     </ul>
-</div>
-<!-- Login Modal -->
-<div
-        class="modal fade"
-        id="login-modal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
->
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">请登录</h5>
-                <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form
-                        method="POST"
-                        action="/user/login?callback_url=/posts/{{ .posts.id }}"
-                >
-                    <div class="form-group">
-                        <div class="form-label-group error">
-                            <label for="inputEmail">邮箱</label>
-                            <input
-                                    type="email"
-                                    id="inputEmail"
-                                    name="email"
-                                    class="form-control"
-                                    placeholder="Email address"
-                                    required="required"
-                                    autofocus="autofocus"
-                                    value="admin@qq.com"
-                            />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <label for="inputEmail">密码</label>
-                            <input
-                                    type="password"
-                                    name="password"
-                                    class="form-control"
-                                    placeholder="密码"
-                                    required="required"
-                                    value="123456"
-                                    id="inputEmail"
-                            />
-                            <div class="invalid-feedback">Please provide a valid zip.</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-secondary">登录</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
     $(function () {
         hljs.initHighlightingOnLoad();
         $(".submit-btn").on("click", function () {
-            if (auth === "") {
-                $("#login-modal").modal("show");
+            // Determine whether to log in
+            if ("{{ .Session.user.id }}" !== "") {
+                $("#comment-form").submit();
             } else {
-                if ($("#html-content").val()) $("#comment-form").submit();
+                alert("请先登录");
             }
         });
-
         // Initialize rich text
         const E = window.wangEditor;
         const editor = new E("#wang-editor");
@@ -245,6 +150,7 @@
         editor.config.uploadImgServer = "/editor/file";
         // Upload parameter settings
         editor.config.uploadImgParams = {};
+        // Create editor
         editor.create();
     });
 </script>

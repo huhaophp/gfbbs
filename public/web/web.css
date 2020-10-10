@@ -109,8 +109,11 @@ a {
     font-size: 14px;
 }
 
-.comment-content img, .posts-content img {
-    width: 100%;
+.comment-content img {
+    max-width: 100%;
+}
+.posts-content img {
+    max-width: 100%;
 }
 
 /*post detail*/

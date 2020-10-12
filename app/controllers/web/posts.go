@@ -55,7 +55,8 @@ func (c *PostsController) Details(r *ghttp.Request) {
 // Publish Post a post
 func (c *PostsController) Publish(r *ghttp.Request) {
 	if r.Method == "GET" {
-		data := g.Map{"mainTpl": publishTpl}
+		nodes := service.NodeService.Get(g.Map{"status": 0})
+		data := g.Map{"mainTpl": publishTpl, "nodes": nodes}
 		response.ViewExit(r, constants.WebLayoutTplPath, data)
 	}
 	var reqEntity service.PublishPostsReqEntity

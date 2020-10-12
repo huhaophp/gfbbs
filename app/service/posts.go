@@ -7,7 +7,7 @@ import (
 
 // PublishPostsReqEntity
 type PublishPostsReqEntity struct {
-	Nid     string `p:"nid" v:"required#请选择节点ID"`
+	Nid     string `p:"nid" v:"required#请选择节点"`
 	Title   string `p:"title" v:"required#请填写帖子标题"`
 	Content string `p:"content" v:"required#请填写帖子内容"`
 }

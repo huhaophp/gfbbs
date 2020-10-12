@@ -2,41 +2,58 @@
     {{AlertComponent .Session.success "success"}}
     <ul class="list-group">
         <li class="list-group-item">
-            {{range $top := .tops}}
-                <button class="{{if eq $top.id $.pid}} btn btn-btn btn-dark btn-sm {{else}} btn btn-link text-secondary{{end}} top-node-btn"
-                        data-id="{{ $top.id }}">{{ $top.name }}</button>
-            {{end}}
-        </li>
-        <li class="list-group-item bg-light">
-            {{range $child := .children}}
-                <button class="{{if eq $child.id $.pid}} btn btn-btn btn-dark btn-sm {{else}} btn btn-link text-secondary{{end}} child-node-btn"
-                        data-id="{{ $child.id }}">{{ $child.name }}</button>
+            {{range $node := .nodes}}
+                <button class="{{if eq $node.id $.nid}} btn btn-btn btn-dark btn-sm {{else}} btn btn-link text-secondary{{end}} top-node-btn"
+                        data-id="{{ $node.id }}">{{ $node.name }}</button>
             {{end}}
         </li>
         {{range $posts := .posts}}
             <li class="list-group-item">
                 <div style="width:7%;float: left;">
-                    <img src="{{ $posts.avatar }}" style="height: 48px;width: 48px;" class="rounded-circle">
+                    <img src="{{ $posts.avatar }}" style="height: 48px;width: 48px;">
                 </div>
                 <div style="width: 93%;float: left;">
                         <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;word-break: break-word;hyphens: auto;">
-                            <a href="/posts/{{ $posts.id }}" style="color: #636b6f;">{{ $posts.title }}</a>
+                            <a href="/posts/{{ $posts.id }}" style="color: #778087;">{{ $posts.title }}</a>
                         </span>
                     <br>
                     <span style="font-size: 12px;color: #ccc;">
-                         <a href="" class="badge badge-light" style="color: #acacac;"><i
-                                     class="fa fa-tag"></i> {{$posts.node_name}}</a>
-                <a href="/users/{{ $posts.uid }}" class="badge badge-light" style="color: #acacac;"><i
-                            class="fa fa-user"></i> {{$posts.name}}</a>
-                <span class="badge badge-light" style="color: #acacac;"><i
-                            class="fa fa-clock"></i> {{StrTime $posts.create_at.String}}</span>
-                <span class="badge badge-light" style="color: #acacac;"><i
-                            class="fa fa-comment"></i> {{$posts.view_num}}</span>
-                        </span>
+                            <a href=""
+                               style="color: #778087;"> <strong>{{ $posts.name }}</strong></a>  •  {{StrTime $posts.create_at.String}}
+                             <span style="font-size: 12px;color: #ccc;text-align: right;">• 回复数 {{ $posts.comment_num }}</span>
+                        {{if gt $posts.luid 0}} •  最后回复来自
+                            <a href="/users/{{  $posts.luid }}"
+                               style="color: #778087;"><strong>{{ $posts.last_user_name }}</strong></a>
+                            </span>
+                        {{end}}
 
                 </div>
             </li>
         {{end}}
+        {{/*        {{range $posts := .posts}}*/}}
+        {{/*            <li class="list-group-item">*/}}
+        {{/*                <div style="width:7%;float: left;">*/}}
+        {{/*                    <img src="{{ $posts.avatar }}" style="height: 48px;width: 48px;" class="rounded-circle">*/}}
+        {{/*                </div>*/}}
+        {{/*                <div style="width: 93%;float: left;">*/}}
+        {{/*                        <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;word-break: break-word;hyphens: auto;">*/}}
+        {{/*                            <a href="/posts/{{ $posts.id }}" style="color: #636b6f;">{{ $posts.title }}</a>*/}}
+        {{/*                        </span>*/}}
+        {{/*                    <br>*/}}
+        {{/*                    <span style="font-size: 12px;color: #ccc;">*/}}
+        {{/*                         <a href="" class="badge badge-light" style="color: #acacac;"><i*/}}
+        {{/*                                     class="fa fa-tag"></i> {{$posts.node_name}}</a>*/}}
+        {{/*                <a href="/users/{{ $posts.uid }}" class="badge badge-light" style="color: #acacac;"><i*/}}
+        {{/*                            class="fa fa-user"></i> {{$posts.name}}</a>*/}}
+        {{/*                <span class="badge badge-light" style="color: #acacac;"><i*/}}
+        {{/*                            class="fa fa-clock"></i> {{StrTime $posts.create_at.String}}</span>*/}}
+        {{/*                <span class="badge badge-light" style="color: #acacac;"><i*/}}
+        {{/*                            class="fa fa-comment"></i> {{$posts.view_num}}</span>*/}}
+        {{/*                        </span>*/}}
+
+        {{/*                </div>*/}}
+        {{/*            </li>*/}}
+        {{/*        {{end}}*/}}
     </ul>
 </div>
 <div class="col-sm-3">

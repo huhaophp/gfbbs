@@ -32,6 +32,7 @@ var (
         Content     string //   
         ViewNum     string //   
         CommentNum  string //   
+        Luid        string //   
         CreateAt    string //   
         UpdateAt    string //
 	}{
@@ -43,6 +44,7 @@ var (
         Content:    "content",      
         ViewNum:    "view_num",     
         CommentNum: "comment_num",  
+        Luid:       "luid",         
         CreateAt:   "create_at",    
         UpdateAt:   "update_at",
 	}

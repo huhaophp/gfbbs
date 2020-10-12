@@ -117,10 +117,7 @@
   <script>
     $(function() {
       $(".top-node-btn").on("click", function(e) {
-        window.location = "/?pid=" + $(this).attr("data-id");
-      });
-      $(".child-node-btn").on("click", function(e) {
-        window.location = "/node/" + $(this).attr("data-id");
+        window.location = "/?nid=" + $(this).attr("data-id");
       });
 
       function message(content, type = "success") {

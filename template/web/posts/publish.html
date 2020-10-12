@@ -11,11 +11,13 @@
                         <div class="input-group-prepend">
                             <button class="btn btn-text" type="button">选择节点...</button>
                         </div>
-                        <input type="text" class="form-control" placeholder="在这里填写标题">
+                        <input type="text" name="title" class="form-control" placeholder="在这里填写标题" value="在这里填写标题">
+                        <input type="hidden" name="nid" value="35" class="form-control" placeholder="在这里填写标题">
                     </div>
                 </div>
                 <div class="form-group">
-                    <div id="wang-editor"></div>
+                    <div id="wang-editor">
+                    </div>
                     <input type="hidden" name="content" id="html-content">
                 </div>
                 <button class="btn btn-primary submit-register">确认发布</button>

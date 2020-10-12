@@ -64,7 +64,7 @@
                             <label for="inputName">头像</label>
                             <br>
                             <img src="{{.user.avatar}}" class="img-circle img-thumbnail user-avatar"
-                                 style="height: 200px;width: 200px;cursor: pointer;">
+                                 style="max-height: 200px;max-width:200px;cursor: pointer;">
                         </div>
                         <input type="file" class="avatar-input" style="display: none;">
                         <input type="hidden" name="avatar" class="avatar" value="{{ .user.avatar }}">
@@ -79,7 +79,8 @@
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputEmail">确认密码</label>
-                            <input type="password" name="confirm_password" class="form-control  col-sm-6" placeholder="确认新密码">
+                            <input type="password" name="confirm_password" class="form-control  col-sm-6"
+                                   placeholder="确认新密码">
                         </div>
                     </div>
                 {{end}}

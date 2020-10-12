@@ -5,9 +5,12 @@ import (
 	"bbs/app/funcs/response"
 	commentsModel "bbs/app/model/comments"
 	postsModel "bbs/app/model/posts"
+	"bbs/app/service"
+	"fmt"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/util/gconv"
 )
 
 const (
@@ -55,5 +58,14 @@ func (c *PostsController) Publish(r *ghttp.Request) {
 		data := g.Map{"mainTpl": publishTpl}
 		response.ViewExit(r, constants.WebLayoutTplPath, data)
 	}
-	response.RedirectBackWithError(r, gerror.New("文章标题不能为空"))
+	var reqEntity service.PublishPostsReqEntity
+	if err := r.Parse(&reqEntity); err != nil {
+		response.RedirectBackWithError(r, err)
+	}
+	publisher := gconv.Int(r.Session.GetMap("user")["id"])
+	if id := service.PostsService.Publish(publisher, &reqEntity); id == 0 {
+		response.RedirectBackWithError(r, gerror.New("发布失败"))
+	} else {
+		response.RedirectToWithMessage(r, fmt.Sprintf("/posts/%d", id), "发布成功")
+	}
 }

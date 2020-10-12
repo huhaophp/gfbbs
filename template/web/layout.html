@@ -53,6 +53,9 @@
             <div class="navbar-nav mr-auto"></div>
             <div class="dropdown">
               {{if .Session.user}}
+                <a type="button" class="btn" href="/posts/publish">
+                  发帖
+                </a>
               <div
                 class="btn-group"
                 role="group"
@@ -99,7 +102,7 @@
         <!--- main --->
         <main
           class="row"
-          style="margin-bottom: 80px;padding:30px 100px 0 100px;"
+          style="margin-bottom: 80px;padding:10px 100px 0 100px;"
         >
           {{include .mainTpl .}}
         </main>

@@ -63,13 +63,18 @@
                     <a href="" style="color: #778087;">{{ $comment.r_user_name }}</a>
                     {{end}}
                     <p>{{ $comment.content }}</p>
-                    <p style="width: 100%;text-align: right;">
-                        <span class="comment-action comment-reply" data-id="{{ $comment.id }}">回复</span>
-                        <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>
-                        <span class="comment-action comment-delete">删除</span>
-                    <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"
-                          style="display: none;"></form>
-                    </p>
+                    <!-- Whether to log in -->
+                    {{if $.Session.user.id}}
+                        <p style="width: 100%;text-align: right;">
+                            <span class="comment-action comment-reply" data-id="{{ $comment.id }}">回复</span>
+                            <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>
+                            {{if eq $.Session.user.id $comment.uid}}
+                                <span class="comment-action comment-delete">删除</span>
+                            {{end}}
+                        <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"
+                              style="display: none;"></form>
+                        </p>
+                    {{end}}
                 </div>
             </div>
         {{end}}
@@ -148,7 +153,7 @@
             "quote",
             // "image",
             // "table",
-            "code",
+            // "code",
             "splitLine",
             "undo",
             "redo"

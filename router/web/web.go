@@ -20,6 +20,8 @@ func init() {
 		group.GET("/", webController.Home)
 		group.GET("/captcha", captchaController.Get)
 		group.GET("/posts/{postsId}", PostsController.Details)
+		group.GET("/posts/publish", PostsController.Publish)
+		group.POST("/posts/publish", PostsController.Publish)
 		group.GET("/node/{nodeId}", nodeController.Index)
 		group.POST("/comments", commentController.Add)
 		group.POST("/comments/{id}/delete", commentController.Del)

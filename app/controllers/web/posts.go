@@ -5,12 +5,14 @@ import (
 	"bbs/app/funcs/response"
 	commentsModel "bbs/app/model/comments"
 	postsModel "bbs/app/model/posts"
+	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
 
 const (
-	postsTpl string = "web/posts/detail.html"
+	postsTpl   string = "web/posts/detail.html"
+	publishTpl string = "web/posts/publish.html"
 )
 
 // PostsController Base
@@ -45,4 +47,13 @@ func (c *PostsController) Details(r *ghttp.Request) {
 	data := g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)}
 
 	response.ViewExit(r, constants.WebLayoutTplPath, data)
+}
+
+// Publish Post a post
+func (c *PostsController) Publish(r *ghttp.Request) {
+	if r.Method == "GET" {
+		data := g.Map{"mainTpl": publishTpl}
+		response.ViewExit(r, constants.WebLayoutTplPath, data)
+	}
+	response.RedirectBackWithError(r, gerror.New("文章标题不能为空"))
 }

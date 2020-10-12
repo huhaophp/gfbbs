@@ -1,0 +1,70 @@
+<script src="/web/js/editor.min.js"></script>
+<div class="col-sm-10">
+    <div class="card">
+        <div class="card-body">
+            <b>发布帖子</b>
+            <hr>
+            {{AlertComponent .Session.error "danger"}}
+            <form method="POST" action="/posts/publish">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-text" type="button">选择节点...</button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="在这里填写标题">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="wang-editor"></div>
+                    <input type="hidden" name="content" id="html-content">
+                </div>
+                <button class="btn btn-primary submit-register">确认发布</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Initialize rich text
+        const E = window.wangEditor;
+        const editor = new E("#wang-editor");
+        editor.config.onchange = function (html) {
+            $("#html-content").val(html);
+        };
+        // Editor menu items
+        editor.config.menus = [
+            "head",
+            "bold",
+            "fontSize",
+            "fontName",
+            "italic",
+            "underline",
+            "strikeThrough",
+            "indent",
+            "lineHeight",
+            "foreColor",
+            "backColor",
+            "link",
+            "list",
+            "justify",
+            "quote",
+            "image",
+            // "table",
+            // "code",
+            "splitLine",
+            "undo",
+            "redo"
+        ];
+        editor.config.hashjs = true;
+        // Ignore pictures in pasted content
+        editor.config.pasteIgnoreImg = true;
+        // Upload file name
+        editor.config.uploadFileName = "file";
+        // Upload request URL
+        editor.config.uploadImgServer = "/editor/file";
+        // Upload parameter settings
+        editor.config.uploadImgParams = {};
+        // Create editor
+        editor.create();
+    })
+</script>

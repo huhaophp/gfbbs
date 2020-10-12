@@ -13,11 +13,11 @@
         border-radius: 2px;
     }
 </style>
-<div class="col-sm-9">
+<div class="col-sm-10">
     {{AlertComponent .Session.error "danger"}}
     {{AlertComponent .Session.success "success"}}
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="">V2EX</a> › <a href="">游戏</a></li>
+{{/*        <li class="list-group-item"><a href="">V2EX</a> › <a href="">游戏</a></li>*/}}
         <li class="list-group-item">
             <h5>{{ .posts.title }}</h5>
             <div>
@@ -38,8 +38,30 @@
         <li class="list-group-item posts-content" style="padding: 20px;">
             {{ .posts.content }}
         </li>
-        <li class="list-group-item mt-2" style="color: #999;font-size: 14px;">
+        <li class="list-group-item" style="color: #999;font-size: 14px;">
             {{ .posts.comment_num }} 条回复
+        </li>
+        <!-- Comment box -->
+        <li class="list-group-item">
+            {{if eq .Session.user.id ""}}
+                需要<a href="/user/login" class="btn btn-link">登录</a>
+                后方可回复, 如果你还没有账号请点击这里<a href="/user/register" class="btn btn btn-link">注册</a>。
+            {{else}}
+                <form action="/comments" method="POST" class="mt-2" id="comment-form">
+                    <div class="form-group">
+                        <div id="wang-editor"></div>
+                        <input type="hidden" name="content" id="html-content">
+                    </div>
+                    <input type="hidden" name="pid" value="{{ .posts.id }}">
+                    <input type="hidden" name="ruid" value="0">
+                    <input type="hidden" name="uid" value="{{ .Session.user.id }}">
+                    <div class="form-group">
+                        <button class="btn btn-primary submit-btn" type="button">
+                            回复
+                        </button>
+                    </div>
+                </form>
+            {{end}}
         </li>
         {{range $comment := .comments}}
             <div class="list-group-item">
@@ -83,28 +105,6 @@
                 {{ .page }}
             </div>
         </li>
-        <!-- Comment box -->
-        <li class="list-group-item mt-2">
-            {{if eq .Session.user.id ""}}
-                需要<a href="/user/login" class="btn btn-link">登录</a>
-                后方可回复, 如果你还没有账号请点击这里<a href="/user/register" class="btn btn btn-link">注册</a>。
-            {{else}}
-                <form action="/comments" method="POST" class="mt-2" id="comment-form">
-                    <div class="form-group">
-                        <div id="wang-editor"></div>
-                        <input type="hidden" name="content" id="html-content">
-                    </div>
-                    <input type="hidden" name="pid" value="{{ .posts.id }}">
-                    <input type="hidden" name="ruid" value="0">
-                    <input type="hidden" name="uid" value="{{ .Session.user.id }}">
-                    <div class="form-group">
-                        <button class="btn btn-primary submit-btn" type="button">
-                            回复
-                        </button>
-                    </div>
-                </form>
-            {{end}}
-        </li>
     </ul>
 </div>
 <script>
@@ -123,7 +123,7 @@
         $('.comment-action').on('click', function () {
             // 删除评论
             if ($(this).hasClass('comment-delete')) {
-                $('.delete-form').submit();
+                $(this).parent().find('.delete-form').submit();
             }
         })
 

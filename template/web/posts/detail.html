@@ -41,18 +41,19 @@
             {{ .posts.comment_num }} 条回复
         </li>
         <!-- Comment box -->
-        <li class="list-group-item">
+        <li class="list-group-item" id="comment-box">
             {{if eq .Session.user.id ""}}
                 需要<a href="/user/login" class="btn btn-link">登录</a>
                 后方可回复, 如果你还没有账号请点击这里<a href="/user/register" class="btn btn btn-link">注册</a>。
             {{else}}
+                <span class="reply-user"></span>
                 <form action="/comments" method="POST" class="mt-2" id="comment-form">
                     <div class="form-group">
                         <div id="wang-editor"></div>
                         <input type="hidden" name="content" id="html-content">
                     </div>
                     <input type="hidden" name="pid" value="{{ .posts.id }}">
-                    <input type="hidden" name="ruid" value="0">
+                    <input type="hidden" name="ruid" value="0" class="ruid-input">
                     <input type="hidden" name="uid" value="{{ .Session.user.id }}">
                     <div class="form-group">
                         <button class="btn btn-primary submit-btn" type="button">
@@ -71,30 +72,29 @@
                                 style="border-radius:50%;height: 30px;width:30px;"
                         />
                     </a>
-                    <a href="" style="font-size: 14px;color:#999;"
-                    ><strong>{{$comment.name}}</strong></a
-                    >
+                    <a href="" style="font-size: 14px;">{{$comment.name}}</a
+                    > {{if gt $comment.ruid 0}} <span style="color:#b5bac4 !important;font-size: 14px; ">回复了</span>
+                        <a href="/users/{{ $comment.uid }}" style="font-size: 14px;">{{ $comment.r_user_name }}</a>
+                    {{end}}
                     <span style="font-size: 12px;color: #999;"
                     >{{StrTime $comment.create_at.String}}</span
                     >
                 </div>
                 <br/>
                 <div class="comment-content" style="font-size: 14px;">
-                    {{if gt $comment.ruid 0}} @
-                    <a href="" style="color: #778087;">{{ $comment.r_user_name }}</a>
-                    {{end}}
                     <p>{{ $comment.content }}</p>
                     <!-- Whether to log in -->
                     {{if $.Session.user.id}}
-                        <p style="width: 100%;text-align: right;">
-                            <span class="comment-action comment-reply" data-id="{{ $comment.id }}">回复</span>
+                        <div style="width: 100%;text-align: right;">
+                            <a class="comment-action comment-reply" data-id="{{ $comment.id }}"
+                                  data-username="{{ $comment.name }}" href="#comment-box">回复</a>
                             <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>
                             {{if eq $.Session.user.id $comment.uid}}
                                 <span class="comment-action comment-delete">删除</span>
                             {{end}}
-                        <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"
-                              style="display: none;"></form>
-                        </p>
+                            <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"
+                                  style="display: none;"></form>
+                        </div>
                     {{end}}
                 </div>
             </div>
@@ -139,8 +139,19 @@
             // 删除评论
             if ($(this).hasClass('comment-delete')) {
                 $(this).parent().find('.delete-form').submit();
+            } else if ($(this).hasClass('comment-reply')) {
+                const ruid = $(this).attr('data-id');
+                const username = $(this).attr('data-username');
+                $('.reply-user').html('回复: ' + username + ' <a href="javascript:;" class="close-reply"><i class="fa fa-times"></i></a>');
+                $('.ruid-input').val(ruid);
             }
-        })
+        });
+
+        // 删除回复
+        $('.reply-user').on('click', '.close-reply', function () {
+            $(this).parent().html("");
+            $('.ruid-input').val(0);
+        });
 
         // Initialize rich text
         const E = window.wangEditor;

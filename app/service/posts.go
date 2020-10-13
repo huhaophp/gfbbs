@@ -22,6 +22,12 @@ func newPostsService() *postsService {
 // postsService
 type postsService struct{}
 
+// PostingPermissionCheck 发帖权限检查.
+// 控制非法灌水和无权限不文明用户
+func (s *postsService) PostingPermissionCheck(publisher int) {
+	// 策略未想好
+}
+
 // Publish Post a post.
 func (s *postsService) Publish(publisher int, req *PublishPostsReqEntity) int64 {
 	res, err := g.DB().Table(posts.Table).Insert(g.Map{

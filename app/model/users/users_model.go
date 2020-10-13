@@ -32,6 +32,8 @@ var (
         Password     string //   
         Status       string //   
         LastLoginIp  string //   
+        Sign         string //   
+        Site         string //   
         RegisterAt   string //   
         CreateAt     string //   
         UpdateAt     string //
@@ -44,6 +46,8 @@ var (
         Password:    "password",       
         Status:      "status",         
         LastLoginIp: "last_login_ip",  
+        Sign:        "sign",           
+        Site:        "site",           
         RegisterAt:  "register_at",    
         CreateAt:    "create_at",      
         UpdateAt:    "update_at",

@@ -29,7 +29,7 @@ func (c *PostsController) Details(r *ghttp.Request) {
 	posts, _ := g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
-		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,n.name node_name").
+		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,u.sign,u.site,n.name node_name").
 		Where("p.id = ?", postsId).
 		One()
 

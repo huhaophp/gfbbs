@@ -13,11 +13,10 @@
         border-radius: 2px;
     }
 </style>
-<div class="col-sm-10">
+<div class="col-sm-9">
     {{AlertComponent .Session.error "danger"}}
     {{AlertComponent .Session.success "success"}}
     <ul class="list-group list-group-flush">
-{{/*        <li class="list-group-item"><a href="">V2EX</a> › <a href="">游戏</a></li>*/}}
         <li class="list-group-item">
             <h5>{{ .posts.title }}</h5>
             <div>
@@ -107,6 +106,22 @@
         </li>
     </ul>
 </div>
+<div class="col-sm-3">
+    <div class="card">
+        <div class="card-body text-center">
+            <img src="{{ .posts.avatar }}" style="width: 68px;height: 68px;border-radius: 50%;border: 2px solid #fff;">
+            <br>
+            <a href="/users/{{ .posts.uid }}" class="btn btn-link">{{ .posts.user_name }}</a>
+            <div style="font-size: 12px;">{{ .posts.sign }}</div>
+            <hr>
+            <div>
+                <div style="display: inline-block;font-size: 12px;padding:4px;">帖子<br>(10)</div>
+                <div style="display: inline-block;font-size: 12px;padding: 4px;">评论<br>(20)</div>
+                <div style="display: inline-block;font-size: 12px;padding: 4px;">注册排名<br>({{ .posts.uid }})</div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(function () {
         hljs.initHighlightingOnLoad();
@@ -151,9 +166,9 @@
             "list",
             "justify",
             "quote",
-            // "image",
+            "image",
             // "table",
-            // "code",
+            "code",
             "splitLine",
             "undo",
             "redo"

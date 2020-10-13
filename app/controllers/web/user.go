@@ -4,7 +4,7 @@ import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	"bbs/app/model/users"
-	"bbs/app/service/web/user"
+	"bbs/app/service"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -26,7 +26,7 @@ func (c *UserController) Register(r *ghttp.Request) {
 	if r.Method == "GET" {
 		response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"mainTpl": registerTpl})
 	}
-	var reqEntity user.RegisterReqEntity
+	var reqEntity service.RegisterReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
@@ -34,7 +34,7 @@ func (c *UserController) Register(r *ghttp.Request) {
 		response.RedirectBackWithError(r, gerror.New("验证码错误"))
 	}
 	_ = r.Session.Remove("captcha")
-	if err := user.Register(&reqEntity); err != nil {
+	if err := service.UserService.Register(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
 		response.RedirectToWithMessage(r, "/", "注册成功")
@@ -47,11 +47,11 @@ func (c *UserController) Login(r *ghttp.Request) {
 		data := g.Map{"mainTpl": loginTpl}
 		response.ViewExit(r, constants.WebLayoutTplPath, data)
 	}
-	var reqEntity user.LoginReqEntity
+	var reqEntity service.LoginReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	if record, err := user.Login(&reqEntity); err != nil {
+	if record, err := service.UserService.Login(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
 		_ = r.Session.Set(constants.UserSessionKey, record)
@@ -94,33 +94,33 @@ func (c *UserController) Edit(r *ghttp.Request) {
 		tab := r.PostFormValue("tab")
 		// 编辑基础信息
 		if tab == "info" {
-			var reqEntity user.UpdateInfoEntity
+			var reqEntity service.UpdateInfoEntity
 			if err := r.Parse(&reqEntity); err != nil {
 				response.RedirectBackWithError(r, err)
 			}
-			err := user.UpdateInfo(id, &reqEntity)
+			err := service.UserService.UpdateInfo(id, &reqEntity)
 			if err != nil {
 				response.RedirectBackWithError(r, err)
 			}
 			response.RedirectToWithMessage(r, "/user/edit?tab=info", "更新成功")
 		} else if tab == "avatar" {
 			// 修改头像
-			var reqEntity user.UpdateAvatarEntity
+			var reqEntity service.UpdateAvatarEntity
 			if err := r.Parse(&reqEntity); err != nil {
 				response.RedirectBackWithError(r, err)
 			}
-			err := user.UpdateAvatar(id, &reqEntity)
+			err := service.UserService.UpdateAvatar(id, &reqEntity)
 			if err != nil {
 				response.RedirectBackWithError(r, err)
 			}
 			response.RedirectToWithMessage(r, "/user/edit?tab=avatar", "更新成功")
 		} else {
 			// 修改密码
-			var reqEntity user.UpdatePasswordEntity
+			var reqEntity service.UpdatePasswordEntity
 			if err := r.Parse(&reqEntity); err != nil {
 				response.RedirectBackWithError(r, err)
 			}
-			err := user.UpdatePassword(id, &reqEntity)
+			err := service.UserService.UpdatePassword(id, &reqEntity)
 			if err != nil {
 				response.RedirectBackWithError(r, err)
 			}

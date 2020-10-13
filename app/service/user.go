@@ -1,4 +1,4 @@
-package user
+package service
 
 import (
 	"bbs/app/model/users"
@@ -28,6 +28,8 @@ type UpdateInfoEntity struct {
 	Name   string `p:"name" v:"required#请输入用户昵称"`
 	Email  string `p:"email" v:"required|email#请输入邮箱|请输入正确的邮箱"`
 	Gender string `p:"gender" v:"required#请输入正确的性别"`
+	Sign   string `p:"sign"`
+	Site   string `p:"site"`
 }
 
 type UpdateAvatarEntity struct {
@@ -39,8 +41,18 @@ type UpdatePasswordEntity struct {
 	ConfirmPassword string `p:"confirm_password" v:"required|password#请输入确认密码|确认密码长度在6~18之间"`
 }
 
+var UserService = newUserService()
+
+// nodeService Initialize the service
+func newUserService() *userService {
+	return &userService{}
+}
+
+// userService
+type userService struct{}
+
 // Register 用户注册
-func Register(entity *RegisterReqEntity) error {
+func (s *userService) Register(entity *RegisterReqEntity) error {
 	if CheckName(entity.Name) != nil {
 		return fmt.Errorf("昵称 %s 已经存在", entity.Name)
 	}
@@ -54,6 +66,7 @@ func Register(entity *RegisterReqEntity) error {
 		"password":    password,
 		"status":      0,
 		"gender":      0,
+		"sign":        "这个人什么都没有留下",
 		"register_at": gtime.Now(),
 		"create_at":   gtime.Now(),
 		"update_at":   gtime.Now(),
@@ -68,7 +81,7 @@ func Register(entity *RegisterReqEntity) error {
 }
 
 // Login 用户登录
-func Login(entity *LoginReqEntity) (gdb.Record, error) {
+func (s *userService) Login(entity *LoginReqEntity) (gdb.Record, error) {
 	user := CheckEmail(entity.Email)
 	if user == nil {
 		return nil, errors.New("邮箱或密码错误")
@@ -107,11 +120,13 @@ func CheckEmail(email string) gdb.Record {
 }
 
 // UpdateInfo 更新用户基础信息
-func UpdateInfo(id string, entity *UpdateInfoEntity) error {
+func (s *userService) UpdateInfo(id string, entity *UpdateInfoEntity) error {
 	data := g.Map{
 		"name":   entity.Name,
 		"email":  entity.Email,
 		"gender": entity.Gender,
+		"sign":   entity.Sign,
+		"site":   entity.Site,
 	}
 	res, err := g.DB().Table(users.Table).WherePri(id).Update(data)
 	if err != nil {
@@ -126,7 +141,7 @@ func UpdateInfo(id string, entity *UpdateInfoEntity) error {
 }
 
 // UpdateAvatar 更新头像
-func UpdateAvatar(id string, entity *UpdateAvatarEntity) error {
+func (s *userService) UpdateAvatar(id string, entity *UpdateAvatarEntity) error {
 	res, err := g.DB().Table(users.Table).WherePri(id).Update(g.Map{
 		"avatar": entity.Avatar,
 	})
@@ -142,7 +157,7 @@ func UpdateAvatar(id string, entity *UpdateAvatarEntity) error {
 }
 
 // UpdatePassword 更新用户密码
-func UpdatePassword(id string, entity *UpdatePasswordEntity) error {
+func (s *userService) UpdatePassword(id string, entity *UpdatePasswordEntity) error {
 	if entity.Password != entity.ConfirmPassword {
 		return gerror.New("新密码和确认输入不一致")
 	}

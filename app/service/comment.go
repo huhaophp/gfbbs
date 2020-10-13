@@ -1,7 +1,8 @@
-package comment
+package service
 
 import (
 	"bbs/app/model/comments"
+	"bbs/app/model/posts"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 )
@@ -13,8 +14,18 @@ type AddCommentReqEntity struct {
 	Uid     int    `p:"uid"`
 }
 
+var CommentService = newCommentService()
+
+// nodeService Initialize the service
+func newCommentService() *commentService {
+	return &commentService{}
+}
+
+// nodeService
+type commentService struct{}
+
 // Add Comment post
-func Add(entity *AddCommentReqEntity) error {
+func (s *commentService) Add(entity *AddCommentReqEntity) error {
 	res, err := g.DB().Table(comments.Table).Insert(g.Map{
 		"pid":       entity.Pid,
 		"uid":       entity.Uid,
@@ -22,6 +33,7 @@ func Add(entity *AddCommentReqEntity) error {
 		"content":   entity.Content,
 		"is_delete": 0,
 	})
+	_, _ = g.DB().Table(posts.Table).Data("comment_num = comment_num+1").Where("id = ?", entity.Pid).Update()
 	if err != nil {
 		return err
 	}
@@ -32,7 +44,7 @@ func Add(entity *AddCommentReqEntity) error {
 }
 
 // Delete Delete comment
-func Delete(id string) error {
+func (s *commentService) Delete(id string) error {
 	res, err := g.DB().Table(comments.Table).WherePri(id).Update(g.Map{
 		"is_delete": 1,
 	})
@@ -46,7 +58,7 @@ func Delete(id string) error {
 }
 
 // CheckPermissions
-func CheckPermissions(id string, uid string) error {
+func (s *commentService) CheckPermissions(id string, uid string) error {
 	res, err := g.DB().Table(comments.Table).Where(g.Map{"uid": uid, "is_delete": 0, "id": id}).One()
 	if err != nil {
 		return err

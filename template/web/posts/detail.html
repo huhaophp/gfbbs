@@ -51,7 +51,7 @@
                     </a>
                     <a href="" style="font-size: 14px;">{{$comment.name}}</a
                     > {{if gt $comment.ruid 0}} <span style="color:#b5bac4 !important;font-size: 14px; ">回复了</span>
-                        <a href="/users/{{ $comment.uid }}" style="font-size: 14px;">{{ $comment.r_user_name }}</a>
+                    <a href="/users/{{ $comment.uid }}" style="font-size: 14px;">{{ $comment.r_user_name }}</a>
                     {{end}}
                     <span style="font-size: 12px;color: #999;"
                     >{{StrTime $comment.create_at.String}}</span
@@ -64,8 +64,8 @@
                     {{if $.Session.user.id}}
                         <div style="width: 100%;text-align: right;">
                             <a class="comment-action comment-reply" data-id="{{ $comment.uid }}"
-                                  data-username="{{ $comment.name }}" href="#comment-box">回复</a>
-{{/*                            <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>*/}}
+                               data-username="{{ $comment.name }}" href="#comment-box">回复</a>
+                            {{/*                            <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>*/}}
                             {{if eq $.Session.user.id $comment.uid}}
                                 <span class="comment-action comment-delete">删除</span>
                             {{end}}
@@ -76,11 +76,11 @@
                 </div>
             </div>
         {{end}}
-{{/*        <li class="list-group-item">*/}}
-{{/*            <div class="page">*/}}
-{{/*                {{ .page }}*/}}
-{{/*            </div>*/}}
-{{/*        </li>*/}}
+        {{/*        <li class="list-group-item">*/}}
+        {{/*            <div class="page">*/}}
+        {{/*                {{ .page }}*/}}
+        {{/*            </div>*/}}
+        {{/*        </li>*/}}
         <!-- Comment box -->
         <li class="list-group-item" id="comment-box">
             {{if eq .Session.user.id ""}}
@@ -94,6 +94,7 @@
                         <input type="hidden" name="content" id="html-content">
                     </div>
                     <input type="hidden" name="pid" value="{{ .posts.id }}">
+                    <input type="hidden" name="puid" value="{{ .posts.uid }}">
                     <input type="hidden" name="ruid" value="0" class="ruid-input">
                     <input type="hidden" name="uid" value="{{ .Session.user.id }}">
                     <div class="form-group">

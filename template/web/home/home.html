@@ -7,17 +7,18 @@
                         data-id="{{ $node.id }}">{{ $node.name }}</button>
             {{end}}
         </li>
-        {{range $posts := .posts}}
-            <li class="list-group-item">
-                <div style="width:7%;float: left;">
-                    <img src="{{ $posts.avatar }}" style="max-height: 48px;">
-                </div>
-                <div style="width: 93%;float: left;">
+        {{if .posts}}
+            {{range $posts := .posts}}
+                <li class="list-group-item">
+                    <div style="width:7%;float: left;">
+                        <img src="{{ $posts.avatar }}" style="height: 48px;width:48px;border-radius: 50%;">
+                    </div>
+                    <div style="width: 93%;float: left;">
                         <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;word-break: break-word;hyphens: auto;">
                             <a href="/posts/{{ $posts.id }}" style="color: #778087;">{{ $posts.title }}</a>
                         </span>
-                    <br>
-                    <span style="font-size: 12px;color: #ccc;">
+                        <br>
+                        <span style="font-size: 12px;color: #ccc;">
                             <a href="/users/{{ $posts.uid }}"
                                style="color: #778087;">{{ $posts.name }}</a>  •  {{StrTime $posts.create_at.String}} •
                                  <a href="/?nid={{ $posts.nid }}" style="color: #778087;">{{ $posts.node_name }}</a>
@@ -28,7 +29,12 @@
                             </span>
                         {{end}}
 
-                </div>
+                    </div>
+                </li>
+            {{end}}
+        {{else}}
+            <li class="list-group-item text-center">
+                <h5>暂无相关内容</h5>
             </li>
         {{end}}
         {{/*        {{range $posts := .posts}}*/}}

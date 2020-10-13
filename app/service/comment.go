@@ -12,6 +12,7 @@ type AddCommentReqEntity struct {
 	Pid     int    `p:"pid"`
 	Ruid    int    `p:"ruid"`
 	Uid     int    `p:"uid"`
+	Puid    int    `p:"puid"`
 }
 
 var CommentService = newCommentService()
@@ -40,6 +41,19 @@ func (s *commentService) Add(entity *AddCommentReqEntity) error {
 	if id, err := res.LastInsertId(); err != nil || id <= 0 {
 		return gerror.New("评论失败")
 	}
+	// Judge the recipient.
+	if entity.Ruid > 0 {
+		entity.Puid = entity.Ruid
+	}
+	// Send message to recipient.
+	_ = MessageService.Send(g.Map{
+		"suid":      entity.Uid,
+		"ruid":      entity.Puid,
+		"tid":       entity.Pid,
+		"type":      "comment",
+		"is_read":   0,
+		"is_delete": 0,
+	})
 	return nil
 }
 

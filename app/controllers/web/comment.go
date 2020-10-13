@@ -23,8 +23,9 @@ func (c *CommentController) Add(r *ghttp.Request) {
 	}
 	if err := service.CommentService.Add(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
+	} else {
+		response.BackWithMessage(r, "评论成功")
 	}
-	response.BackWithMessage(r, "评论成功")
 }
 
 // Del Delete comment

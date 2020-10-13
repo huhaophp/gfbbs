@@ -27,3 +27,11 @@ func initViewFunctions() {
 		"AlertComponent": view.AlertComponent,
 	})
 }
+
+func initializeUserGlobalVariables() {
+
+}
+
+func initializeViewGlobalVariables() {
+
+}

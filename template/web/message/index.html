@@ -31,7 +31,7 @@
                 <div style="width: 95%;float: left;line-height: 36px;font-size: 14px;">
                     <p>
                         <a href="/users/{{ $item.suid }}">{{ $item.name }}</a>
-                        {{if eq $item.action "comment"}}评论了你的帖子:{{else if eq $item.action "reply"}}回复了你的帖子:{{else}}{{end}}
+                        {{if eq $item.action "comment"}}评论了你的帖子:{{else if eq $item.action "reply"}}回复了你的评论:{{else}}{{end}}
                         <a href="/posts/{{ $item.tid }}">{{StrLimit $item.title 0 50}}</a>
                         <span class="float-right" style="font-size: 12px;">{{StrTime $item.create_at.String}}</span>
                     </p>

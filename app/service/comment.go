@@ -42,15 +42,18 @@ func (s *commentService) Add(entity *AddCommentReqEntity) error {
 		return gerror.New("评论失败")
 	}
 	// Judge the recipient.
+	action := "comment"
 	if entity.Ruid > 0 {
 		entity.Puid = entity.Ruid
+		action = "reply"
 	}
 	// Send message to recipient.
 	_ = MessageService.Send(g.Map{
 		"suid":      entity.Uid,
 		"ruid":      entity.Puid,
 		"tid":       entity.Pid,
-		"type":      "comment",
+		"type":      "posts",
+		"action":    action,
 		"is_read":   0,
 		"is_delete": 0,
 	})

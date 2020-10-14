@@ -1,7 +1,7 @@
 package web
 
 import (
-	response "bbs/app/funcs/response"
+	"bbs/app/funcs/response"
 	postsModel "bbs/app/model/posts"
 	"bbs/app/service"
 	"github.com/gogf/gf/frame/g"

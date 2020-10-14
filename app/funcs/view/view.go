@@ -3,6 +3,7 @@ package view
 import (
 	"fmt"
 	"github.com/gogf/gf/os/gtime"
+	"github.com/gogf/gf/text/gstr"
 	"github.com/gogf/gf/util/gconv"
 )
 
@@ -53,4 +54,19 @@ func AlertComponent(msg interface{}, level string) (s string) {
 	s += "</button>"
 	s += "</div>"
 	return
+}
+
+// StrLimit
+func StrLimit(str interface{}, s int, l int) string {
+	ss := gconv.String(str)
+	if ss == "" {
+		return ss
+	}
+	ll := gstr.LenRune(ss)
+	if ll > l {
+		return gstr.SubStrRune(ss, s, l) + "..."
+	} else {
+		return ss
+	}
+
 }

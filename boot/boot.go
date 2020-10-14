@@ -24,14 +24,7 @@ func initSystemSetting() {
 func initViewFunctions() {
 	g.View().BindFuncMap(gview.FuncMap{
 		"StrTime":        view.StrTime,
+		"StrLimit":     view.StrLimit,
 		"AlertComponent": view.AlertComponent,
 	})
-}
-
-func initializeUserGlobalVariables() {
-
-}
-
-func initializeViewGlobalVariables() {
-
 }

@@ -4,9 +4,11 @@ import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	"bbs/app/model/admins"
+	"bbs/app/service"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/util/gconv"
 )
 
 // AdminAuthCheck Check admin authorization check.
@@ -39,4 +41,12 @@ func WebAuthCheck(r *ghttp.Request) {
 	} else {
 		r.Middleware.Next()
 	}
+}
+
+func LayoutGlobalVariablesSetting(r *ghttp.Request) {
+	user := r.Session.GetMap("user")
+	if user != nil {
+		r.GetView().Assign("unread_num", service.MessageService.GetUnreadNum(gconv.Int(user["id"])))
+	}
+	r.Middleware.Next()
 }

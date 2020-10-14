@@ -2,6 +2,7 @@ package service
 
 import (
 	"bbs/app/model/messages"
+	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 )
@@ -16,8 +17,21 @@ func newMessageService() *messageService {
 // messageService
 type messageService struct{}
 
+// List Get message list.
+func (s *messageService) List(ruid int, page int, limit int) gdb.Result {
+	items, _ := g.DB().Table(messages.Table+" m").
+		LeftJoin("users u", "u.id = m.suid").
+		LeftJoin("posts p", "p.id = m.tid").
+		Where("m.ruid = ?", ruid).
+		Fields("m.id,m.suid,m.ruid,m.tid,m.type,m.action,m.update_at,m.create_at,u.name,u.avatar,p.title").
+		Order("m.create_at DESC").
+		Page(page, 20).
+		All()
+	return items
+}
+
 // GetUnread Get unread messages.
-func (s *messageService) GetUnread(uid int) int {
+func (s *messageService) GetUnreadNum(uid int) int {
 	count, err := g.DB().Table(messages.Table).Where("ruid = ? and is_read = 0", uid).Count()
 	if err != nil {
 		g.Log().Error(err)

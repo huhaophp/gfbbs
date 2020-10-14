@@ -2,6 +2,7 @@ package web
 
 import (
 	"bbs/app/controllers/web"
+	"bbs/app/middleware"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -15,8 +16,10 @@ func init() {
 	nodeController := new(web.NodeController)
 	commentController := new(web.CommentController)
 	captchaController := new(web.CaptchaController)
+	MessageController := new(web.MessageController)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
+		group.Middleware(middleware.LayoutGlobalVariablesSetting)
 		group.GET("/", webController.Home)
 		group.GET("/captcha", captchaController.Get)
 		group.GET("/posts/{postsId}", PostsController.Details)
@@ -35,5 +38,6 @@ func init() {
 		group.GET("/user/edit", userController.Edit)
 		group.POST("/user/edit", userController.Edit)
 		group.GET("/users/{id}", userController.Center)
+		group.GET("/message", MessageController.Index)
 	})
 }

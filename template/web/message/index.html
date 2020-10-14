@@ -1,0 +1,47 @@
+<style>
+    .tab-active {
+        background: rgba(0, 0, 0, .05);
+    }
+
+    .edit-info-a {
+        color: rgba(0, 0, 0, .87);
+        text-decoration: none;
+    }
+</style>
+<div class="col-sm-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center {{if eq .Query.tab "t"}} tab-active {{end}}">
+            <a href="/message?tab=t" class="edit-info-a"><i class="fa fa-bell"></i> 通知 </a>
+        </li>
+        <li class="list-group-item text-center {{if eq .Query.tab "s"}} tab-active {{end}}">
+            <a href="/message?tab=s" class="edit-info-a"><i class="fa fa-envelope"></i> 私信 </a>
+        </li>
+    </ul>
+</div>
+<div class="col-sm-9">
+    <ul class="list-group">
+        {{if eq .Query.tab "t"}}
+            <li class="list-group-item"><i class="fa fa-bell"></i> 我的通知</li>
+        {{range $item := .items}}
+            <li class="list-group-item">
+                <div style="width:5%;float: left;height: 36px;">
+                    <img src="{{ $item.avatar }}"
+                         style="height: 36px;width:36px;border-radius: 50%;">
+                </div>
+                <div style="width: 95%;float: left;line-height: 36px;font-size: 14px;">
+                    <p>
+                        <a href="/users/{{ $item.suid }}">{{ $item.name }}</a>
+                        {{if eq $item.action "comment"}}评论了你的帖子:{{else if eq $item.action "reply"}}回复了你的帖子:{{else}}{{end}}
+                        <a href="/posts/{{ $item.tid }}">{{StrLimit $item.title 0 50}}</a>
+                        <span class="float-right" style="font-size: 12px;">{{StrTime $item.create_at.String}}</span>
+                    </p>
+                </div>
+            </li>
+        {{end}}
+        {{else}}
+        <li class="list-group-item">
+            <h5>开发中....</h5>
+        </li>
+        {{end}}
+    </ul>
+</div>

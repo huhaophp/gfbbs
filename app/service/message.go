@@ -66,14 +66,9 @@ func (s *messageService) ReadAll(userId int) error {
 		g.Log().Error(err)
 		return err
 	}
-	id, err := res.RowsAffected()
-	if err != nil {
+	if _, err := res.RowsAffected(); err != nil {
 		g.Log().Error(err)
 		return err
-	}
-	if id <= 0 {
-		g.Log().Error("Failed to read unread messages.")
-		return gerror.New("Failed to read unread messages.")
 	}
 	return nil
 }

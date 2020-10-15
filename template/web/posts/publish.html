@@ -89,9 +89,10 @@
         // Upload file name
         editor.config.uploadFileName = "file";
         // Upload request URL
-        editor.config.uploadImgServer = "/editor/file";
+        editor.config.uploadImgServer = "/file";
         // Upload parameter settings
         editor.config.uploadImgParams = {};
+        editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M
         // Create editor
         editor.create();
     })

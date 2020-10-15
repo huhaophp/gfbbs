@@ -40,7 +40,7 @@ func (c *Controller) Home(r *ghttp.Request) {
 
 	page := r.GetPage(total, 20)
 
-	data := g.Map{"nodes": nodes, "nid": nid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(4)}
+	data := g.Map{"nodes": nodes, "nid": nid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)}
 
 	response.ViewExit(r, layout, data)
 }

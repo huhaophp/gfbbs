@@ -10,7 +10,22 @@
 
     .posts-content img {
         max-width: 100%;
+        margin-bottom: 30px;
+        margin-top: 10px;
         border-radius: 2px;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+    }
+    .comment-content img {
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border-radius: 2px;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
     }
 </style>
 <div class="col-sm-9">
@@ -126,7 +141,6 @@
 <script>
     $(function () {
         hljs.initHighlightingOnLoad();
-
         $(".submit-btn").on("click", function () {
             // Determine whether to log in
             if ("{{ .Session.user.id }}" !== "") {
@@ -194,6 +208,7 @@
         editor.config.uploadImgServer = "/editor/file";
         // Upload parameter settings
         editor.config.uploadImgParams = {};
+        editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M
         // Create editor
         editor.create();
     });

@@ -97,7 +97,7 @@
                     </div>
                 {{end}}
                 <input type="hidden" name="tab" value="{{ .tab }}">
-                <button class="btn btn-secondary">修改</button>
+                <button class="btn btn-primary">修改</button>
             </form>
         </div>
     </div>
@@ -120,11 +120,10 @@
                 contentType: false,
                 data: formData,
                 success: function (data) {
-                    if (data.code === 1) {
-                        $('.user-avatar').attr('src', data.data.name)
-                        $('.avatar').val(data.data.name)
+                    if (data.errno === 0) {
+                        $('.avatar').val(data.filename)
+                        $('.user-avatar').attr('src', data.filename)
                     }
-                    console.log(err)
                 },
                 error: function (err) {
                     console.log(err)

@@ -32,6 +32,9 @@
                     </div>
                 </li>
             {{end}}
+            <li class="list-group-item" style="font-size: 14px;">
+                {{ .page }}
+            </li>
         {{else}}
             <li class="list-group-item text-center">
                 <h5>暂无相关内容</h5>
@@ -65,25 +68,28 @@
 </div>
 <div class="col-sm-3">
     <div class="card">
+        <div class="card-header">
+            公告
+        </div>
         <div class="card-body">
-            <b>公告</b>
-            <hr>
-            <div>
-                公告信息
+            <div style="font-size: 12px;">
+                <p>《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧。</p><p>课程地址：<a href="https://www.shiyanlou.com/courses/1436" target="_blank">https://www.shiyanlou.com/courses/1436</a>9折优惠邀请码： ZHwfIjb1</p><p>该课程会带领大家一步步的了解并熟悉Go语言开发，如果你是一个Go语言初学者，或者正准备学习Go语言，那么这个课程非常适合你。如果你熟练掌握了本课程中的知识点，相信你就已经入门Go语言开发，并能胜任日常的开发工作了。</p>
             </div>
         </div>
     </div>
     <div class="card mt-2">
+        <div class="card-header">
+            最新动态
+        </div>
         <div class="card-body">
-            <b>最新动态</b>
-            <hr>
             最新动态最新动态最新动态最新动态
         </div>
     </div>
     <div class="card mt-2">
+        <div class="card-header">
+            最新评论
+        </div>
         <div class="card-body">
-            <b>积分排行</b>
-            <hr>
             最新动态最新动态最新动态最新动态
         </div>
     </div>

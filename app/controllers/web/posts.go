@@ -32,7 +32,6 @@ func (c *PostsController) Details(r *ghttp.Request) {
 		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,u.sign,u.site,n.name node_name").
 		Where("p.id = ?", postsId).
 		One()
-
 	comments, _ := g.DB().Table(commentsModel.Table+" c").
 		Fields("c.id,c.uid,c.ruid,c.content,u.name,u.avatar,ru.name as r_user_name,c.create_at").
 		LeftJoin("users u", "u.id = c.uid").

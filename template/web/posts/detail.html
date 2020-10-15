@@ -1,6 +1,7 @@
 <link href="/web/css/monokai-sublime.min.css" rel="stylesheet"/>
 <script src="/web/js/editor.min.js"></script>
 <script src="/web/js/highlight.min.js"></script>
+
 <style>
     .comment-action {
         font-size: 13px;
@@ -18,6 +19,7 @@
         box-shadow: 0 0 10px #ccc;
         cursor: pointer;
     }
+
     .comment-content img {
         margin-bottom: 30px;
         margin-top: 10px;
@@ -26,6 +28,17 @@
         -webkit-box-shadow: 0 0 10px #ccc;
         box-shadow: 0 0 10px #ccc;
         cursor: pointer;
+    }
+
+    .like-user {
+        margin-left: 2px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .like-count {
+        color: #a5a5a5 !important;
     }
 </style>
 <div class="col-sm-9">
@@ -51,6 +64,13 @@
         </li>
         <li class="list-group-item posts-content" style="padding: 20px;">
             {{ .posts.content }}
+        </li>
+        <li class="list-group-item mt-1">
+            <a href="javascript:;" class="like" data-uid="{{ .Session.user.id }}" data-tid="{{ .posts.id }}"
+               data-type="posts">
+                <i class="fa fa-thumbs-up" style="font-size: 20px;font-weight: 500;color: #a5a5a5!important;"></i>
+            </a>
+            <span class="like-count" data-count="0"> 0 人点赞 </span>
         </li>
         <li class="list-group-item  mt-1" style="color: #999;font-size: 14px;">
             {{ .posts.comment_num }} 条回复
@@ -211,5 +231,27 @@
         editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M
         // Create editor
         editor.create();
+
+        $('.like').on('click', function () {
+            const uid = $(this).attr("data-uid");
+            const tid = $(this).attr("data-tid");
+            const type = $(this).attr("data-type");
+            $.ajax({
+                url: '/like/do',
+                type: 'POST',
+                data: {"uid": uid, "tid": tid, "tid_type": type},
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == 1) {
+                        $('.like-count')
+                            .text((parseInt($('.like-count').attr("data-count")) + 1) + " 人点赞")
+                            .after('<a href="/users/' + res.data.user.id + '"><img src="' + res.data.user.avatar + '" class="img-thumbnail like-user"></a>')
+                    }
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            })
+        });
     });
 </script>

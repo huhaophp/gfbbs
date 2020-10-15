@@ -17,6 +17,7 @@ func init() {
 	commentController := new(web.CommentController)
 	captchaController := new(web.CaptchaController)
 	MessageController := new(web.MessageController)
+	LikeController := new(web.LikeController)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.Middleware(middleware.LayoutGlobalVariablesSetting)
@@ -38,5 +39,9 @@ func init() {
 		group.POST("/user/edit", userController.Edit)
 		group.GET("/users/{id}", userController.Center)
 		group.GET("/message", MessageController.Index)
+		// 目标点赞
+		group.POST("/like/do", LikeController.Do)
+		// 取消点赞
+		group.POST("/like/undo", LikeController.Undo)
 	})
 }

@@ -22,26 +22,25 @@
     <ul class="list-group">
         {{if eq .Query.tab "t"}}
             <li class="list-group-item"><i class="fa fa-bell"></i> 我的通知</li>
-        {{range $item := .items}}
-            <li class="list-group-item">
-                <div style="width:5%;float: left;height: 36px;">
-                    <img src="{{ $item.avatar }}"
-                         style="height: 36px;width:36px;border-radius: 50%;">
-                </div>
-                <div style="width: 95%;float: left;line-height: 36px;font-size: 14px;">
-                    <p>
-                        <a href="/users/{{ $item.suid }}">{{ $item.name }}</a>
-                        {{if eq $item.action "comment"}}评论了你的帖子:{{else if eq $item.action "reply"}}回复了你的评论:{{else}}{{end}}
-                        <a href="/posts/{{ $item.tid }}">{{StrLimit $item.title 0 50}}</a>
-                        <span class="float-right" style="font-size: 12px;">{{StrTime $item.create_at.String}}</span>
-                    </p>
-                </div>
-            </li>
-        {{end}}
+            {{if .items}}
+                {{range $item := .items}}
+                    <li class="list-group-item">
+                        <div style="line-height: 36px;font-size: 14px;">
+                            <img src="{{ $item.avatar }}"
+                                 style="height: 36px;width:36px;border-radius: 50%;">
+                            <a href="/users/{{ $item.suid }}">{{ $item.name }}</a>
+                            {{if eq $item.action "comment"}}评论了你的帖子:{{else if eq $item.action "reply"}}回复了你的评论:{{else}}{{end}}
+                            <a href="/posts/{{ $item.tid }}">{{StrLimit $item.title 0 50}}</a>
+                            <span style="font-size: 12px;float: right;">{{StrTime $item.create_at.String}}</span>
+                        </div>
+                    </li>
+                {{end}}
+            {{else}}
+                <li class="list-group-item">~ 暂无消息</li>
+            {{end}}
         {{else}}
-        <li class="list-group-item">
-            <h5>开发中....</h5>
-        </li>
+            <li class="list-group-item"><i class="fa fa-envelope"></i> 我的私信</li>
+            <li class="list-group-item">开发中...</li>
         {{end}}
     </ul>
 </div>

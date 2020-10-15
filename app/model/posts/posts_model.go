@@ -24,16 +24,17 @@ var (
 	Model = &arModel{g.DB("default").Table(Table).Safe()}
 	// Columns defines and stores column names for table posts.
 	Columns = struct {
-		Id          string //   
-        Title       string //   
-        Uid         string //   
-        Cid         string //   
-        Nid         string //   
-        Content     string //   
-        ViewNum     string //   
-        CommentNum  string //   
-        Luid        string //   
-        CreateAt    string //   
+		Id          string //                     
+        Title       string //                     
+        Uid         string //                     
+        Cid         string //                     
+        Nid         string //                     
+        Content     string //                     
+        ViewNum     string //                     
+        CommentNum  string //                     
+        Luid        string //                     
+        Fine        string // 是否精华:0-否/1-是  
+        CreateAt    string //                     
         UpdateAt    string //
 	}{
 		Id:         "id",           
@@ -45,6 +46,7 @@ var (
         ViewNum:    "view_num",     
         CommentNum: "comment_num",  
         Luid:       "luid",         
+        Fine:       "fine",         
         CreateAt:   "create_at",    
         UpdateAt:   "update_at",
 	}

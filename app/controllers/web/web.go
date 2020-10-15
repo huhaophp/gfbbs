@@ -31,8 +31,8 @@ func (c *Controller) Home(r *ghttp.Request) {
 		query = query.Where("p.nid", nid)
 	}
 	posts, _ := query.
-		Fields("p.luid,p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name,u.avatar,n.name as node_name,u1.name as last_user_name").
-		Order("create_at DESC").
+		Fields("p.luid,p.fine,p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name,u.avatar,n.name as node_name,u1.name as last_user_name").
+		Order("p.fine DESC,p.id").
 		Page(pageNum, 20).
 		All()
 
@@ -40,7 +40,16 @@ func (c *Controller) Home(r *ghttp.Request) {
 
 	page := r.GetPage(total, 20)
 
-	data := g.Map{"nodes": nodes, "nid": nid, "posts": posts, "mainTpl": homeTpl, "page": page.GetContent(2)}
+	latestPosts := service.PostsService.GetTheLatestPosts(10)
+
+	data := g.Map{
+		"nodes":       nodes,
+		"nid":         nid,
+		"posts":       posts,
+		"mainTpl":     homeTpl,
+		"latestPosts": latestPosts,
+		"page":        page.GetContent(2),
+	}
 
 	response.ViewExit(r, layout, data)
 }

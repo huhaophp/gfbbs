@@ -2,6 +2,7 @@ package service
 
 import (
 	"bbs/app/model/posts"
+	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
 )
 
@@ -52,4 +53,14 @@ func (s *postsService) Publish(publisher int, req *PublishPostsReqEntity) int64 
 		return 0
 	}
 	return id
+}
+
+// GetTheLatestPosts 获取最新10条帖子
+func (s *postsService) GetTheLatestPosts(limit int) gdb.Result {
+	res, err := g.DB().Table(posts.Table).Order("id DESC").Limit(limit).All()
+	if err != nil {
+		g.Log().Error(err)
+		return nil
+	}
+	return res
 }

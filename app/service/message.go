@@ -42,6 +42,10 @@ func (s *messageService) GetUnreadNum(uid int) int {
 
 // Send Send message to user.
 func (s *messageService) Send(p g.Map) error {
+	// 如果发送者和接受者相同不进行通知
+	if p["ruid"] == p["suid"] {
+		return nil
+	}
 	res, err := g.DB().Table(messages.Table).Insert(p)
 	if err != nil {
 		g.Log().Error(err)

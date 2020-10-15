@@ -29,7 +29,7 @@
         var auth = "{{ .Session.user.id }}";
     </script>
 </head>
-<body style="color: #636b6f;background:#f0f2f5; ">
+<body style="color: #636b6f;background:#e5e5e5; ">
 <div class="row">
     <div class="container-fluid">
         <!--- nav --->
@@ -81,7 +81,7 @@
                             >
                                 <img
                                         src="{{ .Session.user.avatar }}"
-                                        style="height: 24px;width: 24px;"
+                                        style="height: 24px;width: 24px;margin-right:10px;"
                                         class="rounded-circle"
                                 /><span style="font-size: 14px;font-weight: 700;"
                                 >{{ .Session.user.name }}</span
@@ -107,7 +107,7 @@
         <!--- main --->
         <main
                 class="row"
-                style="margin-bottom: 80px;padding:10px 100px 0 100px;"
+                style="margin-bottom: 80px;padding:20px 100px 0 100px;"
         >
             {{include .mainTpl .}}
         </main>

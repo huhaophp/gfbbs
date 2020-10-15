@@ -3,7 +3,7 @@
     <ul class="list-group">
         <li class="list-group-item">
             {{range $node := .nodes}}
-                <button class="{{if eq $node.id $.nid}} btn btn-btn btn-dark btn-sm {{else}} btn btn-link text-secondary{{end}} top-node-btn"
+                <button class="{{if eq $node.id $.nid}} btn btn-link text-primary{{else}} btn btn-link text-secondary{{end}} top-node-btn"
                         data-id="{{ $node.id }}">{{ $node.name }}</button>
             {{end}}
         </li>
@@ -14,8 +14,9 @@
                         <img src="{{ $posts.avatar }}" style="height: 48px;width:48px;border-radius: 50%;">
                     </div>
                     <div style="width: 93%;float: left;">
-                        <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;word-break: break-word;hyphens: auto;">
-                            <a href="/posts/{{ $posts.id }}" style="color: #778087;">{{ $posts.title }}</a>
+                        <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;">
+                            {{if eq $posts.fine 1}}<span class="badge badge-warning">精</span>{{end}}<a
+                                    href="/posts/{{ $posts.id }}" style="color: #222;">{{ $posts.title }}</a>
                         </span>
                         <br>
                         <span style="font-size: 12px;color: #ccc;">
@@ -40,49 +41,32 @@
                 <h5>暂无相关内容</h5>
             </li>
         {{end}}
-        {{/*        {{range $posts := .posts}}*/}}
-        {{/*            <li class="list-group-item">*/}}
-        {{/*                <div style="width:7%;float: left;">*/}}
-        {{/*                    <img src="{{ $posts.avatar }}" style="height: 48px;width: 48px;" class="rounded-circle">*/}}
-        {{/*                </div>*/}}
-        {{/*                <div style="width: 93%;float: left;">*/}}
-        {{/*                        <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;word-break: break-word;hyphens: auto;">*/}}
-        {{/*                            <a href="/posts/{{ $posts.id }}" style="color: #636b6f;">{{ $posts.title }}</a>*/}}
-        {{/*                        </span>*/}}
-        {{/*                    <br>*/}}
-        {{/*                    <span style="font-size: 12px;color: #ccc;">*/}}
-        {{/*                         <a href="" class="badge badge-light" style="color: #acacac;"><i*/}}
-        {{/*                                     class="fa fa-tag"></i> {{$posts.node_name}}</a>*/}}
-        {{/*                <a href="/users/{{ $posts.uid }}" class="badge badge-light" style="color: #acacac;"><i*/}}
-        {{/*                            class="fa fa-user"></i> {{$posts.name}}</a>*/}}
-        {{/*                <span class="badge badge-light" style="color: #acacac;"><i*/}}
-        {{/*                            class="fa fa-clock"></i> {{StrTime $posts.create_at.String}}</span>*/}}
-        {{/*                <span class="badge badge-light" style="color: #acacac;"><i*/}}
-        {{/*                            class="fa fa-comment"></i> {{$posts.view_num}}</span>*/}}
-        {{/*                        </span>*/}}
-
-        {{/*                </div>*/}}
-        {{/*            </li>*/}}
-        {{/*        {{end}}*/}}
     </ul>
 </div>
 <div class="col-sm-3">
-    <div class="card">
-        <div class="card-header">
+    <div class="card" style="background: #fff;padding: 10px;">
+        <a class="btn btn-primary" href="/posts/publish">发布帖子</a>
+    </div>
+    <div class="card mt-1">
+        <div class="card-header" style="background: #fff;">
             公告
         </div>
         <div class="card-body">
             <div style="font-size: 12px;">
-                <p>《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧。</p><p>课程地址：<a href="https://www.shiyanlou.com/courses/1436" target="_blank">https://www.shiyanlou.com/courses/1436</a>9折优惠邀请码： ZHwfIjb1</p><p>该课程会带领大家一步步的了解并熟悉Go语言开发，如果你是一个Go语言初学者，或者正准备学习Go语言，那么这个课程非常适合你。如果你熟练掌握了本课程中的知识点，相信你就已经入门Go语言开发，并能胜任日常的开发工作了。</p>
+                <p>博客马上上线了哈，大家敬请期待哈。</p><p>爱你们么么哒 😘。</p>
             </div>
         </div>
     </div>
     <div class="card mt-2">
-        <div class="card-header">
-            最新动态
+        <div class="card-header" style="background: #fff;">
+            最新帖子
         </div>
-        <div class="card-body">
-            最新动态最新动态最新动态最新动态
+        <div class="card-body" style="font-size: 12px;">
+            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
+            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
+            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
+            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
+            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
         </div>
     </div>
     <div class="card mt-2">

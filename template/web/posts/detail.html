@@ -33,7 +33,7 @@
     {{AlertComponent .Session.success "success"}}
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
-            <h5>{{ .posts.title }}</h5>
+            <p style="color: #333;font-size: 20px;line-height: 150%;">{{ .posts.title }}</p>
             <div>
                 <a href="" class="badge badge-light" style="color: #acacac;"
                 ><i class="fa fa-tag"></i> {{.posts.node_name}}</a
@@ -205,7 +205,7 @@
         // Upload file name
         editor.config.uploadFileName = "file";
         // Upload request URL
-        editor.config.uploadImgServer = "/editor/file";
+        editor.config.uploadImgServer = "/file";
         // Upload parameter settings
         editor.config.uploadImgParams = {};
         editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M

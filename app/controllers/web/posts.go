@@ -23,15 +23,17 @@ type PostsController struct{}
 
 // Details Post details
 func (c *PostsController) Details(r *ghttp.Request) {
+	authUser := r.Session.GetMap("user")
 	pageNum := r.GetQueryInt("page", 1)
-	postsId := r.GetRouterVar("postsId").Int64()
+	postsId := r.GetRouterVar("postsId").Int()
 
 	posts, _ := g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
-		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,u.sign,u.site,n.name node_name").
+		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.like_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,u.sign,u.site,n.name node_name").
 		Where("p.id = ?", postsId).
 		One()
+
 	comments, _ := g.DB().Table(commentsModel.Table+" c").
 		Fields("c.id,c.uid,c.ruid,c.content,u.name,u.avatar,ru.name as r_user_name,c.create_at").
 		LeftJoin("users u", "u.id = c.uid").
@@ -46,7 +48,18 @@ func (c *PostsController) Details(r *ghttp.Request) {
 
 	page := r.GetPage(total, 20)
 
-	data := g.Map{"mainTpl": postsTpl, "posts": posts, "comments": comments, "page": page.GetContent(2)}
+	likers := service.LikeService.GetTheLatestLikes(postsId, "posts", 20)
+
+	isLike := service.LikeService.IsDo(gconv.Int(authUser["id"]), postsId, "posts")
+	g.Dump(isLike)
+	data := g.Map{
+		"mainTpl":  postsTpl,
+		"posts":    posts,
+		"comments": comments,
+		"page":     page.GetContent(2),
+		"likers":   likers,
+		"isLike":   isLike,
+	}
 
 	response.ViewExit(r, constants.WebLayoutTplPath, data)
 }

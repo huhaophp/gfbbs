@@ -66,11 +66,19 @@
             {{ .posts.content }}
         </li>
         <li class="list-group-item mt-1">
-            <a href="javascript:;" class="like" data-uid="{{ .Session.user.id }}" data-tid="{{ .posts.id }}"
-               data-type="posts">
-                <i class="fa fa-thumbs-up" style="font-size: 20px;font-weight: 500;color: #a5a5a5!important;"></i>
+            <a href="javascript:;" class="like {{if  eq .isLike 1}} text-primary {{ else}} text-secondary {{end}}"
+               data-uid="{{ .Session.user.id }}" data-tid="{{ .posts.id }}"
+               data-type="posts" data-liked="{{ .isLike }}">
+                <i class="fa fa-thumbs-up" style="font-size: 20px;font-weight: 500;"></i>
             </a>
-            <span class="like-count" data-count="0"> 0 人点赞 </span>
+            <span class="like-count" data-count="{{ .posts.like_num }}"> {{ .posts.like_num }} 人点赞 </span>
+            <span class="like-list">
+                {{range $liker := .likers}}
+                    <a href="/users/{{ $liker.id }}">
+                        <img src="{{ $liker.avatar }}" class="img-thumbnail like-user">
+                    </a>
+                {{end}}
+            </span>
         </li>
         <li class="list-group-item  mt-1" style="color: #999;font-size: 14px;">
             {{ .posts.comment_num }} 条回复
@@ -232,24 +240,49 @@
         // Create editor
         editor.create();
 
+        var flag = false;
         $('.like').on('click', function () {
-            const uid = $(this).attr("data-uid");
-            const tid = $(this).attr("data-tid");
-            const type = $(this).attr("data-type");
+            if (flag === true) {
+                return
+            }
+            flag = true;
+            const _self = $(this)
+            var data = {};
+            data.tid = _self.attr("data-tid");
+            data.uid = _self.attr("data-uid");
+            data.tid_type = _self.attr("data-type");
+            const isLike = _self.attr("data-liked") + "";
             $.ajax({
-                url: '/like/do',
+                url: isLike === "1" ? "/like/undo" : "/like/do",
                 type: 'POST',
-                data: {"uid": uid, "tid": tid, "tid_type": type},
+                data: data,
                 dataType: 'json',
                 success: function (res) {
-                    if (res.code == 1) {
-                        $('.like-count')
-                            .text((parseInt($('.like-count').attr("data-count")) + 1) + " 人点赞")
-                            .after('<a href="/users/' + res.data.user.id + '"><img src="' + res.data.user.avatar + '" class="img-thumbnail like-user"></a>')
+                    flag = false;
+                    var like_count = $('.like-count')
+                    if (res.code === 1) {
+                        $('.like-list').html(res.data.likes)
+                        var count = parseInt(like_count.attr("data-count"));
+                        if (isLike !== "1") {
+                            _self.removeClass('text-secondary')
+                            _self.addClass("text-primary");
+                            like_count.attr("data-count", (count + 1))
+                            like_count.text((count + 1) + " 人点赞");
+                            $('.like').attr("data-liked", 1)
+                        } else {
+                            if (count > 0) {
+                                like_count.text((count - 1) + " 人点赞");
+                                like_count.attr("data-count", (count - 1))
+                            }
+                            _self.removeClass('text-primary')
+                            _self.addClass("text-secondary");
+                            _self.attr("data-liked", 0)
+                        }
                     }
                 },
                 error: function (res) {
-                    console.log(res)
+                    flag = false;
+                    console.log(res);
                 }
             })
         });

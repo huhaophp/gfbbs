@@ -29,7 +29,6 @@
                                style="color: #778087;">{{ $posts.last_user_name }}</a>
                             </span>
                         {{end}}
-
                     </div>
                 </li>
             {{end}}
@@ -62,19 +61,10 @@
             最新帖子
         </div>
         <div class="card-body" style="font-size: 12px;">
-            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
-            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
-            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
-            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
-            <a href="" style="color: #778087;"> •《从零开始开发BBS》课程上线啦，快来跟着我一步步搭建属于你的BBS吧</a><br>
-        </div>
-    </div>
-    <div class="card mt-2">
-        <div class="card-header">
-            最新评论
-        </div>
-        <div class="card-body">
-            最新动态最新动态最新动态最新动态
+
+            {{range $posts := .latestPosts}}
+            <a href="/posts/{{ $posts.id }}" style="color: #778087;"> • {{ $posts.title }}</a><br>
+            {{end}}
         </div>
     </div>
 </div>

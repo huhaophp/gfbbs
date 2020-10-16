@@ -3,6 +3,8 @@ package web
 import (
 	"bbs/app/funcs/response"
 	"bbs/app/service"
+	"fmt"
+	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/gogf/gf/util/gconv"
@@ -24,8 +26,18 @@ func (c *LikeController) Do(r *ghttp.Request) {
 	if err := service.LikeService.Do(&reqEntity); err != nil {
 		response.JsonExit(r, 0, err.Error())
 	} else {
-		response.JsonExit(r, 1, "点赞成功", g.Map{"user": authUer})
+		likers := service.LikeService.GetTheLatestLikes(reqEntity.Tid, reqEntity.TidType, 20)
+		response.JsonExit(r, 1, "点赞成功", g.Map{"likes": RenderLikesHtml(likers)})
 	}
+}
+
+// RenderLikesHtml
+func RenderLikesHtml(likes gdb.Result) string {
+	html := ""
+	for _, v := range likes {
+		html += fmt.Sprintf("<a href='/users/%d'><img src='%s' class='img-thumbnail like-user'></a>", v["id"].Int(), v["avatar"])
+	}
+	return html
 }
 
 // Undo 取消点赞
@@ -40,6 +52,7 @@ func (c *LikeController) Undo(r *ghttp.Request) {
 	if err := service.LikeService.Undo(&reqEntity); err != nil {
 		response.JsonExit(r, 0, err.Error())
 	} else {
-		response.JsonExit(r, 1, "取消成功")
+		likers := service.LikeService.GetTheLatestLikes(reqEntity.Tid, reqEntity.TidType, 20)
+		response.JsonExit(r, 1, "取消成功", g.Map{"likes": RenderLikesHtml(likers)})
 	}
 }

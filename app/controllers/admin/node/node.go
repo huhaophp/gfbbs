@@ -1,9 +1,9 @@
 package node
 
 import (
+	"bbs/app/funcs/response"
 	"bbs/app/model/nodes"
 	"bbs/app/request/node"
-	response "bbs/app/funcs/response"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"

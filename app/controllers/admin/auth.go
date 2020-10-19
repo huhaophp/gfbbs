@@ -1,4 +1,4 @@
-package auth
+package admin
 
 import (
 	"bbs/app/constants"
@@ -16,10 +16,10 @@ const (
 	loginTpl  = "admin/auth/login.html"
 )
 
-type Controller struct{}
+type AuthController struct{}
 
 // Login 登录页面
-func (c *Controller) Login(r *ghttp.Request) {
+func (c *AuthController) Login(r *ghttp.Request) {
 	if r.Method == "GET" {
 		response.ViewExit(r, loginTpl, g.Map{})
 	}
@@ -40,7 +40,7 @@ func (c *Controller) Login(r *ghttp.Request) {
 }
 
 // Logout 退出登录
-func (c *Controller) Logout(r *ghttp.Request) {
+func (c *AuthController) Logout(r *ghttp.Request) {
 	if err := r.Session.Remove(constants.AdminSessionKey); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {

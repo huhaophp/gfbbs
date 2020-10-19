@@ -1,4 +1,4 @@
-package Auth
+package admin
 
 import (
 	"github.com/gogf/gf/net/ghttp"

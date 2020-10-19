@@ -1,15 +1,15 @@
-package auth
+package admin
 
 import (
 	"bbs/app/model/admins"
-	"bbs/app/request/Auth"
+	"bbs/app/request/admin"
 	"errors"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
 )
 
-func Login(data *Auth.LoginReqEntity) (gdb.Record, error) {
+func Login(data *admin.LoginReqEntity) (gdb.Record, error) {
 	res, err := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
 	if res == nil || err != nil {
 		return nil, errors.New("账号不存在")

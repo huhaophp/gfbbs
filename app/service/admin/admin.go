@@ -2,15 +2,15 @@ package admin
 
 import (
 	"bbs/app/model/admins"
-	"bbs/app/request/Admin"
+	"bbs/app/request/admin"
 	"errors"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/frame/g"
 )
 
-func Add(data *Admin.AddReqEntity) error {
-	admin, _ := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
-	if admin != nil {
+func AdminAdd(data *admin.AdminAddReqEntity) error {
+	adminOne, _ := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
+	if adminOne != nil {
 		return errors.New("邮箱已存在")
 	}
 	password, _ := gmd5.Encrypt(data.Password)
@@ -33,9 +33,9 @@ func Add(data *Admin.AddReqEntity) error {
 	return nil
 }
 
-func Edit(data *Admin.UpdateReqEntity, id int) error {
-	admin, _ := g.DB().Table(admins.Table).Where("email = ? and id != ?", data.Email, id).One()
-	if admin != nil {
+func AdminEdit(data *admin.AdminUpdateReqEntity, id int) error {
+	adminOne, _ := g.DB().Table(admins.Table).Where("email = ? and id != ?", data.Email, id).One()
+	if adminOne != nil {
 		return errors.New("邮箱已存在")
 	}
 	gMap := g.Map{
@@ -59,7 +59,7 @@ func Edit(data *Admin.UpdateReqEntity, id int) error {
 	return nil
 }
 
-func Delete(id int) error {
+func AdminDelete(id int) error {
 	res, err := g.DB().Table(admins.Table).Delete("id", id)
 	if err != nil {
 		return err

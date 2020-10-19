@@ -1,9 +1,9 @@
-package node
+package admin
 
 import (
 	"bbs/app/funcs/response"
 	"bbs/app/model/nodes"
-	"bbs/app/request/node"
+	"bbs/app/request/admin"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -39,8 +39,8 @@ func (c *Controller) Add(r *ghttp.Request) {
 		items, _ := g.DB().Table(nodes.Table).Where("pid = ?", 0).All()
 		response.ViewExit(r, layout, g.Map{"mainTpl": createTpl, "nodes": items})
 	}
-	var data node.AddReqEntity
-	if err := node.AddReqCheck(r, &data); err != nil {
+	var data admin.NodeAddReqEntity
+	if err := admin.NodeAddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
 	exists, _ := g.DB().Table(nodes.Table).Where("name = ?", data.Name).One()
@@ -82,8 +82,8 @@ func (c *Controller) Edit(r *ghttp.Request) {
 		response.ViewExit(r, layout, g.Map{"mainTpl": editTpl, "nodes": items, "node": item})
 	}
 
-	var data node.AddReqEntity
-	if err := node.AddReqCheck(r, &data); err != nil {
+	var data admin.NodeAddReqEntity
+	if err := admin.NodeAddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
 	exists, _ := g.DB().Table(nodes.Table).Where("name = ? and id != ?", data.Name, id).One()

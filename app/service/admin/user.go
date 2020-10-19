@@ -1,15 +1,15 @@
-package user
+package admin
 
 import (
 	"bbs/app/model/users"
-	userReq "bbs/app/request/user"
+	"bbs/app/request/admin"
 	"errors"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gtime"
 )
 
-func Add(data *userReq.AddReqEntity) error {
+func UserAdd(data *admin.UserAddReqEntity) error {
 	user, _ := g.DB().Table(users.Table).Where("email = ?", data.Email).One()
 	if user != nil {
 		return errors.New("邮箱已存在")
@@ -37,7 +37,7 @@ func Add(data *userReq.AddReqEntity) error {
 	return nil
 }
 
-func Edit(data *userReq.UpdateReqEntity, id int) error {
+func UserEdit(data *admin.UserUpdateReqEntity, id int) error {
 	user, _ := g.DB().Table(users.Table).Where("email = ? and id != ?", data.Email, id).One()
 	if user != nil {
 		return errors.New("邮箱已存在")
@@ -65,7 +65,7 @@ func Edit(data *userReq.UpdateReqEntity, id int) error {
 	return nil
 }
 
-func Delete(id int) error {
+func UserDelete(id int) error {
 	res, err := g.DB().Table(users.Table).Delete("id", id)
 	if err != nil {
 		return err

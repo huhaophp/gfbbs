@@ -3,8 +3,8 @@ package admin
 import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
-	"bbs/app/request/Auth"
-	"bbs/app/service/admin/auth"
+	"bbs/app/request/admin"
+	adminService "bbs/app/service/admin"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -23,12 +23,12 @@ func (c *AuthController) Login(r *ghttp.Request) {
 	if r.Method == "GET" {
 		response.ViewExit(r, loginTpl, g.Map{})
 	}
-	var data Auth.LoginReqEntity
-	err := Auth.LoginReqCheck(r, &data)
+	var data admin.LoginReqEntity
+	err := admin.LoginReqCheck(r, &data)
 	if err != nil {
 		response.RedirectBackWithError(r, gerror.New("请输入登录账号密码"))
 	}
-	res, err := auth.Login(&data)
+	res, err := adminService.Login(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}

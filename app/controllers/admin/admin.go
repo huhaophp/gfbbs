@@ -4,8 +4,8 @@ import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	"bbs/app/model/admins"
-	"bbs/app/request/Admin"
-	"bbs/app/service/admin/admin"
+	"bbs/app/request/admin"
+	adminService "bbs/app/service/admin"
 	"errors"
 	"fmt"
 	"github.com/gogf/gf/errors/gerror"
@@ -29,11 +29,11 @@ func (c *AdminController) Add(r *ghttp.Request) {
 	if strings.ToUpper(r.Method) == "GET" {
 		response.ViewExit(r, constants.AdminLayoutTplPath, g.Map{"mainTpl": fmt.Sprintf(constants.AdminCreateTpl, "admin")})
 	}
-	var data Admin.AddReqEntity
-	if err := Admin.AddReqCheck(r, &data); err != nil {
+	var data admin.AdminAddReqEntity
+	if err := admin.AdminAddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err := admin.Add(&data)
+	err := adminService.AdminAdd(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}
@@ -52,11 +52,11 @@ func (c *AdminController) Edit(r *ghttp.Request) {
 	if strings.ToUpper(r.Method) == "GET" {
 		response.ViewExit(r, constants.AdminLayoutTplPath, g.Map{"mainTpl": fmt.Sprintf(constants.AdminEditTpl, "admin"), "admin": item})
 	}
-	var data Admin.UpdateReqEntity
-	if err := Admin.UpdateReqCheck(r, &data); err != nil {
+	var data admin.AdminUpdateReqEntity
+	if err := admin.AdminUpdateReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err = admin.Edit(&data, id)
+	err = adminService.AdminEdit(&data, id)
 	if err != nil {
 		g.Log().Error("编辑失败:", err)
 		response.RedirectBackWithError(r, gerror.New("编辑失败"))
@@ -69,7 +69,7 @@ func (c *AdminController) Delete(r *ghttp.Request) {
 	if id <= 0 {
 		response.RedirectBackWithError(r, errors.New("id错误"))
 	}
-	err := admin.Delete(id)
+	err := adminService.AdminDelete(id)
 	if err != nil {
 		g.Log().Error("删除失败:", err)
 		response.RedirectBackWithError(r, errors.New("删除失败"))

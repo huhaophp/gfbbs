@@ -3,7 +3,6 @@ package admin
 import (
 	"bbs/app/controllers/admin"
 	"bbs/app/controllers/admin/comment"
-	"bbs/app/controllers/admin/node"
 	"bbs/app/controllers/admin/post"
 	"bbs/app/middleware"
 	"github.com/gogf/gf/frame/g"
@@ -14,7 +13,7 @@ func init() {
 	s := g.Server()
 	authController := new(admin.AuthController)
 	homeController := new(admin.HomeController)
-	nodeController := new(node.Controller)
+	nodeController := new(admin.Controller)
 	postController := new(post.Controller)
 	userController := new(admin.UserController)
 	adminController := new(admin.AdminController)

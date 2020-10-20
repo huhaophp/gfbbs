@@ -28,7 +28,7 @@ func (c *AuthController) Login(r *ghttp.Request) {
 	if err != nil {
 		response.RedirectBackWithError(r, gerror.New("请输入登录账号密码"))
 	}
-	res, err := adminService.Login(&data)
+	res, err := adminService.Auth.Login(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}

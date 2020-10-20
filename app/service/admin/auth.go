@@ -9,7 +9,11 @@ import (
 	"github.com/gogf/gf/frame/g"
 )
 
-func Login(data *admin.LoginReqEntity) (gdb.Record, error) {
+type authService struct{}
+
+var Auth = &authService{}
+
+func (a *authService) Login(data *admin.LoginReqEntity) (gdb.Record, error) {
 	res, err := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
 	if res == nil || err != nil {
 		return nil, errors.New("账号不存在")

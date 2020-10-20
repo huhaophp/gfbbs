@@ -33,7 +33,7 @@ func (c *UserController) Add(r *ghttp.Request) {
 	if err := admin.UserAddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err := adminService.UserAdd(&data)
+	err := adminService.User.Add(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}
@@ -56,7 +56,7 @@ func (c *UserController) Edit(r *ghttp.Request) {
 	if err := admin.UserUpdateReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err = adminService.UserEdit(&data, id)
+	err = adminService.User.Edit(&data, id)
 	if err != nil {
 		g.Log().Error("编辑失败:", err)
 		response.RedirectBackWithError(r, gerror.New("编辑失败"))
@@ -69,7 +69,7 @@ func (c *UserController) Delete(r *ghttp.Request) {
 	if id <= 0 {
 		response.RedirectBackWithError(r, errors.New("id错误"))
 	}
-	err := adminService.UserDelete(id)
+	err := adminService.User.Delete(id)
 	if err != nil {
 		g.Log().Error("删除失败:", err)
 		response.RedirectBackWithError(r, errors.New("删除失败"))

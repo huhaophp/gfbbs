@@ -33,7 +33,7 @@ func (c *AdminController) Add(r *ghttp.Request) {
 	if err := admin.AdminAddReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err := adminService.AdminAdd(&data)
+	err := adminService.Admin.Add(&data)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	}
@@ -56,7 +56,7 @@ func (c *AdminController) Edit(r *ghttp.Request) {
 	if err := admin.AdminUpdateReqCheck(r, &data); err != nil {
 		response.RedirectBackWithError(r, err)
 	}
-	err = adminService.AdminEdit(&data, id)
+	err = adminService.Admin.Edit(&data, id)
 	if err != nil {
 		g.Log().Error("编辑失败:", err)
 		response.RedirectBackWithError(r, gerror.New("编辑失败"))
@@ -69,7 +69,7 @@ func (c *AdminController) Delete(r *ghttp.Request) {
 	if id <= 0 {
 		response.RedirectBackWithError(r, errors.New("id错误"))
 	}
-	err := adminService.AdminDelete(id)
+	err := adminService.Admin.Delete(id)
 	if err != nil {
 		g.Log().Error("删除失败:", err)
 		response.RedirectBackWithError(r, errors.New("删除失败"))

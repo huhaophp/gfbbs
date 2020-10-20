@@ -8,7 +8,11 @@ import (
 	"github.com/gogf/gf/frame/g"
 )
 
-func AdminAdd(data *admin.AdminAddReqEntity) error {
+type adminService struct {}
+
+var Admin = &adminService{}
+
+func (a *adminService)Add(data *admin.AdminAddReqEntity) error {
 	adminOne, _ := g.DB().Table(admins.Table).Where("email = ?", data.Email).One()
 	if adminOne != nil {
 		return errors.New("邮箱已存在")
@@ -33,7 +37,7 @@ func AdminAdd(data *admin.AdminAddReqEntity) error {
 	return nil
 }
 
-func AdminEdit(data *admin.AdminUpdateReqEntity, id int) error {
+func (a *adminService)Edit(data *admin.AdminUpdateReqEntity, id int) error {
 	adminOne, _ := g.DB().Table(admins.Table).Where("email = ? and id != ?", data.Email, id).One()
 	if adminOne != nil {
 		return errors.New("邮箱已存在")
@@ -59,7 +63,7 @@ func AdminEdit(data *admin.AdminUpdateReqEntity, id int) error {
 	return nil
 }
 
-func AdminDelete(id int) error {
+func (a *adminService)Delete(id int) error {
 	res, err := g.DB().Table(admins.Table).Delete("id", id)
 	if err != nil {
 		return err

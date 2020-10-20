@@ -9,7 +9,11 @@ import (
 	"github.com/gogf/gf/os/gtime"
 )
 
-func UserAdd(data *admin.UserAddReqEntity) error {
+type userService struct {}
+
+var User = &userService{}
+
+func (u * userService)Add(data *admin.UserAddReqEntity) error {
 	user, _ := g.DB().Table(users.Table).Where("email = ?", data.Email).One()
 	if user != nil {
 		return errors.New("邮箱已存在")
@@ -37,7 +41,7 @@ func UserAdd(data *admin.UserAddReqEntity) error {
 	return nil
 }
 
-func UserEdit(data *admin.UserUpdateReqEntity, id int) error {
+func (u * userService)Edit(data *admin.UserUpdateReqEntity, id int) error {
 	user, _ := g.DB().Table(users.Table).Where("email = ? and id != ?", data.Email, id).One()
 	if user != nil {
 		return errors.New("邮箱已存在")
@@ -65,7 +69,7 @@ func UserEdit(data *admin.UserUpdateReqEntity, id int) error {
 	return nil
 }
 
-func UserDelete(id int) error {
+func (u * userService)Delete(id int) error {
 	res, err := g.DB().Table(users.Table).Delete("id", id)
 	if err != nil {
 		return err

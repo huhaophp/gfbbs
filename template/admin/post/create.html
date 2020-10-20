@@ -1,0 +1,106 @@
+<script src="/web/js/editor.min.js"></script>
+<div class="col-sm-9">
+    <div class="card">
+        <div class="card-body">
+            <b>发布帖子</b>
+            <hr>
+            <form method="POST" action="/admin/posts/add">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">标题</label>
+                        </div>
+                        <input type="text" name="title" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">节点</label>
+                        </div>
+                        <select class="form-control" name="nid">
+                            <option value="">选择节点</option>
+                            {{range $node := .nodes}}
+                                <option value="{{ $node.id }}">{{ $node.name }}</option>
+                            {{end}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">用户id</label>
+                        </div>
+                        <input type="text" name="uid" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">加精</label>
+                        </div>
+                        <select class="form-control" name="fine">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="wang-editor">
+                    </div>
+                    <input type="hidden" name="content" id="html-content">
+                </div>
+                <button class="btn btn-primary">确认发布</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#nodeModal').on('show.bs.modal', function (e) {
+            $('.w-e-text-container').css({"z-index": 0});
+        })
+        // Initialize rich text
+        const E = window.wangEditor;
+        const editor = new E("#wang-editor");
+        editor.config.onchange = function (html) {
+            $("#html-content").val(html);
+        };
+        // Editor menu items
+        editor.config.menus = [
+            "head",
+            "bold",
+            "fontSize",
+            "fontName",
+            "italic",
+            "underline",
+            "strikeThrough",
+            "indent",
+            "lineHeight",
+            "foreColor",
+            "backColor",
+            "link",
+            "list",
+            "justify",
+            "quote",
+            "image",
+            // "table",
+            // "code",
+            "splitLine",
+            "undo",
+            "redo"
+        ];
+        editor.config.hashjs = true;
+        // Ignore pictures in pasted content
+        editor.config.pasteIgnoreImg = true;
+        // Upload file name
+        editor.config.uploadFileName = "file";
+        // Upload request URL
+        editor.config.uploadImgServer = "/file";
+        // Upload parameter settings
+        editor.config.uploadImgParams = {};
+        editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M
+        // Create editor
+        editor.create();
+    })
+</script>

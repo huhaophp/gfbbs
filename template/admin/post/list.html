@@ -1,4 +1,66 @@
 <div class="card">
-    <div class="card-header">帖子管理</div>
-    <div class="card-body">帖子管理</div>
+    <div class="card-header">文章管理</div>
+    <div class="card-body">
+        <div>
+            <form class="form-inline mb-3" method="GET" action='/admin/posts'>
+                <input type="text" class="form-control" name="title"  placeholder="文章标题模糊搜索">
+                <input type="text" class="form-control" name="uname"  placeholder="文章作者模糊搜索">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary">搜索</button>
+                    </div>
+                <div class="input-group mr-1">
+                    <button class="btn btn-success" type="button" onclick="window.location='/admin/posts/add'">发布文章
+                    </button>
+                </div>
+            </form>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#ID</th>
+                <th>文章标题</th>
+                <th>用户信息</th>
+                <th>节点信息</th>
+                <th>浏览量</th>
+                <th>评论量</th>
+                <th>点赞量</th>
+                <th>精华帖</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+                <tr>
+                    <td>{{ $item.id }}</td>
+                    <td>{{ $item.title }}</td>
+                    <td><img src="{{ $item.avatar }}" class="img-circle img-thumbnail user-avatar"
+                             style="max-height: 200px;max-width:200px;cursor: pointer;"> {{ $item.user_name }}
+                    </td>
+                    <td>{{ $item.node_name }}</td>
+                    <td>{{ $item.view_num }}</td>
+                    <td>{{ $item.comment_num }}</td>
+                    <td>{{ $item.like_num }}</td>
+                    <td>
+                        {{if eq $item.fine 0}}
+                            <span class="badge badge-success">否</span>
+                        {{else}}
+                            <span class="badge badge-danger">是</span>
+                        {{end}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success btn-sm" href="/admin/posts/{{ $item.id }}/edit">编辑</a>
+                        <form action="/admin/posts/{{ $item.id }}/delete" method="POST" style="display: inline-block;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger btn-sm">删除</button>
+                        </form>
+                        <a class="btn btn-success btn-sm" href="/admin/posts/{{ $item.id }}/show">查看</a>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="font-size: 14px; float:right">
+    {{ .page }}
 </div>

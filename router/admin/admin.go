@@ -3,7 +3,6 @@ package admin
 import (
 	"bbs/app/controllers/admin"
 	"bbs/app/controllers/admin/comment"
-	"bbs/app/controllers/admin/post"
 	"bbs/app/middleware"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -14,7 +13,7 @@ func init() {
 	authController := new(admin.AuthController)
 	homeController := new(admin.HomeController)
 	nodeController := new(admin.NodeController)
-	postController := new(post.Controller)
+	postController := new(admin.PostController)
 	userController := new(admin.UserController)
 	adminController := new(admin.AdminController)
 	commentController := new(comment.Controller)
@@ -48,6 +47,13 @@ func init() {
 		group.POST("nodes/{id}/delete", nodeController.Del)
 
 		group.GET("posts", postController.List)
+		group.GET("posts/{id}/show", postController.Show)
+		group.GET("posts/add", postController.Add)
+		group.POST("posts/add", postController.Add)
+		group.GET("posts/{id}/edit", postController.Edit)
+		group.POST("posts/{id}/edit", postController.Edit)
+		group.POST("posts/{id}/delete", postController.Del)
+
 		group.GET("comments", commentController.List)
 	})
 }

@@ -1,0 +1,208 @@
+<link href="/web/css/monokai-sublime.min.css" rel="stylesheet"/>
+<script src="/web/js/editor.min.js"></script>
+<script src="/web/js/highlight.min.js"></script>
+
+<style>
+    .comment-action {
+        font-size: 13px;
+        color: #999;
+        cursor: pointer;
+    }
+
+    .post-content img {
+        max-width: 100%;
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border-radius: 2px;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+    }
+
+    .comment-content img {
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border-radius: 2px;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+    }
+
+    .like-user {
+        margin-left: 2px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .like-count {
+        color: #a5a5a5 !important;
+    }
+</style>
+<div class="col-sm-9">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <p style="color: #333;font-size: 20px;line-height: 150%;">{{ .post.title }}</p>
+            <div>
+                <a href="" class="badge badge-light" style="color: #acacac;"
+                ><i class="fa fa-tag"></i> {{.post.node_name}}</a
+                >
+                <a href="" class="badge badge-light" style="color: #acacac;"
+                ><i class="fa fa-user"></i> {{.post.user_name}}</a
+                >
+                <span class="badge badge-light" style="color: #acacac;"
+                ><i class="fa fa-clock"></i> {{StrTime .post.create_at.String}}</span
+                >
+                <span class="badge badge-light" style="color: #acacac;"
+                ><i class="fa fa-comment"></i> {{.post.view_num}}</span
+                >
+                <span class="badge badge-light" style="color: #acacac;"
+                ><i class="fa fa-thumbs-up"></i> {{.post.like_num}}</span
+                >
+            </div>
+        </li>
+        <li class="list-group-item post-content" style="padding: 20px;">
+            {{ .post.content }}
+        </li>
+        <li class="list-group-item  mt-1" style="color: #999;font-size: 14px;">
+            {{ .post.comment_num }} 条回复
+        </li>
+        {{range $comment := .comments}}
+            <div class="list-group-item">
+                <div class="comment-user-info" style="height: 22px;">
+                    <a href="/users/{{$comment.uid}}">
+                        <img
+                                src="{{$comment.avatar}}"
+                                style="border-radius:50%;height: 30px;width:30px;"
+                        />
+                    </a>
+                    <a href="" style="font-size: 14px;">{{$comment.name}}</a
+                    > {{if gt $comment.ruid 0}} <span style="color:#b5bac4 !important;font-size: 14px; ">回复了</span>
+                    <a href="" style="font-size: 14px;">{{ $comment.r_user_name }}</a>
+                    {{end}}
+                    <span style="font-size: 12px;color: #999;"
+                    >{{StrTime $comment.create_at.String}}</span
+                    >
+                </div>
+                <br/>
+                <div class="comment-content" style="font-size: 14px;">
+                    <div>{{ $comment.content }}</div>
+                    <div style="width: 100%;text-align: right;">
+                        <span class="comment-action comment-delete">删除</span>
+                        {{/*                        <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"*/}}
+                        {{/*                              style="display: none;">*/}}
+                        {{/*                        </form>*/}}
+                    </div>
+                </div>
+            </div>
+        {{end}}
+    </ul>
+</div>
+<script>
+    $(function () {
+        hljs.initHighlightingOnLoad();
+
+        $('.comment-action').on('click', function () {
+            $(this).parent().find('.delete-form').submit();
+        });
+
+        // 删除回复
+        $('.reply-user').on('click', '.close-reply', function () {
+            $(this).parent().html("");
+            $('.ruid-input').val(0);
+        });
+
+        // Initialize rich text
+        const E = window.wangEditor;
+        const editor = new E("#wang-editor");
+        editor.highlight = hljs;
+        editor.config.onchange = function (html) {
+            $("#html-content").val(html);
+        };
+        // Editor menu items
+        editor.config.menus = [
+            "head",
+            "bold",
+            "fontSize",
+            "fontName",
+            "italic",
+            "underline",
+            "strikeThrough",
+            "indent",
+            "lineHeight",
+            "foreColor",
+            "backColor",
+            "link",
+            "list",
+            "justify",
+            "quote",
+            "image",
+            // "table",
+            "code",
+            "splitLine",
+            "undo",
+            "redo"
+        ];
+        editor.config.hashjs = true;
+        // Ignore pictures in pasted content
+        editor.config.pasteIgnoreImg = true;
+        // Upload file name
+        editor.config.uploadFileName = "file";
+        // Upload request URL
+        editor.config.uploadImgServer = "/file";
+        // Upload parameter settings
+        editor.config.uploadImgParams = {};
+        editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M
+        // Create editor
+        editor.create();
+
+        var flag = false;
+        $('.like').on('click', function () {
+            if (flag === true) {
+                return
+            }
+            flag = true;
+            const _self = $(this)
+            var data = {};
+            data.tid = _self.attr("data-tid");
+            data.uid = _self.attr("data-uid");
+            data.tid_type = _self.attr("data-type");
+            const isLike = _self.attr("data-liked") + "";
+            $.ajax({
+                url: isLike === "1" ? "/like/undo" : "/like/do",
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (res) {
+                    flag = false;
+                    var like_count = $('.like-count')
+                    if (res.code === 1) {
+                        $('.like-list').html(res.data.likes)
+                        var count = parseInt(like_count.attr("data-count"));
+                        if (isLike !== "1") {
+                            _self.removeClass('text-secondary')
+                            _self.addClass("text-primary");
+                            like_count.attr("data-count", (count + 1))
+                            like_count.text((count + 1) + " 人点赞");
+                            $('.like').attr("data-liked", 1)
+                        } else {
+                            if (count > 0) {
+                                like_count.text((count - 1) + " 人点赞");
+                                like_count.attr("data-count", (count - 1))
+                            }
+                            _self.removeClass('text-primary')
+                            _self.addClass("text-secondary");
+                            _self.attr("data-liked", 0)
+                        }
+                    }
+                },
+                error: function (res) {
+                    flag = false;
+                    console.log(res);
+                }
+            })
+        });
+    });
+</script>

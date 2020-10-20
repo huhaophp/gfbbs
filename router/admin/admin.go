@@ -13,7 +13,7 @@ func init() {
 	s := g.Server()
 	authController := new(admin.AuthController)
 	homeController := new(admin.HomeController)
-	nodeController := new(admin.Controller)
+	nodeController := new(admin.NodeController)
 	postController := new(post.Controller)
 	userController := new(admin.UserController)
 	adminController := new(admin.AdminController)

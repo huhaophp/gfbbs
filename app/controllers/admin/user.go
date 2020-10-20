@@ -17,11 +17,20 @@ import (
 type UserController struct{}
 
 func (c *UserController) List(r *ghttp.Request) {
-	items, err := g.DB().Table(users.Table).All()
+	pageNum := r.GetQueryInt("page", 1)
+
+	items, err := g.DB().Table(users.Table).Order("id DESC").Page(pageNum, 20).All()
+	total, _ := g.DB().Table(users.Table).Count()
+	page := r.GetPage(total, 20)
+
 	if err != nil {
 		response.ViewExit(r, constants.AdminLayoutTplPath, g.Map{"mainTpl": constants.AdminErrorTpl, "error": err.Error()})
 	} else {
-		response.ViewExit(r, constants.AdminLayoutTplPath, g.Map{"mainTpl": fmt.Sprintf(constants.AdminListTpl, "user"), "items": items})
+		response.ViewExit(r, constants.AdminLayoutTplPath, g.Map{
+			"mainTpl": fmt.Sprintf(constants.AdminListTpl, "user"),
+			"items":   items,
+			"page":    page.GetContent(2),
+		})
 	}
 }
 

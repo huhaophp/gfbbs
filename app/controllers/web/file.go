@@ -2,9 +2,10 @@ package web
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
-	"strings"
 )
 
 const (
@@ -12,16 +13,16 @@ const (
 )
 
 const (
-	// 图片文件大小限制
+	// 图片文件大小限制M
 	imageFileSizeLimit = 5
 	// 支持的图片格式
 	supportedImageFormat = "png,jpeg,jpg"
 )
 
-// Controller Base
+// FileController Base
 type FileController struct{}
 
-// 编译器文件上传
+// Upload 文件上传
 func (c *FileController) Upload(r *ghttp.Request) {
 	file := r.GetUploadFile("file")
 	if file.Size > (imageFileSizeLimit * 1024 * 1024) {

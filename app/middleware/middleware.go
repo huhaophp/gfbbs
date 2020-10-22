@@ -34,7 +34,7 @@ func WebAuthCheck(r *ghttp.Request) {
 	auth := r.Session.Get(constants.UserSessionKey)
 	if auth == nil {
 		if r.IsAjaxRequest() || r.Header.Get("Accept") == "application/json" {
-			response.Json(r, 401, "Authorization failed")
+			response.JsonExit(r, 401, "Authorization failed")
 		} else {
 			response.RedirectToWithError(r, "/user/login", gerror.New("登录已过期"))
 		}

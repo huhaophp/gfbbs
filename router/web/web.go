@@ -10,38 +10,41 @@ import (
 // init 初始化web路由
 func init() {
 	webController := new(web.Controller)
-	PostsController := new(web.PostsController)
 	fileController := new(web.FileController)
 	userController := new(web.UserController)
-	nodeController := new(web.NodeController)
+	LikeController := new(web.LikeController)
+	PostsController := new(web.PostsController)
 	commentController := new(web.CommentController)
 	captchaController := new(web.CaptchaController)
 	MessageController := new(web.MessageController)
-	LikeController := new(web.LikeController)
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
+		// 设置 layout 全局视图变量
 		group.Middleware(middleware.LayoutGlobalVariablesSetting)
+		// 论坛首页
 		group.GET("/", webController.Home)
-		group.GET("/captcha", captchaController.Get)
+		// 帖子详情
 		group.GET("/posts/{postsId}", PostsController.Details)
+		// 验证码
+		group.GET("/captcha", captchaController.Get)
+		// 用户操作
+		group.GET("/user/login", userController.Login)
+		group.POST("/user/login", userController.Login)
+		group.GET("/user/register", userController.Register)
+		group.POST("/user/register", userController.Register)
+		group.GET("/users/{id}", userController.Center)
+		// 需要授权路由
+		group.Middleware(middleware.WebAuthCheck)
 		group.GET("/posts/publish", PostsController.Publish)
 		group.POST("/posts/publish", PostsController.Publish)
-		group.GET("/node/{nodeId}", nodeController.Index)
 		group.POST("/comments", commentController.Add)
 		group.POST("/comments/{id}/delete", commentController.Del)
 		group.POST("/file", fileController.Upload)
-		group.GET("/user/login", userController.Login)
-		group.POST("/user/login", userController.Login)
 		group.POST("/user/logout", userController.Logout)
-		group.GET("/user/register", userController.Register)
-		group.POST("/user/register", userController.Register)
 		group.GET("/user/edit", userController.Edit)
 		group.POST("/user/edit", userController.Edit)
-		group.GET("/users/{id}", userController.Center)
 		group.GET("/message", MessageController.Index)
-		// 目标点赞
 		group.POST("/like/do", LikeController.Do)
-		// 取消点赞
 		group.POST("/like/undo", LikeController.Undo)
 	})
 }

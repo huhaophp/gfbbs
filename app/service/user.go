@@ -168,7 +168,6 @@ func (s *userService) UpdatePassword(id string, entity *UpdatePasswordEntity) er
 	if err != nil {
 		return err
 	}
-	g.Log().Error("修改密码失败:", 11111)
 	row, err := res.RowsAffected()
 	if err != nil || row <= 0 {
 		return gerror.New("修改密码失败")

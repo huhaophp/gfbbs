@@ -2,7 +2,6 @@ package admin
 
 import (
 	commentsModel "bbs/app/model/comments"
-	"bbs/app/model/nodes"
 	"bbs/app/model/posts"
 	"bbs/app/request/admin"
 	"errors"
@@ -58,7 +57,7 @@ func (n *postService) Edit(data *admin.PostAddReqEntity, id int) error {
 }
 
 func (n *postService) Delete(id int) error {
-	res, err := g.DB().Table(nodes.Table).WherePri(id).Delete()
+	res, err := g.DB().Table(posts.Table).WherePri(id).Delete()
 	if err != nil {
 		return err
 	}

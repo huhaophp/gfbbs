@@ -47,7 +47,7 @@
                     <div id="wang-editor">
                         {{ .post.content }}
                     </div>
-                    <input type="hidden" name="content" id="html-content" value="{{ .post.content }}">
+                    <input type="hidden" name="content" id="html-content" value="{{ .post.content | html }}">
                 </div>
                 <button class="btn btn-primary">提交</button>
             </form>

@@ -1,26 +1,23 @@
 <div class="card">
     <div class="card-header">文章管理</div>
     <div class="card-body">
-        <div>
-            <form class="form-inline mb-3" method="GET" action='/admin/posts'>
-                <input type="text" class="form-control" name="title"  placeholder="文章标题模糊搜索">
-                <input type="text" class="form-control" name="uname"  placeholder="文章作者模糊搜索">
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary">搜索</button>
-                    </div>
-                <div class="input-group mr-1">
-                    <button class="btn btn-success" type="button" onclick="window.location='/admin/posts/add'">发布文章
-                    </button>
+        <form class="form-inline" method="GET" action='/admin/posts'>
+            <div class="input-group mb-1">
+                <input type="text" class="form-control" name="title" value="{{.Query.title}}" placeholder="标题模糊搜索">
+                <input type="text" class="form-control" name="uname" value="{{.Query.uname}}" placeholder="发布者模糊搜索">
+                <div class="input-group-append">
+                    <button class="btn btn-primary">搜索</button>
+                    <a class="btn btn-primary" href="/admin/posts/add">发布</a>
                 </div>
-            </form>
-        </div>
-        <table class="table table-bordered table-hover">
+            </div>
+        </form>
+        <table class="table table-bordered table-hover" style="font-size: 13px;text-align: center;">
             <thead>
             <tr>
-                <th>#ID</th>
-                <th>文章标题</th>
-                <th>用户信息</th>
-                <th>节点信息</th>
+                <th># ID</th>
+                <th>帖子标题</th>
+                <th>发布者</th>
+                <th>所属节点</th>
                 <th>浏览量</th>
                 <th>评论量</th>
                 <th>点赞量</th>
@@ -32,9 +29,13 @@
             {{range $item := .items}}
                 <tr>
                     <td>{{ $item.id }}</td>
-                    <td>{{ $item.title }}</td>
-                    <td><img src="{{ $item.avatar }}" class="img-circle img-thumbnail user-avatar"
-                             style="max-height: 200px;max-width:200px;cursor: pointer;"> {{ $item.user_name }}
+                    <td style="width: 200px;">
+                        {{StrLimit $item.title 0 20}}
+                    </td>
+                    <td>
+                        <img src="{{ $item.avatar }}" class="img-circle img-thumbnail"
+                             style="max-height: 30px;max-width:30px;cursor: pointer;border-radius: 50%;">
+                        {{ $item.user_name }}
                     </td>
                     <td>{{ $item.node_name }}</td>
                     <td>{{ $item.view_num }}</td>
@@ -42,18 +43,18 @@
                     <td>{{ $item.like_num }}</td>
                     <td>
                         {{if eq $item.fine 0}}
-                            <span class="badge badge-success">否</span>
+                            <span class="badge badge-info">否</span>
                         {{else}}
-                            <span class="badge badge-danger">是</span>
+                            <span class="badge badge-success">是</span>
                         {{end}}
                     </td>
                     <td>
                         <a class="btn btn-success btn-sm" href="/admin/posts/{{ $item.id }}/edit">编辑</a>
+                        <a class="btn btn-success btn-sm" href="/admin/posts/{{ $item.id }}/show">查看</a>
                         <form action="/admin/posts/{{ $item.id }}/delete" method="POST" style="display: inline-block;">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger btn-sm">删除</button>
                         </form>
-                        <a class="btn btn-success btn-sm" href="/admin/posts/{{ $item.id }}/show">查看</a>
                     </td>
                 </tr>
             {{end}}

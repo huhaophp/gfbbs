@@ -20,7 +20,7 @@ func init() {
 	s := g.Server()
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		// 设置 layout 全局视图变量
-		group.Middleware(middleware.LayoutGlobalVariablesSetting)
+		group.Middleware(middleware.WebLayoutGlobalVariablesSetting)
 		// 论坛首页
 		group.GET("/", webController.Home)
 		// 帖子详情

@@ -43,7 +43,7 @@ func WebAuthCheck(r *ghttp.Request) {
 	}
 }
 
-func LayoutGlobalVariablesSetting(r *ghttp.Request) {
+func WebLayoutGlobalVariablesSetting(r *ghttp.Request) {
 	user := r.Session.GetMap("user")
 	if user != nil {
 		r.GetView().Assign("unread_num", service.MessageService.GetUnreadNum(gconv.Int(user["id"])))

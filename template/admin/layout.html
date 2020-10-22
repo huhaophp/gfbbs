@@ -222,6 +222,16 @@
         setTimeout(function () {
             $('.message-container').hide()
         }, 2000)
+
+
+        var menu = document.getElementsByClassName("nav-item")
+console.log(menu)
+        for(var i=0 ; i<menu.length;i++){
+            meun[i].onclick=function(){change(this);}
+        }
+        function change(obj){
+            obj.addClass(" active")
+        }
     })
 </script>
 </body>

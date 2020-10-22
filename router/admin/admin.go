@@ -2,7 +2,6 @@ package admin
 
 import (
 	"bbs/app/controllers/admin"
-	"bbs/app/controllers/admin/comment"
 	"bbs/app/middleware"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -16,7 +15,7 @@ func init() {
 	postController := new(admin.PostController)
 	userController := new(admin.UserController)
 	adminController := new(admin.AdminController)
-	commentController := new(comment.Controller)
+	commentController := new(admin.CommentController)
 	// admin routes.
 	s.Group("/admin", func(group *ghttp.RouterGroup) {
 		group.GET("login", authController.Login)
@@ -54,6 +53,7 @@ func init() {
 		group.POST("posts/{id}/edit", postController.Edit)
 		group.POST("posts/{id}/delete", postController.Del)
 
-		group.GET("comments", commentController.List)
+		group.GET("posts/{post_id}/comments", commentController.List)
+		group.POST("posts/{post_id}/comments/{comment_id}", commentController.Del)
 	})
 }

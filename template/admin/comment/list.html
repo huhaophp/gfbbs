@@ -1,4 +1,120 @@
-<div class="card">
-    <div class="card-header">评论管理</div>
-    <div class="card-body">评论管理</div>
+<link href="/web/css/monokai-sublime.min.css" rel="stylesheet"/>
+<script src="/web/js/editor.min.js"></script>
+<script src="/web/js/highlight.min.js"></script>
+
+<style>
+    .comment-action {
+        font-size: 13px;
+        color: #999;
+        cursor: pointer;
+    }
+
+    .post-content img {
+        max-width: 100%;
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border-radius: 2px;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+    }
+
+    .comment-content img {
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border-radius: 2px;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+    }
+
+</style>
+<div class="col-sm-9">
+    <ul class="list-group list-group-flush">
+        {{range $comment := .items}}
+            <div class="list-group-item">
+                <div class="comment-user-info" style="height: 22px;">
+                    <a href="/users/{{$comment.uid}}">
+                        <img src="{{$comment.avatar}}" style="border-radius:50%;height: 30px;width:30px;"/>
+                    </a>
+                    <a href="" style="font-size: 14px;">{{$comment.name}}</a
+                    > {{if gt $comment.ruid 0}} <span style="color:#b5bac4 !important;font-size: 14px; ">回复了</span>
+                    <a href="" style="font-size: 14px;">{{ $comment.r_user_name }}</a>
+                    {{end}}
+                    <span style="font-size: 12px;color: #999;"
+                    >{{StrTime $comment.create_at.String}}</span
+                    >
+                </div>
+                <br/>
+                <div class="comment-content" style="font-size: 14px;">
+                    <div>{{ $comment.content }}</div>
+                    <div style="width: 100%;text-align: right;">
+                        <span class="comment-action comment-delete">删除</span>
+                        <form action="/admin/posts/{{ $.post.id }}/comments/{{ $comment.id }}/delete" class="delete-form"
+                              method="POST" style="display: none;">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{end}}
+        <div style="font-size: 12px; float:left; text-align: right;" class="mt-1">
+            <div class="form-control">{{ .page }}</div>
+        </div>
+
+    </ul>
 </div>
+<script>
+    $(function () {
+        hljs.initHighlightingOnLoad();
+
+        $('.comment-action').on('click', function () {
+            $(this).parent().find('.delete-form').submit();
+        });
+
+        // Initialize rich text
+        const E = window.wangEditor;
+        const editor = new E("#wang-editor");
+        editor.highlight = hljs;
+        editor.config.onchange = function (html) {
+            $("#html-content").val(html);
+        };
+        // Editor menu items
+        editor.config.menus = [
+            "head",
+            "bold",
+            "fontSize",
+            "fontName",
+            "italic",
+            "underline",
+            "strikeThrough",
+            "indent",
+            "lineHeight",
+            "foreColor",
+            "backColor",
+            "link",
+            "list",
+            "justify",
+            "quote",
+            "image",
+            // "table",
+            "code",
+            "splitLine",
+            "undo",
+            "redo"
+        ];
+        editor.config.hashjs = true;
+        // Ignore pictures in pasted content
+        editor.config.pasteIgnoreImg = true;
+        // Upload file name
+        editor.config.uploadFileName = "file";
+        // Upload request URL
+        editor.config.uploadImgServer = "/file";
+        // Upload parameter settings
+        editor.config.uploadImgParams = {};
+        editor.config.uploadImgMaxSize = 5 * 1024 * 1024 // 5M
+        // Create editor
+        editor.create();
+    });
+</script>

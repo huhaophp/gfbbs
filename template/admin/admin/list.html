@@ -1,13 +1,14 @@
 <div class="card">
     <div class="card-header">
         管理员管理
-        <div class="input-group mr-1 .text-right">
-            <button class="btn btn-success" type="button" onclick="window.location='/admin/admins/add'">添加
-            </button>
-        </div>
     </div>
     <div class="card-body">
-        <table class="table table-bordered">
+        <form class="form-inline" method="GET" action='/admin/posts'>
+            <div class="input-group mb-1">
+                <a class="btn btn-primary btn-sm" href="/admin/admins/add">添加</a>
+            </div>
+        </form>
+        <table class="table table-bordered" style="font-size: 13px;text-align: center;">
             <thead>
             <tr>
                 <th>#ID</th>
@@ -44,6 +45,6 @@
         </table>
     </div>
 </div>
-<div style="font-size: 14px; float:right">
-    {{ .page }}
+<div style="font-size: 12px; float:left;" class="mt-1">
+    <div class="form-control">{{ .page }}</div>
 </div>

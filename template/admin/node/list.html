@@ -1,15 +1,12 @@
 <div class="card">
     <div class="card-header">节点管理</div>
     <div class="card-body">
-        <div>
-            <form class="form-inline mb-3" method="GET">
-                <div class="input-group mr-1">
-                    <button class="btn btn-success" type="button" onclick="window.location='/admin/nodes/add'">添加
-                    </button>
-                </div>
-            </form>
-        </div>
-        <table class="table table-bordered table-hover">
+        <form class="form-inline" method="GET" action='/admin/posts'>
+            <div class="input-group mb-1">
+                <a class="btn btn-primary btn-sm" href="/admin/nodes/add">添加</a>
+            </div>
+        </form>
+        <table class="table table-bordered table-hover" style="font-size: 13px;text-align: center;">
             <thead>
             <tr>
                 <th>#ID</th>
@@ -53,6 +50,6 @@
         </table>
     </div>
 </div>
-<div style="font-size: 14px; float:right">
-    {{ .page }}
+<div style="font-size: 12px; float:left;" class="mt-1">
+    <div class="form-control">{{ .page }}</div>
 </div>

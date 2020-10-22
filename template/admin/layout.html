@@ -97,7 +97,7 @@
 <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-        <li class="nav-item active" data-path="home">
+        <li class="nav-item" data-path="home">
             <a class="nav-link" href="/admin/home">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>首页</span>
@@ -192,6 +192,11 @@
 <script src="/admin/js/demo/chart-area-demo.js"></script>
 <script>
     $(function () {
+        var curr = window.location.pathname.split('/')[2];
+        $('.nav-item').each(function (index, item) {
+            var path = $(item).attr('data-path');
+            if (path === curr) $(item).addClass('active')
+        });
 
         // 退出登录
         $('.logout-btn').on('click', function () {

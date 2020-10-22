@@ -91,9 +91,10 @@
                     <div>{{ $comment.content }}</div>
                     <div style="width: 100%;text-align: right;">
                         <span class="comment-action comment-delete">删除</span>
-                        {{/*                        <form action="/comments/{{ $comment.id }}/delete" class="delete-form" method="POST"*/}}
-                        {{/*                              style="display: none;">*/}}
-                        {{/*                        </form>*/}}
+                        <form action="/admin/posts/{{ $.post.id }}/comments/{{ $comment.id }}/delete" class="delete-form"
+                              method="POST"
+                              style="display: none;">
+                        </form>
                     </div>
                 </div>
             </div>

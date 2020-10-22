@@ -43,14 +43,14 @@ func (c *CommentController) Del(r *ghttp.Request) {
 	if postId <= 0 || commentId <= 0 {
 		response.RedirectBackWithError(r, errors.New("id错误"))
 	}
-	item, err := g.DB().Table(comments.Table).Where("id = ? and is_delete = ?", postId, 0).One()
+	item, err := g.DB().Table(comments.Table).Where("id = ? and is_delete = ?", commentId, 0).One()
 	if err != nil || item == nil {
 		response.RedirectBackWithError(r, gerror.New("评论不存在或已被删除"))
 	}
-	err = adminService.Comment.Delete(postId)
+	err = adminService.Comment.Delete(commentId)
 	if err != nil {
 		g.Log().Error("删除失败:", err)
 		response.RedirectBackWithError(r, errors.New("删除失败"))
 	}
-	response.RedirectToWithMessage(r, fmt.Sprintf("/admin/posts/%d", postId), "删除成功")
+	response.RedirectToWithMessage(r, fmt.Sprintf("/admin/posts/%d/show", postId), "删除成功")
 }

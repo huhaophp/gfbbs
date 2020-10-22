@@ -54,6 +54,6 @@ func init() {
 		group.POST("posts/{id}/delete", postController.Del)
 
 		group.GET("posts/{post_id}/comments", commentController.List)
-		group.POST("posts/{post_id}/comments/{comment_id}", commentController.Del)
+		group.POST("posts/{post_id}/comments/{comment_id}/delete", commentController.Del)
 	})
 }

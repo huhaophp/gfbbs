@@ -24,15 +24,21 @@ var (
 	Model = &arModel{g.DB("default").Table(Table).Safe()}
 	// Columns defines and stores column names for table configs.
 	Columns = struct {
-		Id     string //   
-        Name   string //   
-        Key    string //   
-        Value  string //
+		Id        string // 主键ID                                 
+        Title     string // 名称                                   
+        Key       string // 标示                                   
+        Value     string // 配置值                                 
+        Type      string // 类型:text-文本/image-图片/rich-富文本  
+        CreateAt  string // 创建时间                               
+        UpdateAt  string // 更新时间
 	}{
-		Id:    "id",     
-        Name:  "name",   
-        Key:   "key",    
-        Value: "value",
+		Id:       "id",         
+        Title:    "title",      
+        Key:      "key",        
+        Value:    "value",      
+        Type:     "type",       
+        CreateAt: "create_at",  
+        UpdateAt: "update_at",
 	}
 )
 

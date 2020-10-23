@@ -30,7 +30,8 @@
                 <tr>
                     <td>{{ $item.id }}</td>
                     <td style="width: 200px;">
-                        {{StrLimit $item.title 0 20}}
+                        <a href="javascript:;" type="button" data-toggle="tooltip" data-placement="top" title="{{ $item.title }}">
+                            {{StrLimit $item.title 0 20}}
                     </td>
                     <td>
                         <img src="{{ $item.avatar }}" class="img-circle img-thumbnail"
@@ -60,8 +61,8 @@
             {{end}}
             </tbody>
         </table>
+        <div style="font-size: 12px; float:right; text-align: right" class="mt-1">
+            <div class="form-control">{{ .page }}</div>
+        </div>
     </div>
-</div>
-<div style="font-size: 12px; float:right; text-align: right" class="mt-1">
-    <div class="form-control">{{ .page }}</div>
 </div>

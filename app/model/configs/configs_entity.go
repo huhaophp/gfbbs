@@ -7,14 +7,18 @@ package configs
 import (
 	"database/sql"
 	"github.com/gogf/gf/database/gdb"
+	"github.com/gogf/gf/os/gtime"
 )
 
 // Entity is the golang structure for table configs.
 type Entity struct {
-    Id    uint   `orm:"id,primary" json:"id"`    //   
-    Name  string `orm:"name"       json:"name"`  //   
-    Key   string `orm:"key"        json:"key"`   //   
-    Value string `orm:"value"      json:"value"` //   
+    Id       uint        `orm:"id,primary" json:"id"`        // 主键ID                                 
+    Title    string      `orm:"title"      json:"title"`     // 名称                                   
+    Key      string      `orm:"key"        json:"key"`       // 标示                                   
+    Value    string      `orm:"value"      json:"value"`     // 配置值                                 
+    Type     string      `orm:"type"       json:"type"`      // 类型:text-文本/image-图片/rich-富文本  
+    CreateAt *gtime.Time `orm:"create_at"  json:"create_at"` // 创建时间                               
+    UpdateAt *gtime.Time `orm:"update_at"  json:"update_at"` // 更新时间                               
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

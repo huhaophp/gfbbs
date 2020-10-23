@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>GF-BBS</title>
+    <title>H-BBS</title>
 
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
 
@@ -31,7 +31,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">GF-BBS</a>
+    <a class="navbar-brand mr-1" href="index.html">H-BBS</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -127,7 +127,10 @@
 
     <div id="content-wrapper">
         <div class="container-fluid">
-            <div class="message-container"></div>
+            <div class="message-container">
+                {{AlertComponent .Session.error "danger"}}
+                {{AlertComponent .Session.success "success"}}
+            </div>
             {{include .mainTpl .}}
         </div>
         <!-- /.container-fluid -->
@@ -192,6 +195,11 @@
 <script src="/admin/js/demo/chart-area-demo.js"></script>
 <script>
     $(function () {
+
+        // 在任何地方启用tooltip提示冒泡插件
+        $('[data-toggle="tooltip"]').tooltip()
+
+
         var curr = window.location.pathname.split('/')[2];
         $('.nav-item').each(function (index, item) {
             var path = $(item).attr('data-path');
@@ -202,31 +210,6 @@
         $('.logout-btn').on('click', function () {
             $('.logout-form').submit();
         });
-
-        /**
-         * 消息提示框.
-         *
-         * @author hh
-         * @param content
-         * @param  {String} type 错误or成功
-         * @param  {Number} second 显示周期
-         * @return mixed
-         */
-        function message(content, type = "success", second = 4000) {
-            $('.message-container').html("<div class='alert alert-" + type + "' role='alert'>" + content + "</div>")
-        }
-
-        var error = "{{.Session.error}}"
-        if (error) {
-            message(error, "danger")
-        }
-        var success = "{{.Session.success}}"
-        if (success) {
-            message(success, "success")
-        }
-        setTimeout(function () {
-            $('.message-container').hide()
-        }, 2000)
     })
 </script>
 </body>

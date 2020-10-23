@@ -1,1 +1,39 @@
-首页
+<div class="jumbotron">
+    <h1>Hello GoFrame</h1>
+    <p class="lead">
+        你现在所看到的是 <a href="https://https://goframe.org">goFrame for bbs</a> 的项目主页。
+    </p>
+    <p>
+        一切，将从这里开始。
+    </p>
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fas fa-fw fa-comments"></i>
+                    </div>
+                    <div class="mr-5">用户总量: {{ .user }}</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="/admin/users">
+                    <span class="float-right">详情 <i class="fas fa-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-warning o-hidden h-100">
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="fas fa-fw fa-list"></i>
+                    </div>
+                    <div class="mr-5">文章总量: {{ .post }}</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="/admin/posts">
+                    <span class="float-right">详情 <i class="fas fa-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>

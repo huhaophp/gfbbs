@@ -34,7 +34,7 @@ func (s *commentService) Add(entity *AddCommentReqEntity) error {
 		"content":   entity.Content,
 		"is_delete": 0,
 	})
-	_, _ = g.DB().Table(posts.Table).Data("comment_num = comment_num+1").Where("id = ?", entity.Pid).Update()
+	_, _ = g.DB().Table(posts.Table).Data("comment_num = comment_num+1,luid=?", entity.Uid).Where("id = ?", entity.Pid).Update()
 	if err != nil {
 		return err
 	}

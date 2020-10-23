@@ -34,9 +34,9 @@
     <div class="container-fluid">
         <nav
                 class="navbar navbar-expand-lg navbar-light bg-white"
-                style="box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);background: #fff;"
+                style="box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);background: #fff;border-top: solid 4px #28a745;"
         >
-                        <a class="navbar-brand ml-5 text-dark" href="/"><b>HBBS</b></a>
+                        <a class="navbar-brand ml-5 text-success" href="/"><b>HBBS</b></a>
             <button
                     class="navbar-toggler"
                     type="button"
@@ -50,26 +50,28 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav mr-auto"></div>
+                <div
+                        class="btn-group"
+                        role="group"
+                        aria-label="First group"
+                        style="font-size: 10px;"
+                >
+                    <a type="button" class="btn btn-link text-dark" href="/posts/publish">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button type="button" class="btn btn-link">
+                        {{if eq .unread_num 0}}
+                            <a class="badge badge-secondary text-light"
+                               href="/message?tab=t"> {{ .unread_num }} </a>
+                        {{else}}
+                            <a class="badge badge-danger text-light"
+                               href="/message?tab=t"> {{ .unread_num }} </a>
+                        {{end}}
+                    </button>
                 <div class="dropdown">
                     {{if .Session.user}}
-                        <div
-                                class="btn-group"
-                                role="group"
-                                aria-label="First group"
-                                style="font-size: 10px;"
-                        >
-                            <a type="button" class="btn btn-link text-dark" href="/posts/publish">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                            <button type="button" class="btn btn-link">
-                                {{if eq .unread_num 0}}
-                                    <a class="badge badge-secondary text-light"
-                                       href="/message?tab=t"> {{ .unread_num }} </a>
-                                {{else}}
-                                    <a class="badge badge-danger text-light"
-                                       href="/message?tab=t"> {{ .unread_num }} </a>
-                                {{end}}
-                            </button>
+
+
                             <button
                                     type="button"
                                     class="btn dropdown-toggle btn-link text-dark"
@@ -103,17 +105,9 @@
             </div>
         </nav>
         <!--- main --->
-        <main
-                class="row"
-                style="margin-bottom: 80px;padding:20px 100px 0 100px;"
-        >
+        <main class="row" style="margin-bottom: 80px;padding:10px 100px 0 100px;">
             {{include .mainTpl .}}
         </main>
-        <!--- footer --->
-        {{/*        <footer*/}}
-        {{/*                class="navbar navbar-light"*/}}
-        {{/*                style="height: 300px;background: #1b1c1d;"*/}}
-        {{/*        ></footer>*/}}
     </div>
 </div>
 </body>

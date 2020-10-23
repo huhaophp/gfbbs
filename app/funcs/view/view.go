@@ -68,5 +68,4 @@ func StrLimit(str interface{}, s int, l int) string {
 	} else {
 		return ss
 	}
-
 }

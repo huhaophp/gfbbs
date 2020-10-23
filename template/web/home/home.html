@@ -1,34 +1,78 @@
+<style>
+    .user-avatar {
+        width: 7%;
+        float: left;
+    }
+
+    .user-avatar-img {
+        height: 48px;
+        width: 48px;
+        border-radius: 50%;
+    }
+
+    .posts-title-div {
+        width: 93%;
+        float: left;
+    }
+
+    .posts-title-span {
+        font-size: 16px;
+        line-height: 130%;
+        text-shadow: 0 1px 0 #fff;
+    }
+
+    .posts-title-a {
+        color: #222;
+    }
+
+    .posts-info-span {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .posts-info-span a {
+        color: #778087;
+    }
+
+    .publish-posts-div {
+        background: #fff;
+        padding: 20px;
+    }
+    .fs12 {
+        font-size: 12px;
+    }
+</style>
 <div class="col-sm-9">
     {{AlertComponent .Session.success "success"}}
     <ul class="list-group">
         <li class="list-group-item">
             {{range $node := .nodes}}
-                <button class="{{if eq $node.id $.nid}} btn btn-link text-primary{{else}} btn btn-link text-secondary{{end}} top-node-btn"
+                <button class="{{if eq $node.id $.nid}} btn btn-success btn-sm{{else}} btn btn-link text-secondary{{end}} top-node-btn"
                         data-id="{{ $node.id }}">{{ $node.name }}</button>
             {{end}}
         </li>
+    </ul>
+    <ul class="list-group mt-1">
         {{if .posts}}
             {{range $posts := .posts}}
                 <li class="list-group-item">
-                    <div style="width:7%;float: left;">
-                        <img src="{{ $posts.avatar }}" style="height: 48px;width:48px;border-radius: 50%;">
+                    <div class="user-avatar">
+                        <img src="{{ $posts.avatar }}" class="user-avatar-img">
                     </div>
-                    <div style="width: 93%;float: left;">
-                        <span style="font-size: 16px;line-height: 130%;text-shadow: 0 1px 0 #fff;">
+                    <div class="posts-title-div">
+                        <span class="posts-title-span">
                             {{if eq $posts.fine 1}}<span class="badge badge-warning">精</span>{{end}}<a
-                                    href="/posts/{{ $posts.id }}" style="color: #222;">{{ $posts.title }}</a>
+                                    href="/posts/{{ $posts.id }}" class="posts-title-a">{{ $posts.title }}</a>
                         </span>
                         <br>
-                        <span style="font-size: 12px;color: #ccc;">
-                            <a href="/users/{{ $posts.uid }}"
-                               style="color: #778087;">{{ $posts.name }}</a>  •  {{StrTime $posts.create_at.String}} •
-                                 <a href="/?nid={{ $posts.nid }}" style="color: #778087;">{{ $posts.node_name }}</a>
-                             <span style="font-size: 12px;color: #ccc;text-align: right;">• 回复数 {{ $posts.comment_num }}</span>
-                        {{if gt $posts.luid 0}} •  最后回复来自
-                            <a href="/users/{{  $posts.luid }}"
-                               style="color: #778087;">{{ $posts.last_user_name }}</a>
-                            </span>
-                        {{end}}
+                        <span class="posts-info-span">
+                            <a href="/users/{{ $posts.uid }}">{{ $posts.name }}</a>  •  {{StrTime $posts.create_at.String}} •
+                                 <a href="/?nid={{ $posts.nid }}">{{ $posts.node_name }}</a>
+                             <span>• 回复数 {{ $posts.comment_num }}</span>
+                            {{if gt $posts.luid 0}} •  最后回复来自
+                            <a href="/users/{{  $posts.luid }}">{{ $posts.last_user_name }}</a>
+                            {{end}}
+                        </span>
                     </div>
                 </li>
             {{end}}
@@ -43,27 +87,28 @@
     </ul>
 </div>
 <div class="col-sm-3">
-    <div class="card" style="background: #fff;padding: 20px;">
+    <div class="card publish-posts-div">
         <a class="btn btn-success" href="/posts/publish">发布帖子</a>
     </div>
-    <div class="card mt-1">
-        <div class="card-header" style="background: #fff;">
-            活跃用户
-        </div>
+    <div class="card mt-1 bg-white">
         <div class="card-body">
-            <div style="font-size: 12px;">
-                <p>博客马上上线了哈，大家敬请期待哈。</p><p>爱你们么么哒 😘。</p>
+            <b>活跃用户</b>
+            <hr>
+            <div class="fs12">
+                <p>博客马上上线了哈，大家敬请期待哈。</p>
+                <p>爱你们么么哒 😘。</p>
             </div>
         </div>
     </div>
     <div class="card mt-2">
-        <div class="card-header" style="background: #fff;">
-            最新帖子
-        </div>
-        <div class="card-body" style="font-size: 14px;">
-            {{range $posts := .latestPosts}}
-            <a href="/posts/{{ $posts.id }}" style="color: #778087;"> • {{ $posts.title }}</a><br>
-            {{end}}
+        <div class="card-body">
+            <b>最新帖子</b>
+            <hr>
+            <div class="fs12">
+                {{range $posts := .latestPosts}}
+                    <a href="/posts/{{ $posts.id }}" style="color: #778087;"> • {{StrLimit $posts.title 0 30}}</a><br>
+                {{end}}
+            </div>
         </div>
     </div>
 </div>

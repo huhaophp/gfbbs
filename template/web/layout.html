@@ -9,7 +9,7 @@
     />
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>GF-BBS</title>
+    <title>H-BBS</title>
     <!-- Bootstrap core JavaScript-->
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -32,12 +32,11 @@
 <body style="color: #636b6f;background:#e5e5e5; ">
 <div class="row">
     <div class="container-fluid">
-        <!--- nav --->
         <nav
                 class="navbar navbar-expand-lg navbar-light bg-white"
-                style="box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);background: #fff;border-top: 4px solid #007bff;"
+                style="box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);background: #fff;"
         >
-            <a class="navbar-brand ml-5 text-primary" href="/">hbbs</a>
+                        <a class="navbar-brand ml-5 text-dark" href="/"><b>HBBS</b></a>
             <button
                     class="navbar-toggler"
                     type="button"
@@ -59,9 +58,9 @@
                                 aria-label="First group"
                                 style="font-size: 10px;"
                         >
-                          <a type="button" class="btn btn-link text-primary" href="/posts/publish">
-                            <i class="fa fa-paper-plane"></i>
-                          </a>
+                            <a type="button" class="btn btn-link text-dark" href="/posts/publish">
+                                <i class="fa fa-plus"></i>
+                            </a>
                             <button type="button" class="btn btn-link">
                                 {{if eq .unread_num 0}}
                                     <a class="badge badge-secondary text-light"
@@ -73,7 +72,7 @@
                             </button>
                             <button
                                     type="button"
-                                    class="btn dropdown-toggle btn-link"
+                                    class="btn dropdown-toggle btn-link text-dark"
                                     id="dropdownMenuButton"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -112,10 +111,10 @@
             {{include .mainTpl .}}
         </main>
         <!--- footer --->
-{{/*        <footer*/}}
-{{/*                class="navbar navbar-light"*/}}
-{{/*                style="height: 300px;background: #1b1c1d;"*/}}
-{{/*        ></footer>*/}}
+        {{/*        <footer*/}}
+        {{/*                class="navbar navbar-light"*/}}
+        {{/*                style="height: 300px;background: #1b1c1d;"*/}}
+        {{/*        ></footer>*/}}
     </div>
 </div>
 </body>
@@ -124,22 +123,6 @@
         $(".top-node-btn").on("click", function (e) {
             window.location = "/?nid=" + $(this).attr("data-id");
         });
-
-        function message(content, type = "success") {
-            $(".alert-msg .msg-content").text(content);
-            $(".alert-msg")
-                .addClass("alert-" + type)
-                .show();
-        }
-
-        var error = "{{.Session.error}}";
-        if (error) {
-            message(error, "warning");
-        }
-        var success = "{{.Session.success}}";
-        if (success) {
-            message(success, "success");
-        }
     });
 </script>
 </html>

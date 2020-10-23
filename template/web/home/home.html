@@ -43,12 +43,12 @@
     </ul>
 </div>
 <div class="col-sm-3">
-    <div class="card" style="background: #fff;padding: 10px;">
-        <a class="btn btn-primary" href="/posts/publish">发布帖子</a>
+    <div class="card" style="background: #fff;padding: 20px;">
+        <a class="btn btn-success" href="/posts/publish">发布帖子</a>
     </div>
     <div class="card mt-1">
         <div class="card-header" style="background: #fff;">
-            公告
+            活跃用户
         </div>
         <div class="card-body">
             <div style="font-size: 12px;">
@@ -60,8 +60,7 @@
         <div class="card-header" style="background: #fff;">
             最新帖子
         </div>
-        <div class="card-body" style="font-size: 12px;">
-
+        <div class="card-body" style="font-size: 14px;">
             {{range $posts := .latestPosts}}
             <a href="/posts/{{ $posts.id }}" style="color: #778087;"> • {{ $posts.title }}</a><br>
             {{end}}

@@ -26,16 +26,16 @@
     {{AlertComponent .Session.success "success"}}
     <div class="card">
         <div class="card-body">
-            {{if eq .tab "info"}}
+            {{if eq .Query.tab "info"}}
                 <h5>修改资料</h5>
-            {{else if eq "avatar"}}
+            {{else if eq .Query.tab "avatar"}}
                 <h5>修改头像</h5>
             {{else}}
                 <h5>修改密码</h5>
             {{end}}
             <hr>
-            <form action="/user/edit?tab={{ .tab }}" method="POST">
-                {{if eq .tab "info"}}
+            <form action="/user/edit?tab={{ .Query.tab }}" method="POST">
+                {{if eq .Query.tab "info"}}
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputName">昵称</label>
@@ -70,7 +70,7 @@
                             <input type="text" name="site" class="form-control  col-sm-6" value="{{ .user.site }}">
                         </div>
                     </div>
-                {{else if eq .tab "avatar"}}
+                {{else if eq .Query.tab "avatar"}}
                     <div class="form-group">
                         <div class="form-label-group">
                             <label for="inputName">头像</label>

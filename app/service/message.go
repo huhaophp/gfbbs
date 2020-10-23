@@ -25,9 +25,19 @@ func (s *messageService) List(ruid int, page int, limit int) gdb.Result {
 		Where("m.ruid = ?", ruid).
 		Fields("m.id,m.suid,m.ruid,m.tid,m.type,m.action,m.update_at,m.create_at,u.name,u.avatar,p.title").
 		Order("m.create_at DESC").
-		Page(page, 20).
+		Page(page, limit).
 		All()
 	return items
+}
+
+// List Get message list.
+func (s *messageService) Total(ruid int) int {
+	total, _ := g.DB().Table(messages.Table+" m").
+		LeftJoin("users u", "u.id = m.suid").
+		LeftJoin("posts p", "p.id = m.tid").
+		Where("m.ruid = ?", ruid).
+		Count()
+	return total
 }
 
 // GetUnread Get unread messages.

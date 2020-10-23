@@ -5,6 +5,7 @@ import (
 	"bbs/app/funcs/response"
 	"bbs/app/model/users"
 	"bbs/app/service"
+	"fmt"
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -102,7 +103,6 @@ func (c *UserController) Edit(r *ghttp.Request) {
 			if err != nil {
 				response.RedirectBackWithError(r, err)
 			}
-			response.RedirectToWithMessage(r, "/user/edit?tab=info", "更新成功")
 		} else if tab == "avatar" {
 			// 修改头像
 			var reqEntity service.UpdateAvatarEntity
@@ -113,7 +113,6 @@ func (c *UserController) Edit(r *ghttp.Request) {
 			if err != nil {
 				response.RedirectBackWithError(r, err)
 			}
-			response.RedirectToWithMessage(r, "/user/edit?tab=avatar", "更新成功")
 		} else {
 			// 修改密码
 			var reqEntity service.UpdatePasswordEntity
@@ -124,8 +123,8 @@ func (c *UserController) Edit(r *ghttp.Request) {
 			if err != nil {
 				response.RedirectBackWithError(r, err)
 			}
-			response.RedirectToWithMessage(r, "/user/edit?tab=password", "更新成功")
 		}
+		response.RedirectToWithMessage(r, fmt.Sprintf("/user/edit?tab=%s", tab), "更新成功")
 	}
 }
 

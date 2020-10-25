@@ -6,10 +6,11 @@ import (
 )
 
 const (
-	webLayout      string = "web/layout.html"
 	UserSessionKey string = "user"
+	webLayout      string = "web/layout.html"
 )
 
+// 获取当前登录的用户
 func GetAuthUser(r *ghttp.Request) g.Map {
 	return r.Session.GetMap(UserSessionKey)
 }

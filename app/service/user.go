@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bbs/app/model/admins"
 	"bbs/app/model/users"
 	"errors"
 	"fmt"
@@ -173,4 +174,10 @@ func (s *userService) UpdatePassword(id string, entity *UpdatePasswordEntity) er
 		return gerror.New("修改密码失败")
 	}
 	return nil
+}
+
+// CheckUserStatus 检查用户状态
+func (a *userService) CheckUserStatus(uid int) gdb.Record {
+	r, _ := g.DB().Table(users.Table).WherePri(uid).Where("status", admins.NormalStatus).One()
+	return r
 }

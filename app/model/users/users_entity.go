@@ -12,19 +12,21 @@ import (
 
 // Entity is the golang structure for table users.
 type Entity struct {
-    Id          uint        `orm:"id,primary"    json:"id"`            //   
-    Name        string      `orm:"name"          json:"name"`          //   
-    Email       string      `orm:"email"         json:"email"`         //   
-    Gender      int         `orm:"gender"        json:"gender"`        //   
-    Avatar      string      `orm:"avatar"        json:"avatar"`        //   
-    Password    string      `orm:"password"      json:"password"`      //   
-    Status      int         `orm:"status"        json:"status"`        //   
-    LastLoginIp string      `orm:"last_login_ip" json:"last_login_ip"` //   
-    Sign        string      `orm:"sign"          json:"sign"`          //   
-    Site        string      `orm:"site"          json:"site"`          //   
-    RegisterAt  *gtime.Time `orm:"register_at"   json:"register_at"`   //   
-    CreateAt    *gtime.Time `orm:"create_at"     json:"create_at"`     //   
-    UpdateAt    *gtime.Time `orm:"update_at"     json:"update_at"`     //   
+    Id          uint        `orm:"id,primary"    json:"id"`            //                
+    Name        string      `orm:"name"          json:"name"`          //                
+    Email       string      `orm:"email"         json:"email"`         //                
+    Gender      int         `orm:"gender"        json:"gender"`        //                
+    Avatar      string      `orm:"avatar"        json:"avatar"`        //                
+    Password    string      `orm:"password"      json:"password"`      //                
+    Status      int         `orm:"status"        json:"status"`        //                
+    LastLoginIp string      `orm:"last_login_ip" json:"last_login_ip"` //                
+    Sign        string      `orm:"sign"          json:"sign"`          //                
+    Site        string      `orm:"site"          json:"site"`          //                
+    RegisterAt  *gtime.Time `orm:"register_at"   json:"register_at"`   //                
+    PostsNum    int         `orm:"posts_num"     json:"posts_num"`     // 发帖子统计     
+    CommentsNum int         `orm:"comments_num"  json:"comments_num"`  // 评论/回复统计  
+    CreateAt    *gtime.Time `orm:"create_at"     json:"create_at"`     //                
+    UpdateAt    *gtime.Time `orm:"update_at"     json:"update_at"`     //                
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers

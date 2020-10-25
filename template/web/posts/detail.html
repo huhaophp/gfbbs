@@ -40,30 +40,67 @@
     .like-count {
         color: #a5a5a5 !important;
     }
+    .user-avatar {
+        width: 7%;
+        float: left;
+    }
+
+    .user-avatar-img {
+        height: 48px;
+        width: 48px;
+        border-radius: 50%;
+    }
+
+    .posts-title-div {
+        width: 93%;
+        float: left;
+    }
+
+    .posts-title-span {
+        font-size: 16px;
+        line-height: 130%;
+        text-shadow: 0 1px 0 #fff;
+    }
+
+    .posts-title-a {
+        color: #222;
+    }
+
+    .posts-info-span {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .posts-info-span a {
+        color: #778087;
+    }
 </style>
 <div class="col-sm-9">
     {{AlertComponent .Session.error "danger"}}
     {{AlertComponent .Session.success "success"}}
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
-            <p style="color: #333;font-size: 20px;line-height: 150%;">{{ .posts.title }}</p>
-            <div>
-                <a href="" class="badge badge-light" style="color: #acacac;"
-                ><i class="fa fa-tag"></i> {{.posts.node_name}}</a
-                >
-                <a href="" class="badge badge-light" style="color: #acacac;"
-                ><i class="fa fa-user"></i> {{.posts.user_name}}</a
-                >
-                <span class="badge badge-light" style="color: #acacac;"
-                ><i class="fa fa-clock"></i> {{StrTime .posts.create_at.String}}</span
-                >
-                <span class="badge badge-light" style="color: #acacac;"
-                ><i class="fa fa-comment"></i> {{.posts.view_num}}</span
-                >
+            <div class="user-avatar">
+                <img src="{{ .posts.avatar }}" class="user-avatar-img">
+            </div>
+            <div class="posts-title-div">
+                        <span class="posts-title-span">
+                            {{if eq .posts.fine 1}}<span class="badge badge-warning">精</span>{{end}}<a
+                                    href="/posts/{{ .posts.id }}" class="posts-title-a">{{ .posts.title }}</a>
+                        </span>
+                <br>
+                <span class="posts-info-span">
+                            <a href="/users/{{ .posts.uid }}">{{ .posts.user_name }}</a>  •  {{StrTime .posts.create_at.String}} •
+                                 <a href="/?nid={{ .posts.nid }}">{{ .posts.node_name }}</a>
+                             <span>• 回复数 {{ .posts.comment_num }}</span>
+                            {{if gt .posts.luid 0}} •  最后回复来自
+                            <a href="/users/{{  .posts.luid }}">{{ .posts.last_user_name }}</a>
+                            {{end}}
+                        </span>
             </div>
         </li>
         <li class="list-group-item posts-content" style="padding: 20px;">
-            {{ .posts.content }}
+            {{.posts.content}}
         </li>
         <li class="list-group-item mt-1">
             <a href="javascript:;" class="like {{if  eq .isLike 1}} text-primary {{ else}} text-secondary {{end}}"
@@ -159,8 +196,8 @@
             <div style="font-size: 12px;">{{ .posts.sign }}</div>
             <hr>
             <div>
-                <div style="display: inline-block;font-size: 12px;padding:4px;">帖子<br>(10)</div>
-                <div style="display: inline-block;font-size: 12px;padding: 4px;">评论<br>(20)</div>
+                <div style="display: inline-block;font-size: 12px;padding:4px;">帖子<br>({{ .posts.posts_num }})</div>
+                <div style="display: inline-block;font-size: 12px;padding: 4px;">评论<br>({{ .posts.comments_num }})</div>
                 <div style="display: inline-block;font-size: 12px;padding: 4px;">注册排名<br>({{ .posts.uid }})</div>
             </div>
         </div>

@@ -9,7 +9,6 @@ import (
 )
 
 const (
-	layout  string = "web/layout.html"
 	homeTpl string = "web/home/home.html"
 )
 
@@ -27,11 +26,14 @@ func (c *Controller) Home(r *ghttp.Request) {
 		LeftJoin("users u", "u.id = p.uid").
 		LeftJoin("nodes n", "n.id = p.nid").
 		LeftJoin("users u1", "u1.id = p.luid")
+
 	if nid != 0 {
 		query = query.Where("p.nid", nid)
 	}
+
 	posts, _ := query.
-		Fields("p.luid,p.fine,p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name,u.avatar,n.name as node_name,u1.name as last_user_name").
+		Fields("p.luid,p.fine,p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at," +
+			"u.name,u.avatar,n.name as node_name,u1.name as last_user_name").
 		Order("p.fine DESC,p.id").
 		Page(pageNum, 20).
 		All()
@@ -51,5 +53,5 @@ func (c *Controller) Home(r *ghttp.Request) {
 		"page":        page.GetContent(2),
 	}
 
-	response.ViewExit(r, layout, data)
+	response.ViewExit(r, webLayout, data)
 }

@@ -1,7 +1,6 @@
 package web
 
 import (
-	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	"bbs/app/service"
 	"github.com/gogf/gf/errors/gerror"
@@ -31,7 +30,7 @@ func (c *CommentController) Add(r *ghttp.Request) {
 // Del Delete comment
 func (c *CommentController) Del(r *ghttp.Request) {
 	id := r.GetRouterString("id")
-	uid := gconv.String(r.Session.GetMap(constants.UserSessionKey)["id"])
+	uid := gconv.String(GetAuthUser(r))
 	err := service.CommentService.CheckPermissions(id, uid)
 	if err != nil {
 		response.RedirectBackWithError(r, err)

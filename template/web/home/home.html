@@ -38,6 +38,7 @@
         background: #fff;
         padding: 20px;
     }
+
     .fs12 {
         font-size: 12px;
     }
@@ -61,8 +62,10 @@
                     </div>
                     <div class="posts-title-div">
                         <span class="posts-title-span">
-                            {{if eq $posts.fine 1}}<span class="badge badge-warning">精</span>{{end}}<a
-                                    href="/posts/{{ $posts.id }}" class="posts-title-a">{{ $posts.title }}</a>
+                            {{if eq $posts.fine 1}}<span class="badge badge-warning"> 精 </span>{{end}}
+                                <a href="/posts/{{ $posts.id }}" class="posts-title-a">
+                                    {{ $posts.title }}
+                                </a>
                         </span>
                         <br>
                         <span class="posts-info-span">

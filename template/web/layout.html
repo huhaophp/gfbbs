@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>H-BBS</title>
@@ -14,20 +11,9 @@
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap core CSS-->
-    <link
-            href="/admin/vendor/bootstrap/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
+    <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Custom fonts for this template-->
-    <link
-            href="/admin/vendor/fontawesome-free/css/all.min.css"
-            rel="stylesheet"
-            type="text/css"
-    />
-    <!-- wangEditor js -->
-    <script>
-        var auth = "{{ .Session.user.id }}";
-    </script>
+    <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body style="color: #636b6f;background:#e5e5e5; ">
 <div class="row">
@@ -36,7 +22,7 @@
                 class="navbar navbar-expand-lg navbar-light bg-white"
                 style="box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);background: #fff;border-top: solid 4px #28a745;"
         >
-                        <a class="navbar-brand ml-5 text-success" href="/"><b>HBBS</b></a>
+            <a class="navbar-brand ml-5 text-success" href="/"><b>HBBS</b></a>
             <button
                     class="navbar-toggler"
                     type="button"
@@ -56,51 +42,51 @@
                         aria-label="First group"
                         style="font-size: 10px;"
                 >
-                    <a type="button" class="btn btn-link text-dark" href="/posts/publish">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <button type="button" class="btn btn-link">
-                        {{if eq .unread_num 0}}
-                            <a class="badge badge-secondary text-light"
-                               href="/message?tab=t"> {{ .unread_num }} </a>
-                        {{else}}
-                            <a class="badge badge-danger text-light"
-                               href="/message?tab=t"> {{ .unread_num }} </a>
-                        {{end}}
-                    </button>
-                <div class="dropdown">
-                    {{if .Session.user}}
-
-
-                            <button
-                                    type="button"
-                                    class="btn dropdown-toggle btn-link text-dark"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                            >
-                                <img
-                                        src="{{ .Session.user.avatar }}"
-                                        style="height: 24px;width: 24px;margin-right:10px;"
-                                        class="rounded-circle"
-                                /><span style="font-size: 14px;font-weight: 700;"
-                                >{{ .Session.user.name }}</span
-                                >
+                    <div>
+                        {{if .Session.user}}
+                            <a type="button" class="btn btn-link text-dark" href="/posts/publish">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button type="button" class="btn btn-link">
+                                {{if eq .unread_num 0}}
+                                    <a class="badge badge-secondary text-light"
+                                       href="/message?tab=t"> {{ .unread_num }} </a>
+                                {{else}}
+                                    <a class="badge badge-danger text-light"
+                                       href="/message?tab=t"> {{ .unread_num }} </a>
+                                {{end}}
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/user/edit">修改资料</a>
-                                <form action="/user/logout" method="POST">
-                                    <button class="dropdown-item">退出登录</button>
-                                </form>
+                            <div class="dropdown" style="display: inline-block;">
+                                <button
+                                        type="button"
+                                        class="btn dropdown-toggle btn-link text-dark"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                >
+                                    <img
+                                            src="{{ .Session.user.avatar }}"
+                                            style="height: 24px;width: 24px;margin-right:10px;"
+                                            class="rounded-circle"
+                                    /><span style="font-size: 14px;font-weight: 700;"
+                                    >{{ .Session.user.name }}</span
+                                    >
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/user/edit">修改资料</a>
+                                    <form action="/user/logout" method="POST">
+                                        <button class="dropdown-item">退出登录</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    {{else}}
-                        <div class="btn-group mr-5" role="group" aria-label="First group">
-                            <a class="text-dark mr-2" href="/user/register">注册</a>
-                            <a class="text-dark" href="/user/login">登录</a>
-                        </div>
-                    {{end}}
+                        {{else}}
+                            <div class="btn-group mr-5" role="group" aria-label="First group">
+                                <a class="text-dark mr-2" style="font-size: 14px;" href="/user/register">注册</a>
+                                <a class="text-dark" style="font-size: 14px;" href="/user/login">登录</a>
+                            </div>
+                        {{end}}
+                    </div>
                 </div>
             </div>
         </nav>

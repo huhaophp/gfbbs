@@ -16,6 +16,7 @@ func init() {
 	userController := new(admin.UserController)
 	adminController := new(admin.AdminController)
 	commentController := new(admin.CommentController)
+	SensitiveController := new(admin.SensitiveController)
 	// admin routes.
 	s.Group("/admin", func(group *ghttp.RouterGroup) {
 		group.GET("login", authController.Login)
@@ -55,5 +56,7 @@ func init() {
 
 		group.GET("posts/{post_id}/comments", commentController.List)
 		group.POST("posts/{post_id}/comments/{comment_id}/delete", commentController.Del)
+
+		group.GET("sensitives", SensitiveController.List)
 	})
 }

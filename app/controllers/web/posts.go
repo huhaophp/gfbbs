@@ -30,7 +30,10 @@ func (c *PostsController) Details(r *ghttp.Request) {
 	posts, _ := g.DB().Table(postsModel.Table+" p").
 		InnerJoin("users u", "u.id = p.uid").
 		InnerJoin("nodes n", "n.id = p.nid").
-		Fields("p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.like_num,p.comment_num,p.create_at,u.name as user_name,u.avatar,u.sign,u.site,n.name node_name").
+		Fields(""+
+			"p.id,p.title,p.content,p.uid,p.nid,p.view_num,p.like_num,p.comment_num,p.create_at,"+
+			"u.name as user_name,u.avatar,u.sign,u.site,u.comments_num,u.posts_num,"+
+			"n.name node_name").
 		Where("p.id = ?", postsId).
 		One()
 
@@ -51,7 +54,7 @@ func (c *PostsController) Details(r *ghttp.Request) {
 	likers := service.LikeService.GetTheLatestLikes(postsId, "posts", 20)
 
 	isLike := service.LikeService.IsDo(gconv.Int(authUser["id"]), postsId, "posts")
-	g.Dump(isLike)
+
 	data := g.Map{
 		"mainTpl":  postsTpl,
 		"posts":    posts,
@@ -61,7 +64,7 @@ func (c *PostsController) Details(r *ghttp.Request) {
 		"isLike":   isLike,
 	}
 
-	response.ViewExit(r, constants.WebLayoutTplPath, data)
+	response.ViewExit(r, webLayout, data)
 }
 
 // Publish Post a post

@@ -1,7 +1,6 @@
 package web
 
 import (
-	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	"bbs/app/model/users"
 	"bbs/app/service"
@@ -25,7 +24,7 @@ type UserController struct{}
 // Register 用户注册
 func (c *UserController) Register(r *ghttp.Request) {
 	if r.Method == "GET" {
-		response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"mainTpl": registerTpl})
+		response.ViewExit(r, webLayout, g.Map{"mainTpl": registerTpl})
 	}
 	var reqEntity service.RegisterReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
@@ -46,7 +45,7 @@ func (c *UserController) Register(r *ghttp.Request) {
 func (c *UserController) Login(r *ghttp.Request) {
 	if r.Method == "GET" {
 		data := g.Map{"mainTpl": loginTpl}
-		response.ViewExit(r, constants.WebLayoutTplPath, data)
+		response.ViewExit(r, webLayout, data)
 	}
 	var reqEntity service.LoginReqEntity
 	if err := r.Parse(&reqEntity); err != nil {
@@ -55,7 +54,7 @@ func (c *UserController) Login(r *ghttp.Request) {
 	if record, err := service.UserService.Login(&reqEntity); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
-		_ = r.Session.Set(constants.UserSessionKey, record)
+		_ = r.Session.Set(UserSessionKey, record)
 		callbackUrl := r.GetQueryString("callback_url")
 		if callbackUrl != "" {
 			response.RedirectToWithMessage(r, callbackUrl, "登录成功")
@@ -67,7 +66,7 @@ func (c *UserController) Login(r *ghttp.Request) {
 
 // Logout 用户退出
 func (c *UserController) Logout(r *ghttp.Request) {
-	err := r.Session.Remove(constants.UserSessionKey)
+	err := r.Session.Remove(UserSessionKey)
 	if err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
@@ -77,7 +76,8 @@ func (c *UserController) Logout(r *ghttp.Request) {
 
 // Edit 编辑用户
 func (c *UserController) Edit(r *ghttp.Request) {
-	id := gconv.String(r.Session.GetMap(constants.UserSessionKey)["id"])
+	authUser := GetAuthUser(r)
+	id := gconv.String(authUser["id"])
 	if r.Method == "GET" {
 		// 默认选中 info 信息
 		tab := r.GetQueryString("tab", "info")
@@ -89,7 +89,7 @@ func (c *UserController) Edit(r *ghttp.Request) {
 			response.RedirectBackWithError(r, gerror.New("用户不存在"))
 		} else {
 			data := g.Map{"user": record, "mainTpl": EditTpl, "tab": tab}
-			response.ViewExit(r, constants.WebLayoutTplPath, data)
+			response.ViewExit(r, webLayout, data)
 		}
 	} else {
 		tab := r.PostFormValue("tab")
@@ -130,5 +130,5 @@ func (c *UserController) Edit(r *ghttp.Request) {
 
 // Center 用户中心
 func (c *UserController) Center(r *ghttp.Request) {
-	response.ViewExit(r, constants.WebLayoutTplPath, g.Map{"mainTpl": centerTpl})
+	response.ViewExit(r, webLayout, g.Map{"mainTpl": centerTpl})
 }

@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"bbs/app/constants"
+	"bbs/app/controllers/web"
 	"bbs/app/funcs/response"
 	"bbs/app/model/admins"
 	"bbs/app/service"
@@ -31,10 +32,10 @@ func AdminAuthCheck(r *ghttp.Request) {
 
 // WebAuthCheck Check web authorization check.
 func WebAuthCheck(r *ghttp.Request) {
-	auth := r.Session.Get(constants.UserSessionKey)
+	auth := r.Session.Get(web.UserSessionKey)
 	if auth == nil {
 		if r.IsAjaxRequest() || r.Header.Get("Accept") == "application/json" {
-			response.JsonExit(r, 401, "Authorization failed")
+			response.JsonExit(r, 401, "登录已过期")
 		} else {
 			response.RedirectToWithError(r, "/user/login", gerror.New("登录已过期"))
 		}

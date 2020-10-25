@@ -23,8 +23,8 @@ func initSystemSetting() {
 // initViewFunctions 初始化模版全局函数
 func initViewFunctions() {
 	g.View().BindFuncMap(gview.FuncMap{
-		"StrTime":        view.StrTime,
-		"StrLimit":     view.StrLimit,
-		"AlertComponent": view.AlertComponent,
+		"StrTime":          view.StrTime,
+		"StrLimit":         view.StrLimit,
+		"AlertComponent":   view.AlertComponent,
 	})
 }

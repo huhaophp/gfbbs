@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="card-header">文章管理</div>
+    <div class="card-body">
+        <form class="form-inline" method="GET" action='/admin/posts'>
+            <a class="btn btn-primary" href="/admin/posts/add">添加</a>
+        </form>
+        <table class="table table-bordered table-hover" style="font-size: 13px;text-align: center;">
+            <thead>
+            <tr>
+                <th># ID</th>
+                <th>敏感词</th>
+                <th>类型</th>
+                <th>替换的值</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+        <div style="font-size: 12px; float:right; text-align: right" class="mt-1">
+            <div class="form-control">{{ .page }}</div>
+        </div>
+    </div>
+</div>

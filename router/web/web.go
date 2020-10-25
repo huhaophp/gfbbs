@@ -27,23 +27,33 @@ func init() {
 		group.GET("/posts/{postsId}", PostsController.Details)
 		// 验证码
 		group.GET("/captcha", captchaController.Get)
-		// 用户操作
+		// 用户登录
 		group.GET("/user/login", userController.Login)
 		group.POST("/user/login", userController.Login)
+		// 用户注册
 		group.GET("/user/register", userController.Register)
 		group.POST("/user/register", userController.Register)
+		// 用户中心
 		group.GET("/users/{id}", userController.Center)
 		// 需要授权路由
 		group.Middleware(middleware.WebAuthCheck)
+		// 发布帖子
 		group.GET("/posts/publish", PostsController.Publish)
 		group.POST("/posts/publish", PostsController.Publish)
+		// 发布评论
 		group.POST("/comments", commentController.Add)
+		// 删除评论
 		group.POST("/comments/{id}/delete", commentController.Del)
+		// 文件上传
 		group.POST("/file", fileController.Upload)
+		// 用户退出登录
 		group.POST("/user/logout", userController.Logout)
+		// 用户编辑
 		group.GET("/user/edit", userController.Edit)
 		group.POST("/user/edit", userController.Edit)
+		// 消息中心
 		group.GET("/message", MessageController.Index)
+		// 帖子点赞
 		group.POST("/like/do", LikeController.Do)
 		group.POST("/like/undo", LikeController.Undo)
 	})

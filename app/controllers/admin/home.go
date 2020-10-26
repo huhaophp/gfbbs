@@ -3,7 +3,6 @@ package admin
 import (
 	"bbs/app/constants"
 	"bbs/app/funcs/response"
-	"bbs/app/job"
 	"bbs/app/model/posts"
 	"bbs/app/model/users"
 	"github.com/gogf/gf/frame/g"
@@ -16,8 +15,6 @@ type HomeController struct{}
 func (c *HomeController) Home(r *ghttp.Request) {
 	userCount,_ := g.DB().Table(users.Table).Count()
 	postCount,_ := g.DB().Table(posts.Table).Count()
-
-	job.ActiveUserJob.CalculateTopicScore()
 
 	response.ViewExit(r, constants.AdminLayoutTplPath, g.Map{
 		"mainTpl": constants.AdminHomeTplPath,

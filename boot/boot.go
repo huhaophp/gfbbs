@@ -2,7 +2,9 @@ package boot
 
 import (
 	"bbs/app/funcs/view"
+	"bbs/app/job"
 	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/os/gcron"
 	"github.com/gogf/gf/os/glog"
 	"github.com/gogf/gf/os/gtime"
 	"github.com/gogf/gf/os/gview"
@@ -11,6 +13,7 @@ import (
 func init() {
 	initSystemSetting()
 	initViewFunctions()
+	initCorn()
 }
 
 // initSystemSetting 初始化系统设置
@@ -26,5 +29,11 @@ func initViewFunctions() {
 		"StrTime":          view.StrTime,
 		"StrLimit":         view.StrLimit,
 		"AlertComponent":   view.AlertComponent,
+	})
+}
+
+func initCorn()  {
+	gcron.Add("@hourly", func() {
+		job.ActiveUserJob.GetActiveUsers()
 	})
 }

@@ -181,3 +181,10 @@ func (a *userService) CheckUserStatus(uid int) gdb.Record {
 	r, _ := g.DB().Table(users.Table).WherePri(uid).Where("status", admins.NormalStatus).One()
 	return r
 }
+
+// GetActiveUsers 检查用户状态
+func (a *userService) GetActiveUsers(ids interface{}) gdb.Result {
+	g.Dump(ids)
+	r, _ := g.DB().Table(users.Table).Fields("id,name,avatar").Where("id IN(?)", ids).All()
+	return r
+}

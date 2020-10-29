@@ -29,13 +29,9 @@ func (c *CommentController) Add(r *ghttp.Request) {
 
 // Del Delete comment
 func (c *CommentController) Del(r *ghttp.Request) {
-	id := r.GetRouterString("id")
-	uid := gconv.String(GetAuthUser(r))
-	err := service.CommentService.CheckPermissions(id, uid)
-	if err != nil {
-		response.RedirectBackWithError(r, err)
-	}
-	if err := service.CommentService.Delete(id); err != nil {
+	id := r.GetRouterVar("id").Int()
+	uid := gconv.Int(GetAuthUser(r)["id"])
+	if err := service.CommentService.Delete(id, uid); err != nil {
 		response.RedirectBackWithError(r, err)
 	} else {
 		response.BackWithMessage(r, "删除成功")

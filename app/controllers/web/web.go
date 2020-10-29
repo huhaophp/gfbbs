@@ -2,6 +2,7 @@ package web
 
 import (
 	"bbs/app/funcs/response"
+	"bbs/app/job"
 	postsModel "bbs/app/model/posts"
 	"bbs/app/service"
 	"github.com/gogf/gf/frame/g"
@@ -32,7 +33,7 @@ func (c *Controller) Home(r *ghttp.Request) {
 	}
 
 	posts, _ := query.
-		Fields("p.luid,p.fine,p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at," +
+		Fields("p.luid,p.fine,p.id,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,"+
 			"u.name,u.avatar,n.name as node_name,u1.name as last_user_name").
 		Order("p.fine DESC,p.id").
 		Page(pageNum, 20).
@@ -44,12 +45,15 @@ func (c *Controller) Home(r *ghttp.Request) {
 
 	latestPosts := service.PostsService.GetTheLatestPosts(10)
 
+	activeUsers := service.UserService.GetActiveUsers(job.ActiveUserJob.GetActiveUsers())
+
 	data := g.Map{
 		"nodes":       nodes,
 		"nid":         nid,
 		"posts":       posts,
 		"mainTpl":     homeTpl,
 		"latestPosts": latestPosts,
+		"activeUsers": activeUsers,
 		"page":        page.GetContent(2),
 	}
 

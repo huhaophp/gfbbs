@@ -34,7 +34,10 @@ func (s *commentService) Add(entity *AddCommentReqEntity) error {
 		"content":   entity.Content,
 		"is_delete": 0,
 	})
-	_, _ = g.DB().Table(posts.Table).Data("comment_num = comment_num+1,luid=?", entity.Uid).Where("id = ?", entity.Pid).Update()
+	_, _ = g.DB().Table(posts.Table).
+		Where("id = ?", entity.Pid).
+		Data("comment_num = comment_num+1,luid=?", entity.Uid).
+		Update()
 	if err != nil {
 		return err
 	}
@@ -61,7 +64,14 @@ func (s *commentService) Add(entity *AddCommentReqEntity) error {
 }
 
 // Delete Delete comment
-func (s *commentService) Delete(id string) error {
+func (s *commentService) Delete(id int, uid int) error {
+	comment, err := g.DB().Table(comments.Table).Where(g.Map{"uid": uid, "is_delete": 0, "id": id}).One()
+	if err != nil {
+		return err
+	}
+	if comment.IsEmpty() {
+		return gerror.New("评论不存在或已被删除")
+	}
 	res, err := g.DB().Table(comments.Table).WherePri(id).Update(g.Map{
 		"is_delete": 1,
 	})
@@ -71,17 +81,9 @@ func (s *commentService) Delete(id string) error {
 	if rows, err := res.RowsAffected(); err != nil || rows <= 0 {
 		return gerror.New("删除失败")
 	}
-	return nil
-}
-
-// CheckPermissions
-func (s *commentService) CheckPermissions(id string, uid string) error {
-	res, err := g.DB().Table(comments.Table).Where(g.Map{"uid": uid, "is_delete": 0, "id": id}).One()
-	if err != nil {
-		return err
-	}
-	if res.IsEmpty() {
-		return gerror.New("评论不存在或已被删除")
-	}
+	_, _ = g.DB().Table(posts.Table).
+		Where("id = ? and comment_num > 0", comment.Map()["pid"]).
+		Data("comment_num = comment_num - 1").
+		Update()
 	return nil
 }

@@ -6,8 +6,8 @@ import (
 	"bbs/app/model/posts"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gcache"
+	"github.com/gogf/gf/util/gconv"
 	"github.com/uniplaces/carbon"
-	"reflect"
 	"time"
 )
 
@@ -56,8 +56,8 @@ func (a *activeUserJob) CalculateTopicScore(users map[int]int) {
 		Group("uid").
 		All()
 	for _, postUser := range postUsers {
-		uid := int(reflect.ValueOf(postUser.Map()["uid"]).Int())
-		postCount := int(reflect.ValueOf(postUser.Map()["post_count"]).Int())
+		uid := gconv.Int(postUser.Map()["uid"])
+		postCount := gconv.Int(postUser.Map()["post_count"])
 		_, ok := users[uid]
 		if !ok {
 			users[uid] = postCount * TOPIC_WEIGHT
@@ -74,8 +74,8 @@ func (a *activeUserJob) CalculateReplyScore(users map[int]int) {
 		Group("uid").
 		All()
 	for _, commentUser := range commentUsers {
-		uid := int(reflect.ValueOf(commentUser.Map()["uid"]).Int())
-		commentCount := int(reflect.ValueOf(commentUser.Map()["comment_count"]).Int())
+		uid := gconv.Int(commentUser.Map()["uid"])
+		commentCount := gconv.Int(commentUser.Map()["comment_count"])
 		_, ok := users[uid]
 		if !ok {
 			users[uid] = commentCount * REPLY_WEIGHT

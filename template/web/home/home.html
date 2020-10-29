@@ -41,6 +41,7 @@
 
     .fs12 {
         font-size: 14px;
+        padding: 4px;
     }
 </style>
 <div class="col-sm-9">
@@ -99,7 +100,7 @@
             <hr>
             <div class="fs12">
                 {{range $posts := .latestPosts}}
-                    <a href="/posts/{{ $posts.id }}" style="color: #778087;"> • {{StrLimit $posts.title 0 30}}</a><br>
+                    <a href="/posts/{{ $posts.id }}" class="text-dark"> • {{StrLimit $posts.title 0 30}}</a><br>
                 {{end}}
             </div>
         </div>

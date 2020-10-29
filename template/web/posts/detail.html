@@ -6,6 +6,15 @@
         cursor: pointer;
     }
 
+    .posts-content {
+        padding: 20px;
+    }
+
+    .posts-comment-num {
+        color: #999;
+        font-size: 14px;
+    }
+
     .posts-content img {
         max-width: 100%;
         margin-bottom: 30px;
@@ -61,6 +70,56 @@
     .posts-info-span a {
         color: #778087;
     }
+
+    .comment-user-info {
+        height: 22px;
+    }
+
+    .comment-user-avatar {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+    }
+
+    .comment-user-username {
+        font-size: 14px;
+    }
+
+    .comment-reply {
+        color: #b5bac4 !important;
+        font-size: 14px;
+    }
+
+    .comment-time {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .comment-reply-username {
+        font-size: 14px;
+    }
+
+    .comment-content {
+        font-size: 14px;
+    }
+
+    .comment-operation {
+        width: 100%;
+        text-align: right;
+    }
+
+    .publisher-avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+    }
+
+    .publisher-info {
+        display: inline-block;
+        font-size: 12px;
+        padding: 4px;
+    }
 </style>
 <div class="col-sm-9">
     {{AlertComponent .Session.error "danger"}}
@@ -86,38 +145,33 @@
                         </span>
             </div>
         </li>
-        <li class="list-group-item posts-content" style="padding: 20px;">
+        <li class="list-group-item posts-content">
             {{.posts.content}}
         </li>
-        <li class="list-group-item  mt-1" style="color: #999;font-size: 14px;">
+        <li class="list-group-item  mt-1 posts-comment-num">
             {{ .posts.comment_num }} 条回复
         </li>
         {{range $comment := .comments}}
             <div class="list-group-item">
-                <div class="comment-user-info" style="height: 22px;">
+                <div class="comment-user-info">
                     <a href="/users/{{$comment.uid}}">
-                        <img
-                                src="{{$comment.avatar}}"
-                                style="border-radius:50%;height: 30px;width:30px;"
-                        />
+                        <img src="{{$comment.avatar}}" class="comment-user-avatar"/>
                     </a>
-                    <a href="" style="font-size: 14px;">{{$comment.name}}</a
-                    > {{if gt $comment.ruid 0}} <span style="color:#b5bac4 !important;font-size: 14px; ">回复了</span>
-                    <a href="/users/{{ $comment.uid }}" style="font-size: 14px;">{{ $comment.r_user_name }}</a>
+                    <a href="/users/{{ $comment.uid }}" class="comment-user-username">{{$comment.name}}</a
+                    > {{if gt $comment.ruid 0}} <span class="comment-reply">回复了</span>
+                    <a href="/users/{{ $comment.ruid }}" class="comment-reply-username">{{ $comment.r_user_name }}</a>
                     {{end}}
-                    <span style="font-size: 12px;color: #999;"
-                    >{{StrTime $comment.create_at.String}}</span
+                    <span class="comment-time">{{StrTime $comment.create_at.String}}</span
                     >
                 </div>
                 <br/>
-                <div class="comment-content" style="font-size: 14px;">
+                <div class="comment-content">
                     <div>{{ $comment.content }}</div>
                     <!-- Whether to log in -->
                     {{if $.Session.user.id}}
-                        <div style="width: 100%;text-align: right;">
+                        <div class="comment-operation">
                             <a class="comment-action comment-reply" data-id="{{ $comment.uid }}"
                                data-username="{{ $comment.name }}" href="#comment-box">回复</a>
-                            {{/*                            <span class="comment-action comment-report" data-id="{{ $comment.id }}">举报</span>*/}}
                             {{if eq $.Session.user.id $comment.uid}}
                                 <span class="comment-action comment-delete">删除</span>
                             {{end}}
@@ -128,11 +182,13 @@
                 </div>
             </div>
         {{end}}
-        <li class="list-group-item">
-            <div class="page">
-                {{ .page }}
-            </div>
-        </li>
+        {{if ne .posts.comment_num 0}}
+            <li class="list-group-item">
+                <div class="page">
+                    {{ .page }}
+                </div>
+            </li>
+        {{end}}
         <!-- Comment box -->
         <li class="list-group-item" id="comment-box">
             {{if eq .Session.user.id ""}}
@@ -162,15 +218,15 @@
 <div class="col-sm-3">
     <div class="card">
         <div class="card-body text-center">
-            <img src="{{ .posts.avatar }}" style="width: 68px;height: 68px;border-radius: 50%;border: 2px solid #fff;">
+            <img src="{{ .posts.avatar }}" class="publisher-avatar">
             <br>
             <a href="/users/{{ .posts.uid }}" class="btn btn-link">{{ .posts.user_name }}</a>
-            <div style="font-size: 12px;">{{ .posts.sign }}</div>
+            <div>{{ .posts.sign }}</div>
             <hr>
             <div>
-                <div style="display: inline-block;font-size: 12px;padding:4px;">帖子<br>({{ .posts.posts_num }})</div>
-                <div style="display: inline-block;font-size: 12px;padding: 4px;">评论<br>({{ .posts.comments_num }})</div>
-                <div style="display: inline-block;font-size: 12px;padding: 4px;">注册排名<br>({{ .posts.uid }})</div>
+                <div class="publisher-info">帖子<br>({{ .posts.posts_num }})</div>
+                <div class="publisher-info">评论<br>({{ .posts.comments_num }})</div>
+                <div class="publisher-info">注册排名<br>({{ .posts.uid }})</div>
             </div>
         </div>
     </div>

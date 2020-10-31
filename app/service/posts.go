@@ -39,6 +39,7 @@ func (s *postsService) Publish(publisher int, req *PublishPostsReqEntity) int64 
 		"view_num":    0,
 		"comment_num": 0,
 	})
+
 	if err != nil {
 		g.Log().Error("Posting error:", err)
 		return 0

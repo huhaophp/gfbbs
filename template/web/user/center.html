@@ -1,5 +1,100 @@
-<div class="col-sm-9">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="">V2EX</a> › <a href="">游戏</a></li>
+<style>
+    .user-avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+    }
+
+    .user-info {
+        display: inline-block;
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    .posts-title-div {
+        width: 93%;
+        float: left;
+    }
+
+    .posts-title-span {
+        font-size: 16px;
+        line-height: 130%;
+        text-shadow: 0 1px 0 #fff;
+    }
+
+    .posts-title-a {
+        color: #222;
+    }
+
+    .posts-info-span {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .posts-info-span a {
+        color: #778087;
+    }
+
+    .tab-active {
+        background: rgba(0, 0, 0, .05);
+    }
+
+    .edit-info-a {
+        color: rgba(0, 0, 0, .87);
+        text-decoration: none;
+    }
+</style>
+<div class="col-sm-3">
+    <ul class="list-group list-group-flush ">
+        <li class="list-group-item text-center">
+            <a href="javascript:;" class="edit-info-a"><i class="fa fa-list"></i> 他的动态</a>
+        </li>
     </ul>
+</div>
+<div class="col-sm-6">
+    <ul class="list-group mt-1">
+        {{if .posts}}
+            {{range $posts := .posts}}
+                <li class="list-group-item">
+                    <div class="posts-title-div">
+                        <span class="posts-title-span">
+                                <a href="/posts/{{ $posts.id }}" class="posts-title-a">
+                                    {{ $posts.title }}
+                                </a>
+                        </span>
+                        <br>
+                        <span class="posts-info-span">
+                            <a href="/users/{{ $posts.uid }}">{{ $posts.name }}</a>  •  {{StrTime $posts.create_at.String}} •
+                                 <a href="/?nid={{ $posts.nid }}">{{ $posts.node_name }}</a>
+                             <span>• 回复数 {{ $posts.comment_num }}</span>
+                        </span>
+                    </div>
+                </li>
+            {{end}}
+            <li class="list-group-item" style="font-size: 14px;">
+                {{ .page }}
+            </li>
+        {{else}}
+            <li class="list-group-item text-center">
+                <h5>暂无相关内容</h5>
+            </li>
+        {{end}}
+    </ul>
+</div>
+<div class="col-sm-3">
+    <div class="card">
+        <div class="card-body text-center">
+            <img src="{{ .user.avatar }}" class="user-avatar">
+            <br>
+            <a href="/users/{{ .user.id }}" class="btn btn-link">{{ .user.name}}</a>
+            <div>{{ .user.sign }}</div>
+            <hr>
+            <div>
+                <div class="user-info">帖子<br>({{ .user.posts_num }})</div>
+                <div class="user-info">评论<br>({{ .user.comments_num }})</div>
+                <div class="user-info">注册排名<br>({{ .user.uid }})</div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -188,3 +188,9 @@ func (a *userService) GetActiveUsers(ids interface{}) gdb.Result {
 	r, _ := g.DB().Table(users.Table).Fields("id,name,avatar").Where("id IN(?)", ids).All()
 	return r
 }
+
+// GetUserById 根据用户ID获取用户
+func (a *userService) GetUserById(id int) (res gdb.Record) {
+	res, _ = g.DB().Table(users.Table).WherePri(id).One()
+	return
+}

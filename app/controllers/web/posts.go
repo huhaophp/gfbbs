@@ -1,7 +1,6 @@
 package web
 
 import (
-	"bbs/app/constants"
 	"bbs/app/funcs/response"
 	commentsModel "bbs/app/model/comments"
 	postsModel "bbs/app/model/posts"
@@ -72,7 +71,7 @@ func (c *PostsController) Publish(r *ghttp.Request) {
 	if r.Method == "GET" {
 		nodes := service.NodeService.Get(g.Map{"status": 0})
 		data := g.Map{"mainTpl": publishTpl, "nodes": nodes}
-		response.ViewExit(r, constants.WebLayoutTplPath, data)
+		response.ViewExit(r, webLayout, data)
 	}
 	var reqEntity service.PublishPostsReqEntity
 	if err := r.Parse(&reqEntity); err != nil {

@@ -2,6 +2,7 @@ package web
 
 import (
 	"bbs/app/funcs/response"
+	postsModel "bbs/app/model/posts"
 	"bbs/app/model/users"
 	"bbs/app/service"
 	"fmt"
@@ -130,5 +131,26 @@ func (c *UserController) Edit(r *ghttp.Request) {
 
 // Center 用户中心
 func (c *UserController) Center(r *ghttp.Request) {
-	response.ViewExit(r, webLayout, g.Map{"mainTpl": centerTpl})
+	uid := gconv.Int(r.GetRouterValue("id"))
+	page := r.GetQueryInt("page", 1)
+
+	user := service.UserService.GetUserById(uid)
+
+	posts, _ := g.DB().Table(postsModel.Table+" p").
+		LeftJoin("users u", "u.id = p.uid").
+		LeftJoin("nodes n", "n.id = p.nid").
+		Fields("p.id,p.fine,p.title,p.uid,p.nid,p.view_num,p.comment_num,p.create_at,u.name,u.avatar,n.name as node_name").
+		Where("p.uid = ?", uid).
+		Order("p.id DESC").
+		Page(page, 20).
+		All()
+
+	total, _ := g.DB().Table(postsModel.Table).Where("uid = ", uid).Count()
+
+	response.ViewExit(r, webLayout, g.Map{
+		"user":    user,
+		"posts":   posts,
+		"mainTpl": centerTpl,
+		"page":    r.GetPage(total, 20).GetContent(2),
+	})
 }
